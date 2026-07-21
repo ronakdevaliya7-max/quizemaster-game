@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="max-width: 800px; margin: 2rem auto;">
+    <!-- Hero Section -->
+    <div class="glass-panel" style="margin-bottom: 2rem; text-align: center; padding: 3rem 2rem;">
+        <h1 style="color: var(--primary); font-size: 2.5rem; margin-bottom: 1rem;">{{ topic.title }}</h1>
+        <p style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 2rem;">{{ topic.description }}</p>
+        
+        <div style="display: flex; justify-content: center; gap: 2rem; color: var(--text-secondary);">
+            <span><i class="fas fa-clock"></i> Reading Time: {{ topic.reading_time }} mins</span>
+            <span><i class="fas fa-signal"></i> Difficulty: {{ topic.difficulty }}</span>
+        </div>
+    </div>
+
+    <!-- Learning Sections -->
+    <div style="margin-bottom: 3rem;">
+        {% for section in topic.sections %}
+        <div class="glass-panel" style="margin-bottom: 1.5rem;">
+            <h3 style="color: var(--primary); margin-bottom: 1rem;">{{ section.title }}</h3>
+            <div style="line-height: 1.6; color: var(--text);">
+                {{ section.content_html | safe }}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Action Section -->
+    <div class="glass-panel" style="text-align: center; padding: 2rem;">
+        {% if progress and progress.is_completed %}
+            <h3 style="color: var(--success); margin-bottom: 1rem;"><i class="fas fa-check-circle"></i> Lesson Completed!</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">You are now ready to take the assessment.</p>
+            <a href="{{ url_for('take_quiz', topic_id=topic.id) }}" class="btn-primary" style="padding: 1rem 2rem; font-size: 1.1rem;">Start Quiz Now</a>
+        {% else %}
+            <h3 style="margin-bottom: 1rem;">Finish Reading?</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Please read all the material above before proceeding to the quiz.</p>
+            <form action="{{ url_for('mark_read', topic_id=topic.id) }}" method="POST">
+                <button type="submit" class="btn-primary" style="padding: 1rem 2rem; font-size: 1.1rem; background: var(--success);">
+                    Mark as Complete & Unlock Quiz
+                </button>
+            </form>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

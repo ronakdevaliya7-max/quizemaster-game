@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="glass-panel" style="padding: 2rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <h2>Quizzes Taken</h2>
+        <a href="{{ url_for('admin_dashboard') }}" class="btn btn-primary" style="width: auto; display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; font-weight: 600; text-decoration: none;">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+    
+    <table style="width: 100%; border-collapse: collapse; margin-top: 1rem; color: var(--text-primary);">
+        <thead>
+            <tr style="border-bottom: 1px solid var(--border);">
+                <th style="padding: 10px; text-align: left;">ID</th>
+                <th style="padding: 10px; text-align: left;">User</th>
+                <th style="padding: 10px; text-align: left;">Score</th>
+                <th style="padding: 10px; text-align: left;">Date</th>
+                <th style="padding: 10px; text-align: left;">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for quiz in quizzes %}
+            <tr style="border-bottom: 1px solid var(--border);">
+                <td style="padding: 10px;">{{ quiz.id }}</td>
+                <td style="padding: 10px;">
+                    {% if quiz.user %}
+                        {{ quiz.user.name }} ({{ quiz.user.username }})
+                    {% else %}
+                        <span style="color: var(--text-secondary); font-style: italic;">[Deleted User]</span>
+                    {% endif %}
+                </td>
+                <td style="padding: 10px; font-weight: bold;">{{ quiz.score }} / {{ quiz.total_questions }}</td>
+                <td style="padding: 10px;">{{ quiz.date.strftime('%Y-%m-%d %H:%M') }}</td>
+                <td style="padding: 10px;">
+                    <span {% if quiz.passed %}style="padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; background: var(--success);"{% else %}style="padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; background: var(--danger);"{% endif %}>
+                        {% if quiz.passed %}Passed{% else %}Failed{% endif %}
+                    </span>
+                </td>
+            </tr>
+            {% endfor %}
+            {% if not quizzes %}
+            <tr>
+                <td colspan="5" style="padding: 10px; text-align: center; color: var(--text-secondary);">No quizzes taken yet.</td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

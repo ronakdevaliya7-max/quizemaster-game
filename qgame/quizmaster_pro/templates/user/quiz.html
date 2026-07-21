@@ -1,0 +1,223 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 0 auto;">
+    
+    <!-- Header / Checkout Style Progress -->
+    <div class="d-flex justify-between align-center mb-4" style="border-bottom: 2px solid var(--border); padding-bottom: 1rem;">
+        <div>
+            <h2 style="font-size: 1.5rem; font-weight: 800; color: var(--text-primary);"><i class="fas fa-tasks text-muted"></i> {{ category.name }} Quiz</h2>
+            <p class="text-muted" style="font-size: 0.9rem;">Complete all questions to checkout your score.</p>
+        </div>
+        <div style="text-align: right;">
+            <div style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 0.25rem;">Time Elapsed</div>
+            <div id="timer" style="font-size: 1.5rem; font-weight: 800; color: var(--primary); font-variant-numeric: tabular-nums;">00:00</div>
+        </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div style="width: 100%; height: 8px; background: var(--border); border-radius: 4px; margin-bottom: 2rem; overflow: hidden;">
+        <div id="progress-bar" style="height: 100%; background: var(--primary); width: 0%; transition: width 0.4s ease;"></div>
+    </div>
+
+    <form method="POST" action="{{ url_for('submit_quiz') }}" id="quizForm">
+        <input type="hidden" name="category_id" value="{{ category.id }}">
+        <input type="hidden" name="time_taken" id="time_taken" value="0">
+        
+        <div id="quiz-data" data-total="{{ questions|length }}" style="display: none;"></div>
+        
+        <!-- Questions Container -->
+        <div id="questions-container" style="position: relative; overflow: hidden;">
+            {% for q in questions %}
+            <div class="card question-card {% if loop.index0 == 0 %}active-q{% else %}hidden-q{% endif %}" id="q_card_{{ loop.index0 }}" style="margin-bottom: 2rem; border-top: 4px solid var(--primary); width: 100%;">
+                
+                <div class="d-flex justify-between align-center mb-4">
+                    <span class="badge badge-new">Question {{ loop.index }} of {{ questions|length }}</span>
+                    <span class="badge" style="background: var(--surface); border: 1px solid var(--border); color: var(--text-secondary);">Multiple Choice</span>
+                </div>
+                
+                <p style="font-size: 1.2rem; font-weight: 600; margin-bottom: 2rem; color: var(--text-primary); line-height: 1.5;">{{ q.text }}</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <label class="option-label">
+                        <input type="radio" name="q_{{ q.id }}" value="A" required style="margin-right: 15px; transform: scale(1.2);"> 
+                        <span style="font-weight: 500;">{{ q.option_a }}</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q_{{ q.id }}" value="B" style="margin-right: 15px; transform: scale(1.2);"> 
+                        <span style="font-weight: 500;">{{ q.option_b }}</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q_{{ q.id }}" value="C" style="margin-right: 15px; transform: scale(1.2);"> 
+                        <span style="font-weight: 500;">{{ q.option_c }}</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q_{{ q.id }}" value="D" style="margin-right: 15px; transform: scale(1.2);"> 
+                        <span style="font-weight: 500;">{{ q.option_d }}</span>
+                    </label>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div style="display: flex; justify-content: flex-end; align-items: center; margin-top: 1rem;">
+            <button type="button" id="nextBtn" class="btn btn-primary" style="font-size: 1.1rem; padding: 12px 24px; width: auto;" onclick="nextQuestion()">Next Question <i class="fas fa-arrow-right"></i></button>
+            <button type="button" id="submitBtn" class="btn btn-primary" style="font-size: 1.1rem; padding: 12px 24px; display: none; background: var(--success); width: auto;" onclick="submitQuiz()"><i class="fas fa-check-circle"></i> Complete Checkout</button>
+        </div>
+    </form>
+</div>
+
+<style>
+    .option-label {
+        display: flex; align-items: center; padding: 1rem; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; transition: 0.2s;
+    }
+    .option-label:hover {
+        background: rgba(37, 99, 235, 0.02);
+        border-color: var(--primary) !important;
+        transform: scale(1.02);
+    }
+    input[type="radio"]:checked + span {
+        font-weight: 700 !important;
+        color: var(--primary);
+    }
+    
+    .active-q {
+        display: block;
+        animation: slideInRight 0.4s ease forwards;
+    }
+    .hidden-q {
+        display: none;
+    }
+    .slide-out-left {
+        animation: slideOutLeft 0.4s ease forwards;
+    }
+
+    @keyframes slideInRight {
+        from { opacity: 0; transform: translateX(50px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes slideOutLeft {
+        from { opacity: 1; transform: translateX(0); }
+        to { opacity: 0; transform: translateX(-50px); }
+    }
+</style>
+
+<script>
+    const quizData = document.getElementById('quiz-data');
+    const totalQuestions = quizData ? parseInt(quizData.getAttribute('data-total')) : 0;
+    
+    // Highlight selected options
+    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            // Reset all borders in the current card
+            const card = this.closest('.question-card');
+            card.querySelectorAll('label').forEach(label => {
+                label.style.borderColor = 'var(--border)';
+                label.style.background = 'transparent';
+            });
+            // Highlight chosen
+            if(this.checked) {
+                this.parentElement.style.borderColor = 'var(--primary)';
+                this.parentElement.style.background = 'rgba(37, 99, 235, 0.05)';
+            }
+        });
+    });
+
+    if (totalQuestions <= 1) {
+        const nextBtn = document.getElementById('nextBtn');
+        const submitBtn = document.getElementById('submitBtn');
+        if (nextBtn) nextBtn.style.display = 'none';
+        if (submitBtn) submitBtn.style.display = 'inline-block';
+    }
+    
+    function updateProgressBar(index) {
+        if(totalQuestions > 0) {
+            const percentage = ((index + 1) / totalQuestions) * 100;
+            document.getElementById('progress-bar').style.width = percentage + '%';
+        }
+    }
+    updateProgressBar(0);
+    
+    function nextQuestion() {
+        const cards = document.querySelectorAll('.question-card');
+        let currentIndex = -1;
+        for(let i=0; i<cards.length; i++) {
+            if(cards[i].classList.contains('active-q') || cards[i].classList.contains('d-block')) {
+                currentIndex = i;
+                break;
+            }
+        }
+        
+        if (currentIndex === -1) currentIndex = 0;
+        
+        const currentCard = cards[currentIndex];
+        const inputs = currentCard.querySelectorAll('input[type="radio"]');
+        let selected = false;
+        inputs.forEach(input => {
+            if(input.checked) selected = true;
+        });
+        
+        if(!selected) {
+            alert('Please select an option before proceeding!');
+            return;
+        }
+
+        // Animation Out
+        currentCard.classList.remove('active-q');
+        currentCard.classList.remove('d-block');
+        currentCard.classList.add('slide-out-left');
+        
+        setTimeout(() => {
+            currentCard.classList.remove('slide-out-left');
+            currentCard.classList.add('hidden-q');
+            
+            const nextIndex = currentIndex + 1;
+            if (nextIndex < totalQuestions) {
+                const nextCard = cards[nextIndex];
+                nextCard.classList.remove('hidden-q');
+                nextCard.classList.remove('d-none');
+                nextCard.classList.add('active-q');
+                updateProgressBar(nextIndex);
+            }
+            
+            if (nextIndex === totalQuestions - 1) {
+                document.getElementById('nextBtn').style.display = 'none';
+                document.getElementById('submitBtn').style.display = 'inline-block';
+            }
+        }, 400); // Wait for slide-out animation to finish
+    }
+
+    function submitQuiz() {
+        const cards = document.querySelectorAll('.question-card');
+        const currentCard = cards[cards.length - 1];
+        const inputs = currentCard.querySelectorAll('input[type="radio"]');
+        let selected = false;
+        inputs.forEach(input => {
+            if(input.checked) selected = true;
+        });
+        
+        if(!selected) {
+            alert('Please select an option before submitting!');
+            return;
+        }
+        
+        document.getElementById('quizForm').submit();
+    }
+
+    let seconds = 0;
+    const timerDisplay = document.getElementById('timer');
+    setInterval(() => {
+        seconds++;
+        document.getElementById('time_taken').value = seconds;
+        let m = Math.floor(seconds / 60).toString().padStart(2, '0');
+        let s = (seconds % 60).toString().padStart(2, '0');
+        timerDisplay.innerText = `${m}:${s}`;
+        
+        // Visual indicator for taking too long (e.g. > 60s)
+        if (seconds > 60) {
+            timerDisplay.style.color = 'var(--danger)';
+            timerDisplay.classList.add('btn-pulse');
+        }
+    }, 1000);
+</script>
+{% endblock %}

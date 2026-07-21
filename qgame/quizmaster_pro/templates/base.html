@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizStore | Premium Quizzes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=2.3">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .border-gold { border-color: #ffd700; box-shadow: 0 0 15px rgba(255, 215, 0, 0.5); }
+        .border-neon { border-color: #00ffff; box-shadow: 0 0 15px rgba(0, 255, 255, 0.5); }
+        .border-ruby { border-color: #ff003c; box-shadow: 0 0 15px rgba(255, 0, 60, 0.5); }
+        .border-silver { border-color: #94a3b8; box-shadow: 0 0 20px rgba(148, 163, 184, 0.8); }
+    </style>
+</head>
+<body>
+
+    <!-- Professional Grid Background -->
+    <div class="dynamic-bg"></div>
+
+    {% block navbar %}
+    <nav class="navbar">
+        <a href="{{ url_for('index') }}" class="navbar-brand">
+            <i class="fas fa-layer-group"></i> QuizStore
+        </a>
+        
+        {% if current_user.is_authenticated %}
+        <form action="{{ url_for('search') }}" method="GET" class="search-bar-container" style="margin: 0; padding: 0; position: relative;">
+            <input type="text" name="q" class="search-bar" placeholder="{{ _('Search for quizzes...') }}" required>
+            <button type="submit" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: var(--text-secondary); padding: 0;">
+                <i class="fas fa-search"></i>
+            </button>
+        </form>
+        {% endif %}
+
+        <div class="nav-links">
+            <select onchange="window.location.href='/set_language/'+this.value" style="padding: 6px; border-radius: 4px; background: var(--bg-card); color: var(--text-primary); border: 1px solid var(--border); margin-right: 15px; font-family: 'Inter', sans-serif;">
+                <option value="en" {% if session.get('lang', 'en') == 'en' %}selected{% endif %}>English</option>
+                <option value="hi" {% if session.get('lang') == 'hi' %}selected{% endif %}>हिन्दी</option>
+                <option value="gu" {% if session.get('lang') == 'gu' %}selected{% endif %}>ગુજરાતી</option>
+            </select>
+            <button id="darkModeToggle" class="btn" style="background: transparent; color: var(--text-primary); border: 1px solid var(--border); padding: 8px 12px; margin-right: 1rem;">
+                <i class="fas fa-moon"></i>
+            </button>
+            {% if current_user.is_authenticated %}
+                {% if current_user.role == 'admin' %}
+                    <a href="{{ url_for('admin_dashboard') }}"><i class="fas fa-chart-line nav-icon"></i> {{ _('Admin') }}</a>
+                {% else %}
+                    <a href="{{ url_for('user_dashboard') }}"><i class="fas fa-home nav-icon"></i> {{ _('Home') }}</a>
+                    <a href="{{ url_for('store') }}"><i class="fas fa-store nav-icon" style="color: #ffd700;"></i> {{ _('Store') }}</a>
+                    <a href="{{ url_for('leaderboard') }}"><i class="fas fa-trophy nav-icon" style="color: #fbbf24;"></i> {{ _('Rankings') }}</a>
+                    <a href="{{ url_for('profile') }}"><i class="fas fa-user-circle nav-icon"></i> {{ _('Account') }}</a>
+                {% endif %}
+                <a href="{{ url_for('logout') }}" style="color: var(--danger);" onclick="return confirm('{{ _('Are you sure you want to log out?') }}');"><i class="fas fa-sign-out-alt nav-icon"></i> {{ _('Logout') }}</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">{{ _('Sign In') }}</a>
+                <a href="{{ url_for('register') }}" class="btn btn-primary" style="padding: 8px 16px; color: white;">{{ _('Create Account') }}</a>
+            {% endif %}
+        </div>
+    </nav>
+    {% endblock %}
+
+    <main class="page-fade-in">
+        {% if request.endpoint not in ['index', 'login', 'register', 'user_dashboard', 'admin_dashboard'] %}
+        <div style="max-width: 1200px; margin: 0 auto 1.5rem; padding: 0 5%;">
+            {% if request.endpoint in ['quiz_result', 'take_quiz', 'submit_quiz'] %}
+            <a href="{{ url_for('user_dashboard') }}" class="btn" style="background: transparent; color: var(--text-secondary); padding: 0; font-weight: 600; width: auto; border: none; font-size: 1rem; text-decoration: none; display: inline-flex; align-items: center;">
+                <i class="fas fa-arrow-left" style="margin-right: 5px;"></i> Go to Dashboard
+            </a>
+            {% else %}
+            <button onclick="history.back()" class="btn" style="background: transparent; color: var(--text-secondary); padding: 0; font-weight: 600; width: auto; border: none; font-size: 1rem; display: inline-flex; align-items: center;">
+                <i class="fas fa-arrow-left" style="margin-right: 5px;"></i> Go Back
+            </button>
+            {% endif %}
+        </div>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div style="font-weight: 700; font-size: 1.2rem; color: var(--text-primary); margin-bottom: 1rem;">
+            <i class="fas fa-layer-group"></i> QuizStore Pro
+        </div>
+        <p style="max-width: 400px; margin: 0 auto 1.5rem; font-size: 0.9rem;">The premium destination for testing your knowledge. Advance your skills with professionally curated quizzes.</p>
+        <div style="font-size: 0.8rem;">
+            &copy; 2026 QuizMaster Pro, Inc. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Dark Mode Toggle Logic
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const icon = darkModeToggle.querySelector('i');
+        
+        // Check for saved user preference
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        }
+
+        darkModeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                localStorage.setItem('theme', 'light');
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        });
+
+        // Auto-hide flash messages after 3 seconds
+        setTimeout(() => {
+            const flashes = document.querySelectorAll('.flash, .flash-messages');
+            flashes.forEach(flash => {
+                flash.style.transition = 'opacity 0.5s ease';
+                flash.style.opacity = '0';
+                setTimeout(() => flash.remove(), 500);
+            });
+        }, 3000);
+    </script>
+</body>
+</html>

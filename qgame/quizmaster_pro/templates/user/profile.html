@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="glass-panel" style="max-width: 600px; margin: 2rem auto;">
+    <h2>Edit Profile</h2>
+    
+    <div class="flash-messages">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="flash" style="background: var(--success);">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <form method="POST" action="{{ url_for('profile') }}">
+        <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" class="form-control" value="{{ user.name }}" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age" class="form-control" value="{{ user.age }}">
+        </div>
+        
+        <div class="form-group">
+            <label for="gender">Gender</label>
+            <select id="gender" name="gender" class="form-control" style="background: rgba(0,0,0,0.2);">
+                <option value="Male" {% if user.gender == 'Male' %}selected{% endif %}>Male</option>
+                <option value="Female" {% if user.gender == 'Female' %}selected{% endif %}>Female</option>
+                <option value="Other" {% if user.gender == 'Other' %}selected{% endif %}>Other</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="college">College/University</label>
+            <input type="text" id="college" name="college" class="form-control" value="{{ user.college }}">
+        </div>
+        
+        <div class="form-group">
+            <label for="department">Department</label>
+            <input type="text" id="department" name="department" class="form-control" value="{{ user.department }}">
+        </div>
+        
+        <div class="form-group">
+            <label for="semester">Semester</label>
+            <input type="text" id="semester" name="semester" class="form-control" value="{{ user.semester }}">
+        </div>
+        
+        <div style="display: flex; gap: 15px; margin-top: 2rem;">
+            <button type="submit" class="btn btn-primary btn-pulse" style="flex: 1; padding: 12px 20px; font-size: 1.1rem; border-radius: 8px; border: none; color: white; cursor: pointer;">Save Profile</button>
+            <a href="{{ url_for('user_dashboard') }}" class="btn" style="flex: 1; padding: 12px 20px; font-size: 1.1rem; background: rgba(255,255,255,0.1); border-radius: 8px; color: white; text-align: center; text-decoration: none;">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

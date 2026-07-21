@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Flash Messages -->
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="flash-messages" id="flash-messages" style="max-width: 1200px; margin: 0 auto 1rem; transition: opacity 0.5s ease;">
+        {% for message in messages %}
+            <div class="flash flash-success"><i class="fas fa-check-circle"></i> {{ message }}</div>
+        {% endfor %}
+        </div>
+        <script>
+            setTimeout(() => {
+                const flashContainer = document.getElementById('flash-messages');
+                if (flashContainer) {
+                    flashContainer.style.opacity = '0';
+                    setTimeout(() => flashContainer.remove(), 500);
+                }
+            }, 3000);
+        </script>
+    {% endif %}
+{% endwith %}
+
+<!-- Hero Banner -->
+<section class="hero mesh-gradient banner-animate" style="max-width: 1200px; margin: 0 auto 4rem; padding: 4rem; border-radius: 24px; display: flex; justify-content: space-between; align-items: center; gap: 2rem;">
+    <div style="flex: 1;">
+        <h1 style="font-size: 3rem; font-weight: 800; line-height: 1.1; margin-bottom: 1rem; color: #fff;">Welcome back,<br>{{ user.name }}!</h1>
+        <p style="font-size: 1.1rem; opacity: 0.9; margin-bottom: 2rem; max-width: 400px; color: #fff;">Explore our premium selection of quizzes. Challenge yourself and earn certificates to prove your expertise.</p>
+        <a href="#store" class="btn btn-cta btn-pulse" style="font-size: 1.1rem; padding: 14px 32px; border-radius: 999px; font-weight: 700; background: #fff; color: var(--primary);">Browse Store <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="stats-bar" style="display: none;"> <!-- We will display stats here if needed, but let's keep it clean -->
+    </div>
+    
+    <!-- User Stats Widget -->
+    <div style="background: var(--surface); color: var(--text-primary); padding: 1.5rem; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); width: 280px; transform: perspective(1000px) rotateY(-5deg); transition: 0.3s;" onmouseover="this.style.transform='perspective(1000px) rotateY(0deg) scale(1.02)'" onmouseout="this.style.transform='perspective(1000px) rotateY(-5deg)'">
+        <div class="d-flex align-center mb-4" style="gap: 15px;">
+            <div class="{{ user.active_border.css_class if user.active_border_id else '' }} {{ 'avatar-border' if user.active_border_id else '' }}" style="width: 60px; height: 60px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: white; font-weight: bold;">
+                {{ user.name[0]|upper }}
+            </div>
+            <div>
+                <div style="font-weight: 700; font-size: 1.2rem;">Level {{ user.level }}</div>
+                <div class="text-muted" style="font-size: 0.9rem;">
+                    {% if user.active_title_id %}
+                        <span class="{{ user.active_title.css_class }}">{{ user.active_title.name }}</span>
+                    {% else %}
+                        Pro Member
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="d-flex justify-between" style="border-top: 1px solid var(--border); padding-top: 1rem;">
+            <div class="stat-item">
+                <div class="stat-value count-up" data-count="{{ user.xp }}" style="color: var(--primary);">0</div>
+                <div class="stat-label">XP</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value count-up" data-count="{{ user.coins }}" style="color: var(--warning);">0</div>
+                <div class="stat-label">Coins</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value count-up" data-count="{{ user.certificates|length }}" style="color: var(--success);">0</div>
+                <div class="stat-label">Certs</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div style="max-width: 1200px; margin: 0 auto;">
+    
+    <!-- Featured Quizzes (Storefront) -->
+    <div id="store" class="d-flex justify-between align-center mb-4">
+        <h2 style="font-size: 1.8rem; font-weight: 800;">Featured Categories</h2>
+        <a href="#" class="text-muted" style="font-weight: 600;">View All <i class="fas fa-chevron-right"></i></a>
+    </div>
+    
+    <div class="grid-cols-4 mb-4" style="margin-bottom: 4rem;">
+        {% for category in categories %}
+        <div class="product-card staggered-item">
+            <!-- Product Image / Banner -->
+            <div class="product-img">
+                {% if category.image_filename %}
+                    <img src="{{ url_for('static', filename='uploads/categories/' + category.image_filename) }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit;">
+                {% else %}
+                    {% set icon_class, icon_color = get_category_icon(category.name) %}
+                    <i class="{{ icon_class }} {{ icon_color }}"></i>
+                {% endif %}
+            </div>
+            
+            <div class="product-content">
+                <div class="d-flex justify-between align-center mb-4">
+                    <span class="badge badge-new">New</span>
+                    <span class="text-muted" style="font-size: 0.8rem; font-weight: 600;">
+                        <i class="fas fa-list"></i> {{ category.questions|length }} Qs
+                    </span>
+                </div>
+                
+                <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-primary);">{{ category.name }}</h3>
+                <p class="text-muted" style="font-size: 0.9rem; margin-bottom: 1.5rem; line-height: 1.5; flex-grow: 1;">
+                    {{ category.description }}
+                </p>
+                
+                <div style="border-top: 1px solid var(--border); padding-top: 1rem;">
+                    <a href="{{ url_for('take_quiz', category_id=category.id) }}" class="btn btn-primary">
+                        <i class="fas fa-play"></i> Start Quiz
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- My Certificates Section -->
+    <div class="d-flex justify-between align-center mb-4">
+        <h2 style="font-size: 1.8rem; font-weight: 800;">My Certificates</h2>
+    </div>
+    
+    <div class="grid-cols-4 mb-4">
+        {% for cert in user.certificates %}
+        <div class="card" style="text-align: center; border-top: 4px solid var(--success);">
+            <div style="font-size: 3rem; color: var(--success); margin-bottom: 1rem;">
+                <i class="fas fa-certificate"></i>
+            </div>
+            <h4 style="margin-bottom: 0.5rem; font-size: 1.1rem; color: var(--text-primary);">{{ cert.attempt.category.name }}</h4>
+            <p class="text-muted" style="font-size: 0.8rem; margin-bottom: 1.5rem;">Earned on {{ cert.issue_date.strftime('%b %d, %Y') }}</p>
+            <a href="{{ url_for('download_certificate', cert_id=cert.id) }}" class="btn btn-primary" style="background: var(--surface); color: var(--primary); border: 1px solid var(--primary);" target="_blank">
+                <i class="fas fa-download"></i> View PDF
+            </a>
+        </div>
+        {% else %}
+        <div style="grid-column: span 4; text-align: center; padding: 4rem 2rem; background: var(--surface); border: 1px dashed var(--border); border-radius: var(--radius);">
+            <i class="fas fa-award" style="font-size: 3rem; color: var(--border); margin-bottom: 1rem;"></i>
+            <h3 style="color: var(--text-secondary); margin-bottom: 0.5rem;">No Certificates Yet</h3>
+            <p class="text-muted">Take a quiz and score at least 70% to earn your first certificate!</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Number Count-up Animation
+    const counters = document.querySelectorAll('.count-up');
+    const speed = 800; // ms
+
+    counters.forEach(counter => {
+        const target = +counter.getAttribute('data-count');
+        const increment = target / (speed / 16); // 16ms per frame (approx 60fps)
+        let current = 0;
+
+        const updateCount = () => {
+            current += increment;
+            if(current < target) {
+                counter.innerText = Math.ceil(current);
+                requestAnimationFrame(updateCount);
+            } else {
+                counter.innerText = target;
+            }
+        };
+        
+        if (target > 0) {
+            updateCount();
+        } else {
+            counter.innerText = target;
+        }
+    });
+
+    // Intersection Observer for Staggered Cards
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('stagger-active');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.staggered-item').forEach(el => {
+        observer.observe(el);
+    });
+});
+</script>
+{% endblock %}

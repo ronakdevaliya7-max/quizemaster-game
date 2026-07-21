@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="glass-panel" style="max-width: 1000px; margin: 2rem auto; padding: 2rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <div>
+            <h2 style="margin: 0;">Reward Store 🛒</h2>
+            <p style="color: var(--text-secondary); margin: 5px 0 0 0;">Spend your coins on exclusive cosmetics!</p>
+        </div>
+        <div style="background: rgba(255,215,0,0.1); border: 1px solid #ffd700; padding: 10px 20px; border-radius: 50px; font-weight: bold; color: #ffd700; display: flex; align-items: center; gap: 8px;">
+            <i class="fas fa-coins"></i> {{ user.coins }} Coins
+        </div>
+    </div>
+
+    <!-- Titles Section -->
+    <h3 style="margin-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">Exclusive Titles</h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+        {% for item in items %}
+        {% if item.item_type == 'title' %}
+        <div class="card" style="padding: 1.5rem; text-align: center; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+                <h4 class="{{ item.css_class }}" style="font-size: 1.5rem; margin-bottom: 0.5rem;">{{ item.name }}</h4>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">{{ item.description }}</p>
+            </div>
+            
+            <div style="margin-top: 1rem;">
+                {% if item.id in inventory %}
+                    {% if user.active_title_id == item.id %}
+                    <form action="{{ url_for('equip_item', item_id=item.id) }}" method="POST">
+                        <button type="submit" class="btn" style="background: var(--success); color: white; width: 100%; border: none; border-radius: 8px; padding: 10px;">Equipped (Click to Unequip)</button>
+                    </form>
+                    {% else %}
+                    <form action="{{ url_for('equip_item', item_id=item.id) }}" method="POST">
+                        <button type="submit" class="btn btn-primary" style="width: 100%; border-radius: 8px; padding: 10px;">Equip</button>
+                    </form>
+                    {% endif %}
+                {% else %}
+                    <form action="{{ url_for('buy_item', item_id=item.id) }}" method="POST">
+                        <button type="submit" class="btn" style="background: rgba(255,215,0,0.2); color: #ffd700; border: 1px solid #ffd700; border-radius: 8px; padding: 10px; width: 100%; cursor: pointer;" {% if user.coins < item.cost %}disabled{% endif %}>
+                            Buy for {{ item.cost }} <i class="fas fa-coins"></i>
+                        </button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+    <!-- Borders Section -->
+    <h3 style="margin-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">Profile Borders</h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;">
+        {% for item in items %}
+        {% if item.item_type == 'border' %}
+        <div class="card" style="padding: 1.5rem; text-align: center; display: flex; flex-direction: column; justify-content: space-between;">
+            <div style="display: flex; justify-content: center; margin-bottom: 1rem;">
+                <div class="{{ item.css_class }}" style="width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border-width: 4px; border-style: solid; background: var(--primary); color: white; font-size: 2rem; font-weight: bold;">
+                    {{ user.name[0]|upper }}
+                </div>
+            </div>
+            <div>
+                <h4 style="margin-bottom: 0.5rem;">{{ item.name }}</h4>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">{{ item.description }}</p>
+            </div>
+            
+            <div style="margin-top: 1rem;">
+                {% if item.id in inventory %}
+                    {% if user.active_border_id == item.id %}
+                    <form action="{{ url_for('equip_item', item_id=item.id) }}" method="POST">
+                        <button type="submit" class="btn" style="background: var(--success); color: white; width: 100%; border: none; border-radius: 8px; padding: 10px;">Equipped (Click to Unequip)</button>
+                    </form>
+                    {% else %}
+                    <form action="{{ url_for('equip_item', item_id=item.id) }}" method="POST">
+                        <button type="submit" class="btn btn-primary" style="width: 100%; border-radius: 8px; padding: 10px;">Equip</button>
+                    </form>
+                    {% endif %}
+                {% else %}
+                    <form action="{{ url_for('buy_item', item_id=item.id) }}" method="POST">
+                        <button type="submit" class="btn" style="background: rgba(255,215,0,0.2); color: #ffd700; border: 1px solid #ffd700; border-radius: 8px; padding: 10px; width: 100%; cursor: pointer;" {% if user.coins < item.cost %}disabled{% endif %}>
+                            Buy for {{ item.cost }} <i class="fas fa-coins"></i>
+                        </button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .border-gold { border-color: #ffd700; box-shadow: 0 0 15px rgba(255, 215, 0, 0.5); }
+    .border-neon { border-color: #00ffff; box-shadow: 0 0 15px rgba(0, 255, 255, 0.5); }
+    .border-ruby { border-color: #ff003c; box-shadow: 0 0 15px rgba(255, 0, 60, 0.5); }
+</style>
+{% endblock %}

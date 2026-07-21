@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="glass-panel" style="padding: 2rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <h2>Manage Users</h2>
+        <a href="{{ url_for('admin_dashboard') }}" class="btn btn-primary" style="width: auto; display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; font-weight: 600; text-decoration: none;">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+    
+    <table style="width: 100%; border-collapse: collapse; margin-top: 1rem; color: var(--text-primary);">
+        <thead>
+            <tr style="border-bottom: 1px solid var(--border);">
+                <th style="padding: 10px; text-align: left;">ID</th>
+                <th style="padding: 10px; text-align: left;">Username</th>
+                <th style="padding: 10px; text-align: left;">Name</th>
+                <th style="padding: 10px; text-align: left;">Role</th>
+                <th style="padding: 10px; text-align: left;">Points</th>
+                <th style="padding: 10px; text-align: right;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr style="border-bottom: 1px solid var(--border);">
+                <td style="padding: 10px;">{{ user.id }}</td>
+                <td style="padding: 10px;">{{ user.username }}</td>
+                <td style="padding: 10px;">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div class="{{ user.active_border.css_class if user.active_border_id else '' }}" {% if user.active_border_id %}style="width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--text-primary); font-weight: bold; background: var(--primary); border-width: 3px; border-style: solid;"{% else %}style="width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--text-primary); font-weight: bold; background: var(--primary);"{% endif %}>
+                            {{ user.name[0]|upper }}
+                        </div>
+                        <div>
+                            <div style="font-weight: 600;">{{ user.name }}</div>
+                            {% if user.active_title_id %}
+                            <div class="{{ user.active_title.css_class }}" style="font-size: 0.85rem; margin-top: 3px;">{{ user.active_title.name }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </td>
+                <td style="padding: 10px;">
+                    <span {% if user.role == 'admin' %}style="padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; background: var(--danger);"{% else %}style="padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; background: var(--primary);"{% endif %}>
+                        {{ user.role }}
+                    </span>
+                </td>
+                <td style="padding: 10px; color: var(--secondary); font-weight: bold;">{{ user.points }}</td>
+                <td style="padding: 10px; text-align: right;">
+                    {% if user.role != 'admin' %}
+                    <form method="POST" action="{{ url_for('delete_user', user_id=user.id) }}" onsubmit="return confirm('Are you sure you want to completely delete {{ user.name }} and all their data? This cannot be undone.');" style="display: inline-block;">
+                        <button type="submit" class="btn" style="background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid #ef4444; padding: 6px 12px; border-radius: 6px; font-size: 0.9rem; cursor: pointer;">
+                            <i class="fas fa-trash-alt"></i> Delete
+                        </button>
+                    </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

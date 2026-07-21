@@ -1,0 +1,19 @@
+# Python & Virtual Environment
+venv/
+**/venv/
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+
+# Database & Instance folders
+instance/
+**/instance/
+*.db
+*.sqlite
+
+# IDE & System files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

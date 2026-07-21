@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 0 auto; padding-top: 2rem;">
+    
+    <div style="text-align: center; margin-bottom: 3rem;">
+        <h1 style="font-size: 2.5rem; font-weight: 800; color: var(--text-primary); margin-bottom: 0.5rem;">
+            <i class="fas fa-trophy" style="color: #fbbf24;"></i> Global Leaderboard
+        </h1>
+        <p class="text-muted" style="font-size: 1.1rem;">See how you rank against the top minds in the store.</p>
+    </div>
+
+    <div class="card" style="padding: 0; overflow: hidden; border-top: 4px solid var(--primary);">
+        <table style="width: 100%; border-collapse: collapse; margin: 0;">
+            <thead style="background: var(--background);">
+                <tr>
+                    <th style="padding: 1rem 1.5rem; text-align: center; width: 80px; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">Rank</th>
+                    <th style="padding: 1rem 1.5rem; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">User</th>
+                    <th style="padding: 1rem 1.5rem; text-align: center; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">Level</th>
+                    <th style="padding: 1rem 1.5rem; text-align: right; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">Total XP</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in top_users %}
+                <tr class="staggered-item {% if user.id == current_user.id %}current-user-row{% endif %}" style="border-bottom: 1px solid var(--border); transition: 0.2s; background: {% if user.id == current_user.id %}rgba(37, 99, 235, 0.05){% else %}transparent{% endif %};">
+                    
+                    <td style="padding: 1rem 1.5rem; text-align: center; font-size: 1.2rem; font-weight: 800;">
+                        {% if loop.index == 1 %}
+                            <span style="color: #fbbf24; text-shadow: 0 2px 4px rgba(251,191,36,0.3);"><i class="fas fa-medal"></i></span>
+                        {% elif loop.index == 2 %}
+                            <span style="color: #94a3b8;"><i class="fas fa-medal"></i></span>
+                        {% elif loop.index == 3 %}
+                            <span style="color: #b45309;"><i class="fas fa-medal"></i></span>
+                        {% else %}
+                            <span class="text-muted">{{ loop.index }}</span>
+                        {% endif %}
+                    </td>
+                    
+                    <td style="padding: 1rem 1.5rem;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div style="width: 40px; height: 40px; border-radius: 50%; background: {% if loop.index == 1 %}#fbbf24{% elif loop.index == 2 %}#94a3b8{% elif loop.index == 3 %}#b45309{% else %}var(--border){% endif %}; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem;">
+                                {{ user.name[0]|upper }}
+                            </div>
+                            <div>
+                                <div style="font-weight: 700; color: var(--text-primary);">{{ user.name }} {% if user.id == current_user.id %}<span class="badge badge-new" style="margin-left: 8px; font-size: 0.6rem;">You</span>{% endif %}</div>
+                                <div class="text-muted" style="font-size: 0.8rem;">@{{ user.username }}</div>
+                            </div>
+                        </div>
+                    </td>
+                    
+                    <td style="padding: 1rem 1.5rem; text-align: center; font-weight: 600; color: var(--text-primary);">
+                        {{ user.level }}
+                    </td>
+                    
+                    <td style="padding: 1rem 1.5rem; text-align: right; font-weight: 800; color: var(--primary); font-variant-numeric: tabular-nums;">
+                        {{ user.xp }} XP
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4" style="text-align: center; padding: 3rem; color: var(--text-secondary);">
+                        <i class="fas fa-ghost" style="font-size: 2rem; margin-bottom: 1rem; display: block;"></i>
+                        No users found yet.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    {% if current_user not in top_users and current_user.role == 'user' %}
+    <div class="card mt-4" style="text-align: center; padding: 1.5rem; border: 1px dashed var(--primary); background: rgba(37, 99, 235, 0.02);">
+        <p style="font-weight: 600; color: var(--text-primary);">You are currently unranked in the Top 10.</p>
+        <p class="text-muted" style="font-size: 0.9rem; margin-bottom: 1rem;">Take more quizzes and earn certificates to increase your XP!</p>
+        <a href="{{ url_for('user_dashboard') }}" class="btn btn-primary" style="width: auto;">Take a Quiz</a>
+    </div>
+    {% endif %}
+
+    <style>
+        @keyframes subtleGlow {
+            0%, 100% { box-shadow: inset 0 0 10px rgba(37, 99, 235, 0.1); }
+            50% { box-shadow: inset 0 0 20px rgba(37, 99, 235, 0.4); }
+        }
+        .current-user-row {
+            animation: subtleGlow 3s infinite alternate;
+        }
+    </style>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const rows = document.querySelectorAll('.staggered-item');
+        rows.forEach((row, index) => {
+            row.style.animationDelay = `${index * 50}ms`;
+            setTimeout(() => {
+                row.classList.add('stagger-active');
+            }, 10);
+        });
+    });
+    </script>
+</div>
+{% endblock %}

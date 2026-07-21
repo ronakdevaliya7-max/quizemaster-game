@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="glass-panel" style="max-width: 600px; margin: 2rem auto; text-align: center;">
+    <h2>Quiz Results</h2>
+    
+    <div style="margin: 2rem 0;">
+        <h1 style="font-size: 4rem;" class="{% if attempt.passed %}text-success{% else %}text-danger{% endif %}">
+            <span class="count-up" data-count="{{ attempt.score }}">0</span>/{{ attempt.total_questions }}
+        </h1>
+        <p style="font-size: 1.5rem;"><span class="count-up-float" data-count="{{ percentage }}">0</span>% Accuracy</p>
+    </div>
+    
+    <div style="display: flex; justify-content: space-around; margin: 2rem 0;">
+        <div>
+            <p style="color: var(--text-secondary);">Time Taken</p>
+            <p style="font-weight: bold; font-size: 1.2rem;">{{ attempt.time_taken }}s</p>
+        </div>
+        <div>
+            <p style="color: var(--text-secondary);">XP Earned</p>
+            <p style="font-weight: bold; font-size: 1.2rem; color: var(--primary);">+<span class="count-up" data-count="{{ 20 + (attempt.score * 5) }}">0</span> XP</p>
+        </div>
+        <div>
+            <p style="color: var(--text-secondary);">Points</p>
+            <p style="font-weight: bold; font-size: 1.2rem; color: var(--secondary);">+<span class="count-up" data-count="{{ attempt.score * 10 }}">0</span></p>
+        </div>
+    </div>
+    
+    <div style="display: flex; justify-content: center; gap: 15px; flex-direction: column; align-items: center;">
+        <div style="display: flex; gap: 15px; justify-content: center;">
+            <a href="{{ url_for('user_dashboard') }}" class="btn-primary btn" style="width: auto;">Return to Dashboard</a>
+            {% if attempt.passed %}
+                {% if cert %}
+                <a href="{{ url_for('download_certificate', cert_id=cert.id) }}" class="btn-primary btn cert-bounce" style="width: auto; background: var(--success);" target="_blank">View Certificate</a>
+                {% else %}
+                <form action="{{ url_for('generate_cert', attempt_id=attempt.id) }}" method="POST" style="margin: 0;">
+                    <button type="submit" class="btn-primary btn cert-bounce" style="width: auto; background: var(--success);">Claim Certificate</button>
+                </form>
+                {% endif %}
+            {% endif %}
+        </div>
+        {% if not attempt.passed %}
+        <p style="margin-top: 1rem; color: var(--danger); font-size: 0.95rem; font-weight: bold; background: rgba(232, 65, 24, 0.1); padding: 10px 20px; border-radius: 8px;">
+            ⚠️ You need at least 70% correct answers to earn a certificate. Please try again!
+        </p>
+        {% endif %}
+    </div>
+    
+    {% if review_data %}
+    <div style="margin-top: 2rem;">
+        <button id="toggleReviewBtn" class="btn-primary btn" style="width: auto;" onclick="toggleReview()">Review Answers</button>
+    </div>
+    
+    <div id="reviewSection" style="display: none; margin-top: 1rem; text-align: left; background: rgba(0,0,0,0.2); padding: 1.5rem; border-radius: 8px;">
+        <h3>Review Your Answers</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 1rem;">Here is a breakdown of what you got right and wrong.</p>
+        
+        {% for r in review_data %}
+            <div style="margin-bottom: 1rem; padding: 1rem; border-radius: 8px; background: rgba(255,255,255,0.05);" class="{% if r.is_correct %}border-success{% else %}border-danger{% endif %}">
+                <p style="font-weight: 600; margin-bottom: 5px;">Q: {{ r.question }}</p>
+                <div style="display: flex; justify-content: space-between; font-size: 0.95rem;">
+                    <span class="{% if r.is_correct %}text-success{% else %}text-danger{% endif %}">
+                        Your Answer: Option {{ r.user_ans }} ({{ r.user_ans_text }})
+                    </span>
+                    {% if not r.is_correct %}
+                    <span style="color: var(--success); font-weight: 600;">
+                        Correct Answer: Option {{ r.correct_ans }} ({{ r.correct_ans_text }})
+                    </span>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    
+    <style>
+        @keyframes popInBounce {
+            0% { opacity: 0; transform: scale(0.5) translateY(20px); }
+            60% { opacity: 1; transform: scale(1.1) translateY(-10px); }
+            80% { transform: scale(0.95) translateY(5px); }
+            100% { transform: scale(1) translateY(0); }
+        }
+        .cert-bounce {
+            animation: popInBounce 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            animation-delay: 0.5s;
+            opacity: 0;
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Number Count-up Animation
+        const counters = document.querySelectorAll('.count-up');
+        const floatCounters = document.querySelectorAll('.count-up-float');
+        const speed = 1000; // ms
+
+        const animateCount = (element, isFloat = false) => {
+            const target = +element.getAttribute('data-count');
+            const increment = target / (speed / 16); 
+            let current = 0;
+
+            const updateCount = () => {
+                current += increment;
+                if(current < target) {
+                    element.innerText = isFloat ? current.toFixed(1) : Math.ceil(current);
+                    requestAnimationFrame(updateCount);
+                } else {
+                    element.innerText = isFloat ? target.toFixed(1) : target;
+                }
+            };
+            if (target > 0) updateCount();
+            else element.innerText = isFloat ? target.toFixed(1) : target;
+        };
+
+        counters.forEach(c => animateCount(c));
+        floatCounters.forEach(c => animateCount(c, true));
+
+        // Confetti
+        const isPassed = "{{ 'true' if attempt.passed else 'false' }}" === "true";
+        if (isPassed) {
+            setTimeout(() => {
+                confetti({
+                    particleCount: 150,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#2563eb', '#10b981', '#f59e0b']
+                });
+            }, 500);
+        }
+    });
+
+    function toggleReview() {
+        var section = document.getElementById("reviewSection");
+        var btn = document.getElementById("toggleReviewBtn");
+        if (section.style.display === "none") {
+            section.style.display = "block";
+            btn.innerText = "Hide Answers";
+        } else {
+            section.style.display = "none";
+            btn.innerText = "Review Answers";
+        }
+    }
+    </script>
+    {% endif %}
+</div>
+{% endblock %}

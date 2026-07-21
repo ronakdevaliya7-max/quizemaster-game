@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="glass-panel" style="padding: 2rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <h2>Certificates Issued</h2>
+        <a href="{{ url_for('admin_dashboard') }}" class="btn btn-primary" style="width: auto; display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; font-weight: 600; text-decoration: none;">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+    
+    <table style="width: 100%; border-collapse: collapse; margin-top: 1rem; color: var(--text-primary);">
+        <thead>
+            <tr style="border-bottom: 1px solid var(--border);">
+                <th style="padding: 10px; text-align: left;">ID</th>
+                <th style="padding: 10px; text-align: left;">Cert ID</th>
+                <th style="padding: 10px; text-align: left;">User</th>
+                <th style="padding: 10px; text-align: left;">Issue Date</th>
+                <th style="padding: 10px; text-align: center;">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cert in certificates %}
+            <tr style="border-bottom: 1px solid var(--border);">
+                <td style="padding: 10px;">{{ cert.id }}</td>
+                <td style="padding: 10px; color: var(--secondary); font-weight: bold;">{{ cert.certificate_id }}</td>
+                <td style="padding: 10px;">{{ cert.user.name if cert.user else '[Deleted User]' }}</td>
+                <td style="padding: 10px;">{{ cert.issue_date.strftime('%Y-%m-%d %H:%M') }}</td>
+                <td style="padding: 10px; text-align: center;">
+                    <a href="{{ url_for('download_certificate', cert_id=cert.id) }}" target="_blank" style="color: var(--primary); text-decoration: none;">View</a>
+                </td>
+            </tr>
+            {% endfor %}
+            {% if not certificates %}
+            <tr>
+                <td colspan="5" style="padding: 10px; text-align: center; color: var(--text-secondary);">No certificates issued yet.</td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
