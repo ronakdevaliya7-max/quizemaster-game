@@ -29,6 +29,22 @@ app.config['BABEL_SUPPORTED_LOCALES'] = ['en', 'hi', 'gu']
 
 db.init_app(app)
 
+with app.app_context():
+    db.create_all()
+
+    admin = User.query.filter_by(username="admin").first()
+
+    if not admin:
+        admin = User(
+            username="admin",
+            name="Administrator",
+            password_hash=generate_password_hash("admin123"),
+            role="admin"
+        )
+
+        db.session.add(admin)
+        db.session.commit()
+
 def get_locale():
     return session.get('lang', request.accept_languages.best_match(app.config['BABEL_SUPPORTED_LOCALES']) or 'en')
 
@@ -620,21 +636,5 @@ def search():
     return render_template('user/search.html', query=query, categories=matching_categories)
 
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
-
-        admin = User.query.filter_by(username="admin").first()
-
-        if not admin:
-            admin = User(
-                username="admin",
-                name="Administrator",
-                password_hash=generate_password_hash("admin123"),
-                role="admin"
-            )
-
-            db.session.add(admin)
-            db.session.commit()
-
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
