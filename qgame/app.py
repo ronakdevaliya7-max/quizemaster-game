@@ -623,18 +623,18 @@ if __name__ == '__main__':
     with app.app_context():
         db.create_all()
 
-        admin = User.query.filter_by(username='admin').first()
+        admin = User.query.filter_by(username="admin").first()
+
         if not admin:
-            hashed_pw = generate_password_hash('admin123', method='pbkdf2:sha256')
             admin = User(
-                username='admin',
-                name='Administrator',
-                password_hash=hashed_pw,
-                role='admin'
+                username="admin",
+                name="Administrator",
+                password_hash=generate_password_hash("admin123"),
+                role="admin"
             )
+
             db.session.add(admin)
             db.session.commit()
-            print("Admin user created.")
 
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
