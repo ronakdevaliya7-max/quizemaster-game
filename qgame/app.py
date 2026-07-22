@@ -12,8 +12,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from qgame.models import db, User, Category, Question, QuizAttempt, Certificate, Badge, UserBadge, StoreItem, UserInventory
 from sqlalchemy.exc import IntegrityError
-from utils.gamification import process_quiz_result
-from utils.certificates import generate_certificate
+from qgame.utils.gamification import process_quiz_result
+from qgame.utils.certificates import generate_certificate
 from flask_babel import Babel, _
 from deep_translator import GoogleTranslator
 import json
