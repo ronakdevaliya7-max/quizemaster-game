@@ -22,7 +22,10 @@ import random
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'offline_quiz_secret_key_123'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///quizmaster.db'
+db_url = os.environ.get('DATABASE_URL', 'sqlite:///quizmaster.db')
+if db_url.startswith("postgres://"):
+    db_url = db_url.replace("postgres://", "postgresql://", 1)
+app.config['SQLALCHEMY_DATABASE_URI'] = db_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['BABEL_DEFAULT_LOCALE'] = 'en'
 app.config['BABEL_SUPPORTED_LOCALES'] = ['en', 'hi', 'gu']
