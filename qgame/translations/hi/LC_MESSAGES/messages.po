@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-20 08:15+0530\n"
+"POT-Creation-Date: 2026-07-22 01:57+0530\n"
 "PO-Revision-Date: 2026-07-20 08:15+0530\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: hi\n"
@@ -57,6 +57,42 @@ msgstr "साइन इन"
 #: templates/base.html:62
 msgid "Create Account"
 msgstr "खाता बनाएं"
+
+#: templates/admin/users.html:6
+msgid "Manage Users"
+msgstr ""
+
+#: templates/admin/users.html:8
+msgid "Back to Dashboard"
+msgstr ""
+
+#: templates/admin/users.html:15
+msgid "ID"
+msgstr ""
+
+#: templates/admin/users.html:16
+msgid "Username"
+msgstr ""
+
+#: templates/admin/users.html:17
+msgid "Name"
+msgstr ""
+
+#: templates/admin/users.html:18
+msgid "Role"
+msgstr ""
+
+#: templates/admin/users.html:19
+msgid "Points"
+msgstr ""
+
+#: templates/admin/users.html:20
+msgid "Actions"
+msgstr ""
+
+#: templates/admin/users.html:51
+msgid "Delete"
+msgstr ""
 
 #: venv/Lib/site-packages/click/_termui_impl.py:192
 msgid "d"
@@ -420,4 +456,91 @@ msgstr[1] ""
 #, python-brace-format
 msgid "Unknown standard stream '{name}'"
 msgstr ""
+
+msgid "Manage Users"
+msgstr "उपयोगकर्ताओं का प्रबंधन"
+
+msgid "Back to Dashboard"
+msgstr "डैशबोर्ड पर वापस जाएं"
+
+msgid "ID"
+msgstr "आईडी"
+
+msgid "Username"
+msgstr "यूज़रनेम"
+
+msgid "Name"
+msgstr "नाम"
+
+msgid "Role"
+msgstr "भूमिका"
+
+msgid "Points"
+msgstr "अंक"
+
+msgid "Actions"
+msgstr "कार्रवाइयां"
+
+msgid "Delete"
+msgstr "हटाएं"
+
+msgid "Welcome back,"
+msgstr "वापसी पर स्वागत है,"
+
+msgid "Explore our premium selection of quizzes. Challenge yourself and earn certificates to prove your expertise."
+msgstr "क्विज़ के हमारे प्रीमियम चयन का अन्वेषण करें। खुद को चुनौती दें और अपनी विशेषज्ञता साबित करने के लिए प्रमाणपत्र प्राप्त करें।"
+
+msgid "Browse Store"
+msgstr "स्टोर ब्राउज़ करें"
+
+msgid "Level"
+msgstr "लेवल"
+
+msgid "Pro Member"
+msgstr "प्रो सदस्य"
+
+msgid "Featured Categories"
+msgstr "विशेष श्रेणियां"
+
+msgid "View All"
+msgstr "सभी देखें"
+
+msgid "Start Quiz"
+msgstr "क्विज़ शुरू करें"
+
+msgid "Go Back"
+msgstr "वापस जाएं"
+
+msgid "Search for quizzes..."
+msgstr "क्विज़ खोजें..."
+
+msgid "Python"
+msgstr "पायथन"
+
+msgid "Mathematics"
+msgstr "गणित"
+
+msgid "General Knowledge"
+msgstr "सामान्य ज्ञान"
+
+msgid "Science"
+msgstr "विज्ञान"
+
+msgid "History"
+msgstr "इतिहास"
+
+msgid "Geography"
+msgstr "भूगोल"
+
+msgid "Technology"
+msgstr "प्रौद्योगिकी"
+
+msgid "Sports"
+msgstr "खेल"
+
+msgid "Literature"
+msgstr "साहित्य"
+
+msgid "Art"
+msgstr "कला"
 

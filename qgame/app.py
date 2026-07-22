@@ -11,9 +11,13 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from models import db, User, Category, Question, QuizAttempt, Certificate, Badge, UserBadge, StoreItem, UserInventory
+from sqlalchemy.exc import IntegrityError
 from utils.gamification import process_quiz_result
 from utils.certificates import generate_certificate
 from flask_babel import Babel, _
+from deep_translator import GoogleTranslator
+import json
+import urllib.request
 import random
 
 app = Flask(__name__)
@@ -153,7 +157,11 @@ def user_dashboard():
     if current_user.role == 'admin':
         return redirect(url_for('admin_dashboard'))
     categories = Category.query.all()
-    return render_template('user/dashboard.html', user=current_user, categories=categories)
+    lang = session.get('lang', 'en')
+    category_counts = {}
+    for c in categories:
+        category_counts[c.id] = Question.query.filter_by(category_id=c.id, language=lang).count()
+    return render_template('user/dashboard.html', user=current_user, categories=categories, category_counts=category_counts)
 
 @app.route('/quiz/<int:category_id>', methods=['GET'])
 @login_required
@@ -168,6 +176,7 @@ def take_quiz(category_id):
     random.shuffle(questions)
     # Take up to 10 questions so that they are randomly chosen each time from the available pool
     questions = questions[:10]
+    session[f'quiz_{category.id}_qids'] = [q.id for q in questions]
     
     return render_template('user/quiz.html', category=category, questions=questions)
 
@@ -178,28 +187,36 @@ def submit_quiz():
     time_taken = int(request.form.get('time_taken', 0))
     
     category = Category.query.get_or_404(category_id)
-    questions = Question.query.filter_by(category_id=category.id, language=session.get('lang', 'en')).all()
+    
+    presented_qids = session.get(f'quiz_{category.id}_qids')
+    if presented_qids:
+        questions = Question.query.filter(Question.id.in_(presented_qids)).all()
+    else:
+        questions = Question.query.filter_by(category_id=category.id, language=session.get('lang', 'en')).all()
     
     score = 0
-    total_questions = 0
+    total_questions = len(questions)
     review_data = []
     
     for q in questions:
         ans = request.form.get(f'q_{q.id}')
-        if ans:
-            total_questions += 1
-            is_correct = (ans == q.correct_option)
-            if is_correct:
-                score += 1
+        is_correct = (ans == q.correct_option)
+        if is_correct:
+            score += 1
             
-            review_data.append({
-                'question': q.text,
-                'user_ans': ans,
-                'user_ans_text': getattr(q, f"option_{ans.lower()}", "Unknown"),
-                'correct_ans': q.correct_option,
-                'correct_ans_text': getattr(q, f"option_{q.correct_option.lower()}", "Unknown"),
-                'is_correct': is_correct
-            })
+        user_ans_val = getattr(q, f"option_{ans.lower()}", "Not Answered") if ans else "Not Answered"
+        review_data.append({
+            'question': q.text,
+            'user_ans': ans if ans else "-",
+            'user_ans_text': user_ans_val,
+            'correct_ans': q.correct_option,
+            'correct_ans_text': getattr(q, f"option_{q.correct_option.lower()}", "Unknown"),
+            'is_correct': is_correct,
+            'option_a': q.option_a,
+            'option_b': q.option_b,
+            'option_c': q.option_c,
+            'option_d': q.option_d
+        })
                 
     session[f'review_{current_user.id}'] = review_data
     passed = (score / total_questions >= 0.7) if total_questions > 0 else False
@@ -305,13 +322,14 @@ def admin_dashboard():
     users_count = User.query.count()
     quizzes_count = QuizAttempt.query.count()
     certs_count = Certificate.query.count()
-    questions_count = Question.query.count()
+    questions_count = Question.query.filter_by(language='en').count()
     categories_count = Category.query.count()
+    store_items_count = StoreItem.query.count()
     
     # Fetch recent activity
     recent_users = User.query.filter_by(role='user').order_by(User.id.desc()).limit(5).all()
     
-    return render_template('admin/dashboard.html', user=current_user, users_count=users_count, quizzes_count=quizzes_count, certs_count=certs_count, questions_count=questions_count, categories_count=categories_count, recent_users=recent_users)
+    return render_template('admin/dashboard.html', user=current_user, users_count=users_count, quizzes_count=quizzes_count, certs_count=certs_count, questions_count=questions_count, categories_count=categories_count, store_items_count=store_items_count, recent_users=recent_users)
 
 @app.route('/admin/categories', methods=['GET', 'POST'])
 @login_required
@@ -326,13 +344,20 @@ def admin_categories():
         if name:
             cat = Category(name=name, description=description)
             db.session.add(cat)
-            db.session.commit()
+            try:
+                db.session.commit()
+            except IntegrityError:
+                db.session.rollback()
+                flash(f'Category "{name}" already exists!', 'danger')
+                return redirect(url_for('admin_categories'))
             
             # 2. Fetch 50 Questions
             category_map = {
-                'Python': 18, 'Technology': 18, 'Mathematics': 19, 'Geography': 22,
-                'History': 23, 'Science': 17, 'Sports': 21, 'Art': 25,
-                'Literature': 10, 'General Knowledge': 9
+                'General Knowledge': 9, 'Books': 10, 'Film': 11, 'Music': 12, 'Musicals & Theatres': 13,
+                'Television': 14, 'Video Games': 15, 'Board Games': 16, 'Science & Nature': 17,
+                'Computers': 18, 'Mathematics': 19, 'Mythology': 20, 'Sports': 21, 'Geography': 22,
+                'History': 23, 'Politics': 24, 'Art': 25, 'Celebrities': 26, 'Animals': 27,
+                'Vehicles': 28, 'Comics': 29, 'Gadgets': 30, 'Anime & Manga': 31, 'Cartoon & Animations': 32
             }
             tdb_id = category_map.get(name, 9)
             url = f"https://opentdb.com/api.php?amount=50&category={tdb_id}&type=multiple"
@@ -348,28 +373,59 @@ def admin_categories():
                         correct = html.unescape(res['correct_answer'])
                         incorrects = [html.unescape(ans) for ans in res['incorrect_answers']]
                         
-                        options = incorrects + [correct]
-                        random.shuffle(options)
-                        correct_letter = chr(65 + options.index(correct))
+                        all_opts = incorrects + [correct]
+                        random.shuffle(all_opts)
+                        correct_letter = chr(65 + all_opts.index(correct))
                         
-                        q = Question(
-                            category_id=cat.id,
-                            text=question_text,
-                            option_a=options[0],
-                            option_b=options[1],
-                            option_c=options[2],
-                            option_d=options[3],
-                            correct_option=correct_letter,
-                            difficulty=res['difficulty'].capitalize()
-                        )
-                        db.session.add(q)
+                        # Add in all 3 languages
+                        for lang in ['en', 'gu', 'hi']:
+                            if lang == 'en':
+                                q_text = question_text
+                                opt_a = all_opts[0]
+                                opt_b = all_opts[1]
+                                opt_c = all_opts[2]
+                                opt_d = all_opts[3]
+                            else:
+                                translator = GoogleTranslator(source='en', target=lang)
+                                try:
+                                    to_trans = [question_text, all_opts[0], all_opts[1], all_opts[2], all_opts[3]]
+                                    translated = translator.translate_batch(to_trans)
+                                    q_text = translated[0]
+                                    opt_a = translated[1]
+                                    opt_b = translated[2]
+                                    opt_c = translated[3]
+                                    opt_d = translated[4]
+                                except Exception as e:
+                                    print(f"Translation error: {e}")
+                                    q_text = question_text
+                                    opt_a = all_opts[0]
+                                    opt_b = all_opts[1]
+                                    opt_c = all_opts[2]
+                                    opt_d = all_opts[3]
+
+                            q = Question(
+                                category_id=cat.id,
+                                text=q_text,
+                                option_a=opt_a,
+                                option_b=opt_b,
+                                option_c=opt_c,
+                                option_d=opt_d,
+                                correct_option=correct_letter,
+                                difficulty=res['difficulty'].capitalize(),
+                                language=lang
+                            )
+                            db.session.add(q)
                     db.session.commit()
-                    flash(f'Category "{name}" added with 50 questions!', 'success')
+                    flash(f'Category "{name}" added with 50 questions in 3 languages!', 'success')
                 else:
-                    flash(f'Category "{name}" added, but failed to fetch questions (API error).', 'warning')
+                    db.session.delete(cat)
+                    db.session.commit()
+                    flash(f'Failed to fetch questions from Trivia API for "{name}". The category was not added.', 'danger')
             except Exception as e:
                 print(f"Error fetching questions: {e}")
-                flash(f'Category "{name}" added, but failed to fetch questions.', 'warning')
+                db.session.delete(cat)
+                db.session.commit()
+                flash(f'Error fetching questions for "{name}". The category was not added.', 'danger')
                 
         return redirect(url_for('admin_categories'))
         
@@ -414,6 +470,18 @@ def admin_questions():
     questions = Question.query.all()
     categories = Category.query.all()
     return render_template('admin/questions.html', questions=questions, categories=categories)
+
+@app.route('/admin/questions/delete/<int:question_id>', methods=['POST'])
+@login_required
+def delete_question(question_id):
+    if current_user.role != 'admin':
+        return redirect(url_for('user_dashboard'))
+        
+    question_to_delete = Question.query.get_or_404(question_id)
+    db.session.delete(question_to_delete)
+    db.session.commit()
+    flash('Question deleted successfully.', 'success')
+    return redirect(url_for('admin_questions'))
 
 @app.route('/admin/users')
 @login_required

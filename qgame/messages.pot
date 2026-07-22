@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-20 08:15+0530\n"
+"POT-Creation-Date: 2026-07-22 01:57+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -55,6 +55,42 @@ msgstr ""
 
 #: templates/base.html:62
 msgid "Create Account"
+msgstr ""
+
+#: templates/admin/users.html:6
+msgid "Manage Users"
+msgstr ""
+
+#: templates/admin/users.html:8
+msgid "Back to Dashboard"
+msgstr ""
+
+#: templates/admin/users.html:15
+msgid "ID"
+msgstr ""
+
+#: templates/admin/users.html:16
+msgid "Username"
+msgstr ""
+
+#: templates/admin/users.html:17
+msgid "Name"
+msgstr ""
+
+#: templates/admin/users.html:18
+msgid "Role"
+msgstr ""
+
+#: templates/admin/users.html:19
+msgid "Points"
+msgstr ""
+
+#: templates/admin/users.html:20
+msgid "Actions"
+msgstr ""
+
+#: templates/admin/users.html:51
+msgid "Delete"
 msgstr ""
 
 #: venv/Lib/site-packages/click/_termui_impl.py:192

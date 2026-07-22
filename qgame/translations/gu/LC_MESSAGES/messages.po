@@ -421,3 +421,90 @@ msgstr[1] ""
 msgid "Unknown standard stream '{name}'"
 msgstr ""
 
+msgid "Manage Users"
+msgstr "વપરાશકર્તાઓનું સંચાલન"
+
+msgid "Back to Dashboard"
+msgstr "ડેશબોર્ડ પર પાછા ફરો"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Username"
+msgstr "યુઝરનેમ"
+
+msgid "Name"
+msgstr "નામ"
+
+msgid "Role"
+msgstr "ભૂમિકા"
+
+msgid "Points"
+msgstr "પોઈન્ટ્સ"
+
+msgid "Actions"
+msgstr "ક્રિયાઓ"
+
+msgid "Delete"
+msgstr "ડિલીટ"
+
+msgid "Welcome back,"
+msgstr "ફરી સ્વાગત છે,"
+
+msgid "Explore our premium selection of quizzes. Challenge yourself and earn certificates to prove your expertise."
+msgstr "અમારી ક્વિઝની પ્રીમિયમ પસંદગીનું અન્વેષણ કરો. તમારી જાતને પડકાર આપો અને તમારી કુશળતા સાબિત કરવા માટે પ્રમાણપત્રો મેળવો."
+
+msgid "Browse Store"
+msgstr "સ્ટોર બ્રાઉઝ કરો"
+
+msgid "Level"
+msgstr "લેવલ"
+
+msgid "Pro Member"
+msgstr "પ્રો મેમ્બર"
+
+msgid "Featured Categories"
+msgstr "ફીચર્ડ કેટેગરીઝ"
+
+msgid "View All"
+msgstr "બધું જુઓ"
+
+msgid "Start Quiz"
+msgstr "ક્વિઝ શરૂ કરો"
+
+msgid "Go Back"
+msgstr "પાછા જાઓ"
+
+msgid "Search for quizzes..."
+msgstr "ક્વિઝ શોધો..."
+
+msgid "Python"
+msgstr "પાયથોન"
+
+msgid "Mathematics"
+msgstr "ગણિત"
+
+msgid "General Knowledge"
+msgstr "સામાન્ય જ્ઞાન"
+
+msgid "Science"
+msgstr "વિજ્ઞાન"
+
+msgid "History"
+msgstr "ઇતિહાસ"
+
+msgid "Geography"
+msgstr "ભૂગોળ"
+
+msgid "Technology"
+msgstr "ટેકનોલોજી"
+
+msgid "Sports"
+msgstr "રમતગમત"
+
+msgid "Literature"
+msgstr "સાહિત્ય"
+
+msgid "Art"
+msgstr "કલા"
+

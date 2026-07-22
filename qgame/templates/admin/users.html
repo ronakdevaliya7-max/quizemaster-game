@@ -3,21 +3,21 @@
 {% block content %}
 <div class="glass-panel" style="padding: 2rem;">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-        <h2>Manage Users</h2>
+        <h2>{{ _('Manage Users') }}</h2>
         <a href="{{ url_for('admin_dashboard') }}" class="btn btn-primary" style="width: auto; display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; font-weight: 600; text-decoration: none;">
-            <i class="fas fa-arrow-left"></i> Back to Dashboard
+            <i class="fas fa-arrow-left"></i> {{ _('Back to Dashboard') }}
         </a>
     </div>
     
     <table style="width: 100%; border-collapse: collapse; margin-top: 1rem; color: var(--text-primary);">
         <thead>
             <tr style="border-bottom: 1px solid var(--border);">
-                <th style="padding: 10px; text-align: left;">ID</th>
-                <th style="padding: 10px; text-align: left;">Username</th>
-                <th style="padding: 10px; text-align: left;">Name</th>
-                <th style="padding: 10px; text-align: left;">Role</th>
-                <th style="padding: 10px; text-align: left;">Points</th>
-                <th style="padding: 10px; text-align: right;">Actions</th>
+                <th style="padding: 10px; text-align: left;">{{ _('ID') }}</th>
+                <th style="padding: 10px; text-align: left;">{{ _('Username') }}</th>
+                <th style="padding: 10px; text-align: left;">{{ _('Name') }}</th>
+                <th style="padding: 10px; text-align: left;">{{ _('Role') }}</th>
+                <th style="padding: 10px; text-align: left;">{{ _('Points') }}</th>
+                <th style="padding: 10px; text-align: right;">{{ _('Actions') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -48,7 +48,7 @@
                     {% if user.role != 'admin' %}
                     <form method="POST" action="{{ url_for('delete_user', user_id=user.id) }}" onsubmit="return confirm('Are you sure you want to completely delete {{ user.name }} and all their data? This cannot be undone.');" style="display: inline-block;">
                         <button type="submit" class="btn" style="background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid #ef4444; padding: 6px 12px; border-radius: 6px; font-size: 0.9rem; cursor: pointer;">
-                            <i class="fas fa-trash-alt"></i> Delete
+                            <i class="fas fa-trash-alt"></i> {{ _('Delete') }}
                         </button>
                     </form>
                     {% endif %}

@@ -25,9 +25,9 @@
 <!-- Hero Banner -->
 <section class="hero mesh-gradient banner-animate" style="max-width: 1200px; margin: 0 auto 4rem; padding: 4rem; border-radius: 24px; display: flex; justify-content: space-between; align-items: center; gap: 2rem;">
     <div style="flex: 1;">
-        <h1 style="font-size: 3rem; font-weight: 800; line-height: 1.1; margin-bottom: 1rem; color: #fff;">Welcome back,<br>{{ user.name }}!</h1>
-        <p style="font-size: 1.1rem; opacity: 0.9; margin-bottom: 2rem; max-width: 400px; color: #fff;">Explore our premium selection of quizzes. Challenge yourself and earn certificates to prove your expertise.</p>
-        <a href="#store" class="btn btn-cta btn-pulse" style="font-size: 1.1rem; padding: 14px 32px; border-radius: 999px; font-weight: 700; background: #fff; color: var(--primary);">Browse Store <i class="fas fa-arrow-right"></i></a>
+        <h1 style="font-size: 3rem; font-weight: 800; line-height: 1.1; margin-bottom: 1rem; color: #fff;">{{ _('Welcome back,') }}<br>{{ user.name }}!</h1>
+        <p style="font-size: 1.1rem; opacity: 0.9; margin-bottom: 2rem; max-width: 400px; color: #fff;">{{ _('Explore our premium selection of quizzes. Challenge yourself and earn certificates to prove your expertise.') }}</p>
+        <a href="#store" class="btn btn-cta btn-pulse" style="font-size: 1.1rem; padding: 14px 32px; border-radius: 999px; font-weight: 700; background: #fff; color: var(--primary);">{{ _('Browse Store') }} <i class="fas fa-arrow-right"></i></a>
     </div>
     <div class="stats-bar" style="display: none;"> <!-- We will display stats here if needed, but let's keep it clean -->
     </div>
@@ -39,12 +39,12 @@
                 {{ user.name[0]|upper }}
             </div>
             <div>
-                <div style="font-weight: 700; font-size: 1.2rem;">Level {{ user.level }}</div>
+                <div style="font-weight: 700; font-size: 1.2rem;">{{ _('Level') }} {{ user.level }}</div>
                 <div class="text-muted" style="font-size: 0.9rem;">
                     {% if user.active_title_id %}
-                        <span class="{{ user.active_title.css_class }}">{{ user.active_title.name }}</span>
+                        <span class="{{ user.active_title.css_class }}">{{ _(user.active_title.name) }}</span>
                     {% else %}
-                        Pro Member
+                        {{ _('Pro Member') }}
                     {% endif %}
                 </div>
             </div>
@@ -71,8 +71,8 @@
     
     <!-- Featured Quizzes (Storefront) -->
     <div id="store" class="d-flex justify-between align-center mb-4">
-        <h2 style="font-size: 1.8rem; font-weight: 800;">Featured Categories</h2>
-        <a href="#" class="text-muted" style="font-weight: 600;">View All <i class="fas fa-chevron-right"></i></a>
+        <h2 style="font-size: 1.8rem; font-weight: 800;">{{ _('Featured Categories') }}</h2>
+        <a href="#" class="text-muted" style="font-weight: 600;">{{ _('View All') }} <i class="fas fa-chevron-right"></i></a>
     </div>
     
     <div class="grid-cols-4 mb-4" style="margin-bottom: 4rem;">
@@ -92,18 +92,18 @@
                 <div class="d-flex justify-between align-center mb-4">
                     <span class="badge badge-new">New</span>
                     <span class="text-muted" style="font-size: 0.8rem; font-weight: 600;">
-                        <i class="fas fa-list"></i> {{ category.questions|length }} Qs
+                        <i class="fas fa-list"></i> {{ category_counts[category.id] }} Qs
                     </span>
                 </div>
                 
-                <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-primary);">{{ category.name }}</h3>
+                <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-primary);">{{ _(category.name) }}</h3>
                 <p class="text-muted" style="font-size: 0.9rem; margin-bottom: 1.5rem; line-height: 1.5; flex-grow: 1;">
-                    {{ category.description }}
+                    {{ _(category.description) }}
                 </p>
                 
                 <div style="border-top: 1px solid var(--border); padding-top: 1rem;">
                     <a href="{{ url_for('take_quiz', category_id=category.id) }}" class="btn btn-primary">
-                        <i class="fas fa-play"></i> Start Quiz
+                        <i class="fas fa-play"></i> {{ _('Start Quiz') }}
                     </a>
                 </div>
             </div>

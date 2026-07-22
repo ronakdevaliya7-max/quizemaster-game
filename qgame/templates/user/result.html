@@ -57,17 +57,23 @@
         
         {% for r in review_data %}
             <div style="margin-bottom: 1rem; padding: 1rem; border-radius: 8px; background: rgba(255,255,255,0.05);" class="{% if r.is_correct %}border-success{% else %}border-danger{% endif %}">
-                <p style="font-weight: 600; margin-bottom: 5px;">Q: {{ r.question }}</p>
-                <div style="display: flex; justify-content: space-between; font-size: 0.95rem;">
-                    <span class="{% if r.is_correct %}text-success{% else %}text-danger{% endif %}">
-                        Your Answer: Option {{ r.user_ans }} ({{ r.user_ans_text }})
-                    </span>
-                    {% if not r.is_correct %}
-                    <span style="color: var(--success); font-weight: 600;">
-                        Correct Answer: Option {{ r.correct_ans }} ({{ r.correct_ans_text }})
-                    </span>
-                    {% endif %}
+                <p style="font-weight: 600; margin-bottom: 10px;">Q: {{ r.question }}</p>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+                    {% for opt, label in [('A', r.option_a), ('B', r.option_b), ('C', r.option_c), ('D', r.option_d)] %}
+                        <div style="padding: 8px 12px; border-radius: 5px; background: rgba(0,0,0,0.2); 
+                                    {% if r.correct_ans == opt %}border: 1px solid var(--success); background: rgba(16, 185, 129, 0.2);{% endif %}
+                                    {% if not r.is_correct and r.user_ans == opt %}border: 1px solid var(--danger); background: rgba(239, 68, 68, 0.2);{% endif %}">
+                            <strong>{{ opt }}.</strong> {{ label }}
+                            {% if r.correct_ans == opt %}<span style="float:right; color:var(--success);">✓</span>{% endif %}
+                            {% if not r.is_correct and r.user_ans == opt %}<span style="float:right; color:var(--danger);">✗</span>{% endif %}
+                        </div>
+                    {% endfor %}
                 </div>
+                
+                {% if not r.user_ans or r.user_ans == '-' %}
+                    <div style="color: var(--warning); font-size: 0.95rem; font-weight: 500;">You did not answer this question.</div>
+                {% endif %}
             </div>
         {% endfor %}
     </div>
