@@ -1,4 +1,4 @@
-from models import db, UserBadge, Badge
+from qgame.models import db, UserBadge, Badge
 
 LEVEL_THRESHOLDS = [0, 100, 250, 500, 1000, 2000, 5000] # Levels 1 to 7
 LEVEL_NAMES = {
