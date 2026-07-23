@@ -351,65 +351,6 @@ def admin_dashboard():
     
     return render_template('admin/dashboard.html', user=current_user, users_count=users_count, quizzes_count=quizzes_count, certs_count=certs_count, questions_count=questions_count, categories_count=categories_count, store_items_count=store_items_count, recent_users=recent_users)
 
-def fetch_and_translate_questions_bg(app, category_id, tdb_id, initial_amount, name):
-    with app.app_context():
-        amounts_to_try = [initial_amount, 25, 15, 10, 5]
-        data = None
-        
-        for amount in amounts_to_try:
-            url = f"https://opentdb.com/api.php?amount={amount}&category={tdb_id}&type=multiple"
-            try:
-                req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-                response = urllib.request.urlopen(req)
-                data = json.loads(response.read())
-                if data.get('response_code') == 0:
-                    break
-            except Exception as e:
-                print(f"API request failed for {amount} questions: {e}")
-                
-        if not data or data.get('response_code') != 0:
-            print(f"Background fetch failed completely for {name}")
-            return
-            
-        try:
-            for res in data['results']:
-                question_text = html.unescape(res['question'])
-                correct = html.unescape(res['correct_answer'])
-                incorrects = [html.unescape(ans) for ans in res['incorrect_answers']]
-                
-                all_opts = incorrects + [correct]
-                random.shuffle(all_opts)
-                correct_letter = chr(65 + all_opts.index(correct))
-                
-                for lang in ['en', 'gu', 'hi']:
-                    if lang == 'en':
-                        q_text, opt_a, opt_b, opt_c, opt_d = question_text, all_opts[0], all_opts[1], all_opts[2], all_opts[3]
-                    else:
-                        translator = GoogleTranslator(source='en', target=lang)
-                        try:
-                            to_trans = [question_text, all_opts[0], all_opts[1], all_opts[2], all_opts[3]]
-                            translated = translator.translate_batch(to_trans)
-                            q_text, opt_a, opt_b, opt_c, opt_d = translated
-                        except Exception as e:
-                            print(f"Translation error: {e}")
-                            q_text, opt_a, opt_b, opt_c, opt_d = question_text, all_opts[0], all_opts[1], all_opts[2], all_opts[3]
-                    
-                    q = Question(
-                        category_id=category_id,
-                        text=q_text,
-                        option_a=opt_a,
-                        option_b=opt_b,
-                        option_c=opt_c,
-                        option_d=opt_d,
-                        correct_option=correct_letter,
-                        difficulty=res['difficulty'].capitalize(),
-                        language=lang
-                    )
-                    db.session.add(q)
-            db.session.commit()
-            print(f"Background fetch for {name} complete.")
-        except Exception as e:
-            print(f"Background fetch exception for {name}: {e}")
 
 @app.route('/admin/categories', methods=['GET', 'POST'])
 @login_required
@@ -440,12 +381,67 @@ def admin_categories():
             }
             tdb_id = category_map.get(name, 9)
             
-            # Start background thread
-            t = threading.Thread(target=fetch_and_translate_questions_bg, args=(app, cat.id, tdb_id, 50, name))
-            t.daemon = True
-            t.start()
+            amounts_to_try = [10, 5]
+            data = None
             
-            flash(f'Category "{name}" added! 50 questions are being fetched and translated in the background (this may take a minute).', 'success')
+            for amount in amounts_to_try:
+                url = f"https://opentdb.com/api.php?amount={amount}&category={tdb_id}&type=multiple&difficulty=easy"
+                try:
+                    req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+                    response = urllib.request.urlopen(req)
+                    data = json.loads(response.read())
+                    if data.get('response_code') == 0:
+                        break
+                except Exception as e:
+                    print(f"API request failed for {amount} questions: {e}")
+                    
+            if data and data.get('response_code') == 0:
+                try:
+                    for res in data['results']:
+                        question_text = html.unescape(res['question'])
+                        correct = html.unescape(res['correct_answer'])
+                        incorrects = [html.unescape(ans) for ans in res['incorrect_answers']]
+                        
+                        all_opts = incorrects + [correct]
+                        random.shuffle(all_opts)
+                        correct_letter = chr(65 + all_opts.index(correct))
+                        
+                        for lang in ['en', 'gu', 'hi']:
+                            if lang == 'en':
+                                q_text, opt_a, opt_b, opt_c, opt_d = question_text, all_opts[0], all_opts[1], all_opts[2], all_opts[3]
+                            else:
+                                translator = GoogleTranslator(source='en', target=lang)
+                                try:
+                                    to_trans = [question_text, all_opts[0], all_opts[1], all_opts[2], all_opts[3]]
+                                    translated = translator.translate_batch(to_trans)
+                                    q_text, opt_a, opt_b, opt_c, opt_d = translated
+                                except Exception as e:
+                                    print(f"Translation error: {e}")
+                                    q_text, opt_a, opt_b, opt_c, opt_d = question_text, all_opts[0], all_opts[1], all_opts[2], all_opts[3]
+                            
+                            q = Question(
+                                category_id=cat.id,
+                                text=q_text,
+                                option_a=opt_a,
+                                option_b=opt_b,
+                                option_c=opt_c,
+                                option_d=opt_d,
+                                correct_option=correct_letter,
+                                difficulty=res['difficulty'].capitalize(),
+                                language=lang
+                            )
+                            db.session.add(q)
+                    db.session.commit()
+                    flash(f'Category "{name}" added with easy questions!', 'success')
+                except Exception as e:
+                    db.session.delete(cat)
+                    db.session.commit()
+                    flash(f'Error saving questions for "{name}": {e}', 'danger')
+            else:
+                db.session.delete(cat)
+                db.session.commit()
+                flash(f'Failed to fetch questions for "{name}". API Error.', 'danger')
+                
             return redirect(url_for('admin_categories'))
         
     categories = Category.query.all()
