@@ -379,7 +379,7 @@ def admin_categories():
                 'Vehicles': 28, 'Comics': 29, 'Gadgets': 30, 'Anime & Manga': 31, 'Cartoon & Animations': 32
             }
             tdb_id = category_map.get(name, 9)
-            url = f"https://opentdb.com/api.php?amount=50&category={tdb_id}&type=multiple"
+            url = f"https://opentdb.com/api.php?amount=25&category={tdb_id}&type=multiple"
             
             try:
                 req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
