@@ -5,6 +5,7 @@ import json
 import html
 import random
 import time
+import threading
 from flask import Flask, render_template, redirect, url_for, flash, request, session, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
@@ -350,6 +351,56 @@ def admin_dashboard():
     
     return render_template('admin/dashboard.html', user=current_user, users_count=users_count, quizzes_count=quizzes_count, certs_count=certs_count, questions_count=questions_count, categories_count=categories_count, store_items_count=store_items_count, recent_users=recent_users)
 
+def fetch_and_translate_questions_bg(app, category_id, tdb_id, amount, name):
+    with app.app_context():
+        url = f"https://opentdb.com/api.php?amount={amount}&category={tdb_id}&type=multiple"
+        try:
+            req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+            response = urllib.request.urlopen(req)
+            data = json.loads(response.read())
+            
+            if data['response_code'] == 0:
+                for res in data['results']:
+                    question_text = html.unescape(res['question'])
+                    correct = html.unescape(res['correct_answer'])
+                    incorrects = [html.unescape(ans) for ans in res['incorrect_answers']]
+                    
+                    all_opts = incorrects + [correct]
+                    random.shuffle(all_opts)
+                    correct_letter = chr(65 + all_opts.index(correct))
+                    
+                    for lang in ['en', 'gu', 'hi']:
+                        if lang == 'en':
+                            q_text, opt_a, opt_b, opt_c, opt_d = question_text, all_opts[0], all_opts[1], all_opts[2], all_opts[3]
+                        else:
+                            translator = GoogleTranslator(source='en', target=lang)
+                            try:
+                                to_trans = [question_text, all_opts[0], all_opts[1], all_opts[2], all_opts[3]]
+                                translated = translator.translate_batch(to_trans)
+                                q_text, opt_a, opt_b, opt_c, opt_d = translated
+                            except Exception as e:
+                                print(f"Translation error: {e}")
+                                q_text, opt_a, opt_b, opt_c, opt_d = question_text, all_opts[0], all_opts[1], all_opts[2], all_opts[3]
+                        
+                        q = Question(
+                            category_id=category_id,
+                            text=q_text,
+                            option_a=opt_a,
+                            option_b=opt_b,
+                            option_c=opt_c,
+                            option_d=opt_d,
+                            correct_option=correct_letter,
+                            difficulty=res['difficulty'].capitalize(),
+                            language=lang
+                        )
+                        db.session.add(q)
+                db.session.commit()
+                print(f"Background fetch for {name} complete.")
+            else:
+                print(f"Background fetch failed for {name}: API returned {data['response_code']}")
+        except Exception as e:
+            print(f"Background fetch exception for {name}: {e}")
+
 @app.route('/admin/categories', methods=['GET', 'POST'])
 @login_required
 def admin_categories():
@@ -370,7 +421,6 @@ def admin_categories():
                 flash(f'Category "{name}" already exists!', 'danger')
                 return redirect(url_for('admin_categories'))
             
-            # 2. Fetch 50 Questions
             category_map = {
                 'General Knowledge': 9, 'Books': 10, 'Film': 11, 'Music': 12, 'Musicals & Theatres': 13,
                 'Television': 14, 'Video Games': 15, 'Board Games': 16, 'Science & Nature': 17,
@@ -379,74 +429,14 @@ def admin_categories():
                 'Vehicles': 28, 'Comics': 29, 'Gadgets': 30, 'Anime & Manga': 31, 'Cartoon & Animations': 32
             }
             tdb_id = category_map.get(name, 9)
-            url = f"https://opentdb.com/api.php?amount=5&category={tdb_id}&type=multiple"
             
-            try:
-                req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-                response = urllib.request.urlopen(req)
-                data = json.loads(response.read())
-                
-                if data['response_code'] == 0:
-                    for res in data['results']:
-                        question_text = html.unescape(res['question'])
-                        correct = html.unescape(res['correct_answer'])
-                        incorrects = [html.unescape(ans) for ans in res['incorrect_answers']]
-                        
-                        all_opts = incorrects + [correct]
-                        random.shuffle(all_opts)
-                        correct_letter = chr(65 + all_opts.index(correct))
-                        
-                        # Add in all 3 languages
-                        for lang in ['en', 'gu', 'hi']:
-                            if lang == 'en':
-                                q_text = question_text
-                                opt_a = all_opts[0]
-                                opt_b = all_opts[1]
-                                opt_c = all_opts[2]
-                                opt_d = all_opts[3]
-                            else:
-                                translator = GoogleTranslator(source='en', target=lang)
-                                try:
-                                    to_trans = [question_text, all_opts[0], all_opts[1], all_opts[2], all_opts[3]]
-                                    translated = translator.translate_batch(to_trans)
-                                    q_text = translated[0]
-                                    opt_a = translated[1]
-                                    opt_b = translated[2]
-                                    opt_c = translated[3]
-                                    opt_d = translated[4]
-                                except Exception as e:
-                                    print(f"Translation error: {e}")
-                                    q_text = question_text
-                                    opt_a = all_opts[0]
-                                    opt_b = all_opts[1]
-                                    opt_c = all_opts[2]
-                                    opt_d = all_opts[3]
-
-                            q = Question(
-                                category_id=cat.id,
-                                text=q_text,
-                                option_a=opt_a,
-                                option_b=opt_b,
-                                option_c=opt_c,
-                                option_d=opt_d,
-                                correct_option=correct_letter,
-                                difficulty=res['difficulty'].capitalize(),
-                                language=lang
-                            )
-                            db.session.add(q)
-                    db.session.commit()
-                    flash(f'Category "{name}" added with 50 questions in 3 languages!', 'success')
-                else:
-                    db.session.delete(cat)
-                    db.session.commit()
-                    flash(f'Failed to fetch questions from Trivia API for "{name}". The category was not added.', 'danger')
-            except Exception as e:
-                print(f"Error fetching questions: {e}")
-                db.session.delete(cat)
-                db.session.commit()
-                flash(f'Error fetching questions for "{name}". The category was not added.', 'danger')
-                
-        return redirect(url_for('admin_categories'))
+            # Start background thread
+            t = threading.Thread(target=fetch_and_translate_questions_bg, args=(app, cat.id, tdb_id, 50, name))
+            t.daemon = True
+            t.start()
+            
+            flash(f'Category "{name}" added! 50 questions are being fetched and translated in the background (this may take a minute).', 'success')
+            return redirect(url_for('admin_categories'))
         
     categories = Category.query.all()
     return render_template('admin/categories.html', categories=categories)
