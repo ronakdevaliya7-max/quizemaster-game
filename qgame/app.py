@@ -712,58 +712,56 @@ def admin_import_custom():
         
     import json
     import os
-    data_file = os.path.join(basedir, 'data', 'ramayana.json')
-    data_file2 = os.path.join(basedir, 'data', 'ramayana_part2.json')
-    data_file3 = os.path.join(basedir, 'data', 'ramayana_part3.json')
     
-    questions = []
-    if os.path.exists(data_file):
-        with open(data_file, 'r', encoding='utf-8') as f:
-            questions.extend(json.load(f))
+    topics = [
+        ("Ramayana", ['ramayana.json', 'ramayana_part2.json', 'ramayana_part3.json'], "Test your knowledge of the Ramayana epic, its characters, events, and teachings."),
+        ("Mahabharata", ['mahabharata.json'], "Test your knowledge of the Mahabharata epic."),
+        ("Hindu Gods", ['hindu_gods.json'], "Test your knowledge about Hindu Gods and Deities."),
+        ("Indian History", ['indian_history.json'], "Test your knowledge of Indian History."),
+        ("Indian Culture", ['indian_culture.json'], "Test your knowledge of Indian Culture and traditions.")
+    ]
+    
+    total_added = 0
+    for cat_name, file_names, desc in topics:
+        questions = []
+        for fn in file_names:
+            data_file = os.path.join(basedir, 'data', fn)
+            if os.path.exists(data_file):
+                with open(data_file, 'r', encoding='utf-8') as f:
+                    questions.extend(json.load(f))
+                    
+        if not questions:
+            continue
             
-    if os.path.exists(data_file2):
-        with open(data_file2, 'r', encoding='utf-8') as f:
-            questions.extend(json.load(f))
+        cat = Category.query.filter_by(name=cat_name).first()
+        if not cat:
+            cat = Category(name=cat_name, description=desc)
+            db.session.add(cat)
+            db.session.commit()
             
-    if os.path.exists(data_file3):
-        with open(data_file3, 'r', encoding='utf-8') as f:
-            questions.extend(json.load(f))
-            
-    if not questions:
-        flash('Data files not found!', 'danger')
-        return redirect(url_for('admin_categories'))
+        added_count = 0
+        for q_data in questions:
+            existing = Question.query.filter_by(category_id=cat.id, text=q_data['en']['text']).first()
+            if not existing:
+                for lang in ['en', 'hi', 'gu']:
+                    q = Question(
+                        category_id=cat.id,
+                        text=q_data[lang]['text'],
+                        option_a=q_data[lang]['opt_a'],
+                        option_b=q_data[lang]['opt_b'],
+                        option_c=q_data[lang]['opt_c'],
+                        option_d=q_data[lang]['opt_d'],
+                        correct_option=q_data['correct_option'],
+                        difficulty=q_data['difficulty'],
+                        language=lang
+                    )
+                    db.session.add(q)
+                added_count += 3
         
-    # Check if category exists, create if not
-    cat_name = "Ramayana"
-    cat = Category.query.filter_by(name=cat_name).first()
-    if not cat:
-        cat = Category(name=cat_name, description="Test your knowledge of the Ramayana epic, its characters, events, and teachings.")
-        db.session.add(cat)
         db.session.commit()
+        total_added += added_count
         
-    # Add questions
-    added_count = 0
-    for q_data in questions:
-        # Avoid exact duplicates if possible by checking text in english
-        existing = Question.query.filter_by(category_id=cat.id, text=q_data['en']['text']).first()
-        if not existing:
-            for lang in ['en', 'hi', 'gu']:
-                q = Question(
-                    category_id=cat.id,
-                    text=q_data[lang]['text'],
-                    option_a=q_data[lang]['opt_a'],
-                    option_b=q_data[lang]['opt_b'],
-                    option_c=q_data[lang]['opt_c'],
-                    option_d=q_data[lang]['opt_d'],
-                    correct_option=q_data['correct_option'],
-                    difficulty=q_data['difficulty'],
-                    language=lang
-                )
-                db.session.add(q)
-            added_count += 3 # 1 for each language
-            
-    db.session.commit()
-    flash(f'Successfully imported {added_count // 3} Ramayana questions in 3 languages!', 'success')
+    flash(f'Successfully imported {total_added // 3} questions across special topics in 3 languages!', 'success')
     return redirect(url_for('admin_categories'))
 
 if __name__ == '__main__':

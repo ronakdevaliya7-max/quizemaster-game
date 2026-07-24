@@ -1,0 +1,127 @@
+[
+    {
+        "difficulty": "Easy",
+        "correct_option": "A",
+        "en": {
+            "text": "Which festival is known as the 'Festival of Lights'?",
+            "opt_a": "Diwali",
+            "opt_b": "Holi",
+            "opt_c": "Eid",
+            "opt_d": "Navratri"
+        },
+        "hi": {
+            "text": "किस त्योहार को 'रोशनी का त्योहार' कहा जाता है?",
+            "opt_a": "दिवाली",
+            "opt_b": "होली",
+            "opt_c": "ईद",
+            "opt_d": "नवरात्रि"
+        },
+        "gu": {
+            "text": "કયા તહેવારને 'પ્રકાશના તહેવાર' તરીકે ઓળખવામાં આવે છે?",
+            "opt_a": "દિવાળી",
+            "opt_b": "હોળી",
+            "opt_c": "ઈદ",
+            "opt_d": "નવરાત્રી"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "B",
+        "en": {
+            "text": "Bharatanatyam is a classical dance form from which state?",
+            "opt_a": "Kerala",
+            "opt_b": "Tamil Nadu",
+            "opt_c": "Andhra Pradesh",
+            "opt_d": "Odisha"
+        },
+        "hi": {
+            "text": "भरतनाट्यम किस राज्य का शास्त्रीय नृत्य है?",
+            "opt_a": "केरल",
+            "opt_b": "तमिलनाडु",
+            "opt_c": "आंध्र प्रदेश",
+            "opt_d": "ओडिशा"
+        },
+        "gu": {
+            "text": "ભરતનાટ્યમ કયા રાજ્યનું શાસ્ત્રીય નૃત્ય છે?",
+            "opt_a": "કેરળ",
+            "opt_b": "તમિલનાડુ",
+            "opt_c": "આંધ્ર પ્રદેશ",
+            "opt_d": "ઓડિશા"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "D",
+        "en": {
+            "text": "What is the national flower of India?",
+            "opt_a": "Rose",
+            "opt_b": "Jasmine",
+            "opt_c": "Marigold",
+            "opt_d": "Lotus"
+        },
+        "hi": {
+            "text": "भारत का राष्ट्रीय फूल क्या है?",
+            "opt_a": "गुलाब",
+            "opt_b": "चमेली",
+            "opt_c": "गेंदा",
+            "opt_d": "कमल"
+        },
+        "gu": {
+            "text": "ભારતનું રાષ્ટ્રીય ફૂલ કયું છે?",
+            "opt_a": "ગુલાબ",
+            "opt_b": "ચમેલી",
+            "opt_c": "ગલગોટો",
+            "opt_d": "કમળ"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "C",
+        "en": {
+            "text": "Which of these is a famous Indian classical music instrument?",
+            "opt_a": "Guitar",
+            "opt_b": "Piano",
+            "opt_c": "Sitar",
+            "opt_d": "Violin"
+        },
+        "hi": {
+            "text": "इनमें से कौन सा एक प्रसिद्ध भारतीय शास्त्रीय संगीत वाद्ययंत्र है?",
+            "opt_a": "गिटार",
+            "opt_b": "पियानो",
+            "opt_c": "सितार",
+            "opt_d": "वायलिन"
+        },
+        "gu": {
+            "text": "આમાંથી કયું પ્રખ્યાત ભારતીય શાસ્ત્રીય સંગીત વાદ્ય છે?",
+            "opt_a": "ગિટાર",
+            "opt_b": "પિયાનો",
+            "opt_c": "સિતાર",
+            "opt_d": "વાયોલિન"
+        }
+    },
+    {
+        "difficulty": "Hard",
+        "correct_option": "A",
+        "en": {
+            "text": "The Kumbh Mela is held every how many years?",
+            "opt_a": "12",
+            "opt_b": "10",
+            "opt_c": "5",
+            "opt_d": "14"
+        },
+        "hi": {
+            "text": "कुंभ मेला हर कितने साल में आयोजित किया जाता है?",
+            "opt_a": "12",
+            "opt_b": "10",
+            "opt_c": "5",
+            "opt_d": "14"
+        },
+        "gu": {
+            "text": "કુંભ મેળો દર કેટલા વર્ષે યોજાય છે?",
+            "opt_a": "12",
+            "opt_b": "10",
+            "opt_c": "5",
+            "opt_d": "14"
+        }
+    }
+]

@@ -1,0 +1,127 @@
+[
+    {
+        "difficulty": "Easy",
+        "correct_option": "B",
+        "en": {
+            "text": "Who is known as the Preserver in the Hindu Trinity?",
+            "opt_a": "Brahma",
+            "opt_b": "Vishnu",
+            "opt_c": "Shiva",
+            "opt_d": "Indra"
+        },
+        "hi": {
+            "text": "हिंदू त्रिमूर्ति में पालनहार किसे कहा जाता है?",
+            "opt_a": "ब्रह्मा",
+            "opt_b": "विष्णु",
+            "opt_c": "शिव",
+            "opt_d": "इंद्र"
+        },
+        "gu": {
+            "text": "હિન્દુ ત્રિમૂર્તિમાં પાલનહાર કોને કહેવામાં આવે છે?",
+            "opt_a": "બ્રહ્મા",
+            "opt_b": "વિષ્ણુ",
+            "opt_c": "શિવ",
+            "opt_d": "ઇન્દ્ર"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "C",
+        "en": {
+            "text": "Which animal is the vahana (vehicle) of Lord Ganesha?",
+            "opt_a": "Lion",
+            "opt_b": "Peacock",
+            "opt_c": "Mouse",
+            "opt_d": "Bull"
+        },
+        "hi": {
+            "text": "भगवान गणेश का वाहन कौन सा जानवर है?",
+            "opt_a": "शेर",
+            "opt_b": "मोर",
+            "opt_c": "चूहा",
+            "opt_d": "बैल"
+        },
+        "gu": {
+            "text": "ભગવાન ગણેશનું વાહન કયું પ્રાણી છે?",
+            "opt_a": "સિંહ",
+            "opt_b": "મોર",
+            "opt_c": "ઉંદર",
+            "opt_d": "બળદ"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "A",
+        "en": {
+            "text": "Goddess Saraswati is associated with which of the following?",
+            "opt_a": "Knowledge and Art",
+            "opt_b": "Wealth",
+            "opt_c": "Power",
+            "opt_d": "Destruction"
+        },
+        "hi": {
+            "text": "देवी सरस्वती का संबंध किससे है?",
+            "opt_a": "ज्ञान और कला",
+            "opt_b": "धन",
+            "opt_c": "शक्ति",
+            "opt_d": "विनाश"
+        },
+        "gu": {
+            "text": "દેવી સરસ્વતી શેની સાથે સંકળાયેલા છે?",
+            "opt_a": "જ્ઞાન અને કળા",
+            "opt_b": "ધન",
+            "opt_c": "શક્તિ",
+            "opt_d": "વિનાશ"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "D",
+        "en": {
+            "text": "Which God has a third eye on his forehead?",
+            "opt_a": "Indra",
+            "opt_b": "Surya",
+            "opt_c": "Agni",
+            "opt_d": "Shiva"
+        },
+        "hi": {
+            "text": "किस भगवान के माथे पर तीसरी आंख है?",
+            "opt_a": "इंद्र",
+            "opt_b": "सूर्य",
+            "opt_c": "अग्नि",
+            "opt_d": "शिव"
+        },
+        "gu": {
+            "text": "કયા ભગવાનના કપાળ પર ત્રીજી આંખ છે?",
+            "opt_a": "ઇન્દ્ર",
+            "opt_b": "સૂર્ય",
+            "opt_c": "અગ્નિ",
+            "opt_d": "શિવ"
+        }
+    },
+    {
+        "difficulty": "Hard",
+        "correct_option": "B",
+        "en": {
+            "text": "Who is the god of death in Hindu mythology?",
+            "opt_a": "Varuna",
+            "opt_b": "Yama",
+            "opt_c": "Vayu",
+            "opt_d": "Kuber"
+        },
+        "hi": {
+            "text": "हिंदू पौराणिक कथाओं में मृत्यु के देवता कौन हैं?",
+            "opt_a": "वरुण",
+            "opt_b": "यम",
+            "opt_c": "वायु",
+            "opt_d": "कुबेर"
+        },
+        "gu": {
+            "text": "હિન્દુ પૌરાણિક કથાઓમાં મૃત્યુના દેવતા કોણ છે?",
+            "opt_a": "વરુણ",
+            "opt_b": "યમ",
+            "opt_c": "વાયુ",
+            "opt_d": "કુબેર"
+        }
+    }
+]

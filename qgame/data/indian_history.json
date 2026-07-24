@@ -1,0 +1,127 @@
+[
+    {
+        "difficulty": "Easy",
+        "correct_option": "C",
+        "en": {
+            "text": "Who was the first Prime Minister of India?",
+            "opt_a": "Mahatma Gandhi",
+            "opt_b": "Sardar Patel",
+            "opt_c": "Jawaharlal Nehru",
+            "opt_d": "B. R. Ambedkar"
+        },
+        "hi": {
+            "text": "भारत के पहले प्रधान मंत्री कौन थे?",
+            "opt_a": "महात्मा गांधी",
+            "opt_b": "सरदार पटेल",
+            "opt_c": "जवाहरलाल नेहरू",
+            "opt_d": "बी. आर. अंबेडकर"
+        },
+        "gu": {
+            "text": "ભારતના પ્રથમ વડા પ્રધાન કોણ હતા?",
+            "opt_a": "મહાત્મા ગાંધી",
+            "opt_b": "સરદાર પટેલ",
+            "opt_c": "જવાહરલાલ નેહરુ",
+            "opt_d": "બી. આર. આંબેડકર"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "A",
+        "en": {
+            "text": "In which year did India gain independence?",
+            "opt_a": "1947",
+            "opt_b": "1950",
+            "opt_c": "1942",
+            "opt_d": "1857"
+        },
+        "hi": {
+            "text": "भारत को स्वतंत्रता किस वर्ष मिली?",
+            "opt_a": "1947",
+            "opt_b": "1950",
+            "opt_c": "1942",
+            "opt_d": "1857"
+        },
+        "gu": {
+            "text": "ભારતને કયા વર્ષમાં આઝાદી મળી?",
+            "opt_a": "1947",
+            "opt_b": "1950",
+            "opt_c": "1942",
+            "opt_d": "1857"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "D",
+        "en": {
+            "text": "Who founded the Maurya Empire?",
+            "opt_a": "Ashoka",
+            "opt_b": "Bindusara",
+            "opt_c": "Harsha",
+            "opt_d": "Chandragupta Maurya"
+        },
+        "hi": {
+            "text": "मौर्य साम्राज्य की स्थापना किसने की?",
+            "opt_a": "अशोक",
+            "opt_b": "बिन्दुसार",
+            "opt_c": "हर्ष",
+            "opt_d": "चन्द्रगुप्त मौर्य"
+        },
+        "gu": {
+            "text": "મૌર્ય સામ્રાજ્યની સ્થાપના કોણે કરી?",
+            "opt_a": "અશોક",
+            "opt_b": "બિંદુસાર",
+            "opt_c": "હર્ષ",
+            "opt_d": "ચંદ્રગુપ્ત મૌર્ય"
+        }
+    },
+    {
+        "difficulty": "Hard",
+        "correct_option": "B",
+        "en": {
+            "text": "The Battle of Plassey was fought in which year?",
+            "opt_a": "1764",
+            "opt_b": "1757",
+            "opt_c": "1857",
+            "opt_d": "1799"
+        },
+        "hi": {
+            "text": "प्लासी का युद्ध किस वर्ष लड़ा गया था?",
+            "opt_a": "1764",
+            "opt_b": "1757",
+            "opt_c": "1857",
+            "opt_d": "1799"
+        },
+        "gu": {
+            "text": "પ્લાસીનું યુદ્ધ કયા વર્ષમાં લડવામાં આવ્યું હતું?",
+            "opt_a": "1764",
+            "opt_b": "1757",
+            "opt_c": "1857",
+            "opt_d": "1799"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "C",
+        "en": {
+            "text": "Who is known as the 'Iron Man of India'?",
+            "opt_a": "Bhagat Singh",
+            "opt_b": "Subhas Chandra Bose",
+            "opt_c": "Sardar Vallabhbhai Patel",
+            "opt_d": "Lal Bahadur Shastri"
+        },
+        "hi": {
+            "text": "'भारत के लौह पुरुष' के रूप में किसे जाना जाता है?",
+            "opt_a": "भगत सिंह",
+            "opt_b": "सुभाष चंद्र बोस",
+            "opt_c": "सरदार वल्लभभाई पटेल",
+            "opt_d": "लाल बहादुर शास्त्री"
+        },
+        "gu": {
+            "text": "'ભારતના લોખંડી પુરુષ' તરીકે કોણ ઓળખાય છે?",
+            "opt_a": "ભગત સિંહ",
+            "opt_b": "સુભાષ ચંદ્ર બોઝ",
+            "opt_c": "સરદાર વલ્લભભાઈ પટેલ",
+            "opt_d": "લાલ બહાદુર શાસ્ત્રી"
+        }
+    }
+]

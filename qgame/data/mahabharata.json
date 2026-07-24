@@ -1,0 +1,127 @@
+[
+    {
+        "difficulty": "Easy",
+        "correct_option": "A",
+        "en": {
+            "text": "Who is the author of Mahabharata?",
+            "opt_a": "Ved Vyasa",
+            "opt_b": "Valmiki",
+            "opt_c": "Tulsidas",
+            "opt_d": "Kalidasa"
+        },
+        "hi": {
+            "text": "महाभारत के रचयिता कौन हैं?",
+            "opt_a": "वेद व्यास",
+            "opt_b": "वाल्मीकि",
+            "opt_c": "तुलसीदास",
+            "opt_d": "कालिदास"
+        },
+        "gu": {
+            "text": "મહાભારતના રચયિતા કોણ છે?",
+            "opt_a": "વેદ વ્યાસ",
+            "opt_b": "વાલ્મીકિ",
+            "opt_c": "તુલસીદાસ",
+            "opt_d": "કાલિદાસ"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "C",
+        "en": {
+            "text": "How many Pandava brothers were there?",
+            "opt_a": "3",
+            "opt_b": "4",
+            "opt_c": "5",
+            "opt_d": "100"
+        },
+        "hi": {
+            "text": "पांडव भाई कितने थे?",
+            "opt_a": "3",
+            "opt_b": "4",
+            "opt_c": "5",
+            "opt_d": "100"
+        },
+        "gu": {
+            "text": "પાંડવો કેટલા ભાઈઓ હતા?",
+            "opt_a": "3",
+            "opt_b": "4",
+            "opt_c": "5",
+            "opt_d": "100"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "B",
+        "en": {
+            "text": "What was the real name of Bhishma?",
+            "opt_a": "Shantanu",
+            "opt_b": "Devavrata",
+            "opt_c": "Chitrangada",
+            "opt_d": "Vichitravirya"
+        },
+        "hi": {
+            "text": "भीष्म का असली नाम क्या था?",
+            "opt_a": "शांतनु",
+            "opt_b": "देवव्रत",
+            "opt_c": "चित्रांगद",
+            "opt_d": "विचित्रवीर्य"
+        },
+        "gu": {
+            "text": "ભીષ્મનું સાચું નામ શું હતું?",
+            "opt_a": "શાંતનુ",
+            "opt_b": "દેવવ્રત",
+            "opt_c": "ચિત્રાંગદ",
+            "opt_d": "વિચિત્રવીર્ય"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "D",
+        "en": {
+            "text": "Who was the charioteer of Arjuna during the Kurukshetra war?",
+            "opt_a": "Sanjaya",
+            "opt_b": "Dronacharya",
+            "opt_c": "Bhishma",
+            "opt_d": "Krishna"
+        },
+        "hi": {
+            "text": "कुरुक्षेत्र युद्ध के दौरान अर्जुन के सारथी कौन थे?",
+            "opt_a": "संजय",
+            "opt_b": "द्रोणाचार्य",
+            "opt_c": "भीष्म",
+            "opt_d": "कृष्ण"
+        },
+        "gu": {
+            "text": "કુરુક્ષેત્ર યુદ્ધ દરમિયાન અર્જુનના સારથી કોણ હતા?",
+            "opt_a": "સંજય",
+            "opt_b": "દ્રોણાચાર્ય",
+            "opt_c": "ભીષ્મ",
+            "opt_d": "કૃષ્ણ"
+        }
+    },
+    {
+        "difficulty": "Hard",
+        "correct_option": "A",
+        "en": {
+            "text": "Who killed Dushasana?",
+            "opt_a": "Bhima",
+            "opt_b": "Arjuna",
+            "opt_c": "Yudhishthira",
+            "opt_d": "Nakula"
+        },
+        "hi": {
+            "text": "दुशासन का वध किसने किया था?",
+            "opt_a": "भीम",
+            "opt_b": "अर्जुन",
+            "opt_c": "युधिष्ठिर",
+            "opt_d": "नकुल"
+        },
+        "gu": {
+            "text": "દુશાસનનો વધ કોણે કર્યો હતો?",
+            "opt_a": "ભીમ",
+            "opt_b": "અર્જુન",
+            "opt_c": "યુધિષ્ઠિર",
+            "opt_d": "નકુલ"
+        }
+    }
+]
