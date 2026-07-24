@@ -1,0 +1,627 @@
+[
+    {
+        "difficulty": "Hard",
+        "correct_option": "A",
+        "en": {
+            "text": "Who vowed to kill Bhishma?",
+            "opt_a": "Amba",
+            "opt_b": "Ambalika",
+            "opt_c": "Ambika",
+            "opt_d": "Gandhari"
+        },
+        "hi": {
+            "text": "भीष्म को मारने की प्रतिज्ञा किसने की थी?",
+            "opt_a": "अंबा",
+            "opt_b": "अंबालिका",
+            "opt_c": "अंबिका",
+            "opt_d": "गांधारी"
+        },
+        "gu": {
+            "text": "ભીષ્મને મારવાની પ્રતિજ્ઞા કોણે લીધી હતી?",
+            "opt_a": "અંબા",
+            "opt_b": "અંબાલિકા",
+            "opt_c": "અંબિકા",
+            "opt_d": "ગાંધારી"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "A",
+        "en": {
+            "text": "Who killed Jayadratha?",
+            "opt_a": "Arjuna",
+            "opt_b": "Bhima",
+            "opt_c": "Yudhishthira",
+            "opt_d": "Satyaki"
+        },
+        "hi": {
+            "text": "जयद्रथ का वध किसने किया?",
+            "opt_a": "अर्जुन",
+            "opt_b": "भीम",
+            "opt_c": "युधिष्ठिर",
+            "opt_d": "सात्यकि"
+        },
+        "gu": {
+            "text": "જયદ્રથનો વધ કોણે કર્યો?",
+            "opt_a": "અર્જુન",
+            "opt_b": "ભીમ",
+            "opt_c": "યુધિષ્ઠિર",
+            "opt_d": "સાત્યકિ"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "C",
+        "en": {
+            "text": "Who was the eldest Kaurava?",
+            "opt_a": "Dushasana",
+            "opt_b": "Vikarna",
+            "opt_c": "Duryodhana",
+            "opt_d": "Yuyutsu"
+        },
+        "hi": {
+            "text": "सबसे बड़ा कौरव कौन था?",
+            "opt_a": "दुशासन",
+            "opt_b": "विकर्ण",
+            "opt_c": "दुर्योधधन",
+            "opt_d": "युयुत्सु"
+        },
+        "gu": {
+            "text": "સૌથી મોટો કૌરવ કોણ હતો?",
+            "opt_a": "દુશાસન",
+            "opt_b": "વિકર્ણ",
+            "opt_c": "દુર્યોધન",
+            "opt_d": "યુયુત્સુ"
+        }
+    },
+    {
+        "difficulty": "Hard",
+        "correct_option": "D",
+        "en": {
+            "text": "Who survived the Kurukshetra war from the Kaurava side?",
+            "opt_a": "Ashwatthama",
+            "opt_b": "Kritavarma",
+            "opt_c": "Kripacharya",
+            "opt_d": "All of the above"
+        },
+        "hi": {
+            "text": "कुरुक्षेत्र युद्ध में कौरवों की ओर से कौन जीवित बचा था?",
+            "opt_a": "अश्वत्थामा",
+            "opt_b": "कृतवर्मा",
+            "opt_c": "कृपाचार्य",
+            "opt_d": "उपरोक्त सभी"
+        },
+        "gu": {
+            "text": "કુરુક્ષેત્રના યુદ્ધમાં કૌરવો તરફથી કોણ જીવિત બચ્યું હતું?",
+            "opt_a": "અશ્વત્થામા",
+            "opt_b": "કૃતવર્મા",
+            "opt_c": "કૃપાચાર્ય",
+            "opt_d": "ઉપરોક્ત તમામ"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "C",
+        "en": {
+            "text": "To whom did Krishna recite the Bhagavad Gita?",
+            "opt_a": "Yudhishthira",
+            "opt_b": "Bhima",
+            "opt_c": "Arjuna",
+            "opt_d": "Duryodhana"
+        },
+        "hi": {
+            "text": "कृष्ण ने भगवद गीता किसे सुनाई थी?",
+            "opt_a": "युधिष्ठिर",
+            "opt_b": "भीम",
+            "opt_c": "अर्जुन",
+            "opt_d": "दुर्योधन"
+        },
+        "gu": {
+            "text": "કૃષ્ણે ભગવદ ગીતા કોને સંભળાવી હતી?",
+            "opt_a": "યુધિષ્ઠિર",
+            "opt_b": "ભીમ",
+            "opt_c": "અર્જુન",
+            "opt_d": "દુર્યોધન"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "A",
+        "en": {
+            "text": "Who was the mother of Karna?",
+            "opt_a": "Kunti",
+            "opt_b": "Radha",
+            "opt_c": "Gandhari",
+            "opt_d": "Madri"
+        },
+        "hi": {
+            "text": "कर्ण की माता कौन थीं?",
+            "opt_a": "कुंती",
+            "opt_b": "राधा",
+            "opt_c": "गांधारी",
+            "opt_d": "माद्री"
+        },
+        "gu": {
+            "text": "કર્ણની માતા કોણ હતા?",
+            "opt_a": "કુંતી",
+            "opt_b": "રાધા",
+            "opt_c": "ગાંધારી",
+            "opt_d": "માદ્રી"
+        }
+    },
+    {
+        "difficulty": "Hard",
+        "correct_option": "A",
+        "en": {
+            "text": "Who raised Karna?",
+            "opt_a": "Adhiratha and Radha",
+            "opt_b": "Nanda and Yashoda",
+            "opt_c": "Pandu and Kunti",
+            "opt_d": "Dhritarashtra and Gandhari"
+        },
+        "hi": {
+            "text": "कर्ण का पालन-पोषण किसने किया?",
+            "opt_a": "अधिरथ और राधा",
+            "opt_b": "नंद और यशोदा",
+            "opt_c": "पांडु और कुंती",
+            "opt_d": "धृतराष्ट्र और गांधारी"
+        },
+        "gu": {
+            "text": "કર્ણનો ઉછેર કોણે કર્યો હતો?",
+            "opt_a": "અધિરથ અને રાધા",
+            "opt_b": "નંદ અને યશોદા",
+            "opt_c": "પાંડુ અને કુંતી",
+            "opt_d": "ધૃતરાષ્ટ્ર અને ગાંધારી"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "B",
+        "en": {
+            "text": "Who was the blind king of Hastinapur?",
+            "opt_a": "Pandu",
+            "opt_b": "Dhritarashtra",
+            "opt_c": "Shantanu",
+            "opt_d": "Vichitravirya"
+        },
+        "hi": {
+            "text": "हस्तिनापुर का अंधा राजा कौन था?",
+            "opt_a": "पांडु",
+            "opt_b": "धृतराष्ट्र",
+            "opt_c": "शांतनु",
+            "opt_d": "विचित्रवीर्य"
+        },
+        "gu": {
+            "text": "હસ્તિનાપુરના અંધ રાજા કોણ હતા?",
+            "opt_a": "પાંડુ",
+            "opt_b": "ધૃતરાષ્ટ્ર",
+            "opt_c": "શાંતનુ",
+            "opt_d": "વિચિત્રવીર્ય"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "A",
+        "en": {
+            "text": "Who was the uncle of Kauravas?",
+            "opt_a": "Shakuni",
+            "opt_b": "Vidura",
+            "opt_c": "Shalya",
+            "opt_d": "Kripa"
+        },
+        "hi": {
+            "text": "कौरवों के मामा कौन थे?",
+            "opt_a": "शकुनि",
+            "opt_b": "विदुर",
+            "opt_c": "शल्य",
+            "opt_d": "कृपा"
+        },
+        "gu": {
+            "text": "કૌરવોના મામા કોણ હતા?",
+            "opt_a": "શકુનિ",
+            "opt_b": "વિદુર",
+            "opt_c": "શલ્ય",
+            "opt_d": "કૃપા"
+        }
+    },
+    {
+        "difficulty": "Hard",
+        "correct_option": "D",
+        "en": {
+            "text": "What was the name of Yudhishthira's conch?",
+            "opt_a": "Panchajanya",
+            "opt_b": "Devadatta",
+            "opt_c": "Paundra",
+            "opt_d": "Anantavijaya"
+        },
+        "hi": {
+            "text": "युधिष्ठिर के शंख का क्या नाम था?",
+            "opt_a": "पांचजन्य",
+            "opt_b": "देवदत्त",
+            "opt_c": "पौंड्र",
+            "opt_d": "अनंतविजय"
+        },
+        "gu": {
+            "text": "યુધિષ્ઠિરના શંખનું નામ શું હતું?",
+            "opt_a": "પાંચજન્ય",
+            "opt_b": "દેવદત્ત",
+            "opt_c": "પૌંડ્ર",
+            "opt_d": "અનંતવિજય"
+        }
+    },
+    {
+        "difficulty": "Hard",
+        "correct_option": "B",
+        "en": {
+            "text": "Who killed Shakuni?",
+            "opt_a": "Bhima",
+            "opt_b": "Sahadeva",
+            "opt_c": "Nakula",
+            "opt_d": "Arjuna"
+        },
+        "hi": {
+            "text": "शकुनि का वध किसने किया?",
+            "opt_a": "भीम",
+            "opt_b": "सहदेव",
+            "opt_c": "नकुल",
+            "opt_d": "अर्जुन"
+        },
+        "gu": {
+            "text": "શકુનિનો વધ કોણે કર્યો?",
+            "opt_a": "ભીમ",
+            "opt_b": "સહદેવ",
+            "opt_c": "નકુલ",
+            "opt_d": "અર્જુન"
+        }
+    },
+    {
+        "difficulty": "Hard",
+        "correct_option": "A",
+        "en": {
+            "text": "Who killed Shalya?",
+            "opt_a": "Yudhishthira",
+            "opt_b": "Arjuna",
+            "opt_c": "Bhima",
+            "opt_d": "Nakula"
+        },
+        "hi": {
+            "text": "शल्य का वध किसने किया?",
+            "opt_a": "युधिष्ठिर",
+            "opt_b": "अर्जुन",
+            "opt_c": "भीम",
+            "opt_d": "नकुल"
+        },
+        "gu": {
+            "text": "શલ્યનો વધ કોણે કર્યો?",
+            "opt_a": "યુધિષ્ઠિર",
+            "opt_b": "અર્જુન",
+            "opt_c": "ભીમ",
+            "opt_d": "નકુલ"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "B",
+        "en": {
+            "text": "Who was the commander of Kaurava army on the first day?",
+            "opt_a": "Drona",
+            "opt_b": "Bhishma",
+            "opt_c": "Karna",
+            "opt_d": "Shalya"
+        },
+        "hi": {
+            "text": "पहले दिन कौरव सेना का सेनापति कौन था?",
+            "opt_a": "द्रोण",
+            "opt_b": "भीष्म",
+            "opt_c": "कर्ण",
+            "opt_d": "शल्य"
+        },
+        "gu": {
+            "text": "પ્રથમ દિવસે કૌરવ સેનાના સેનાપતિ કોણ હતા?",
+            "opt_a": "દ્રોણ",
+            "opt_b": "ભીષ્મ",
+            "opt_c": "કર્ણ",
+            "opt_d": "શલ્ય"
+        }
+    },
+    {
+        "difficulty": "Hard",
+        "correct_option": "A",
+        "en": {
+            "text": "For how many days was Bhishma the commander?",
+            "opt_a": "10",
+            "opt_b": "5",
+            "opt_c": "2",
+            "opt_d": "18"
+        },
+        "hi": {
+            "text": "भीष्म कितने दिनों तक सेनापति रहे?",
+            "opt_a": "10",
+            "opt_b": "5",
+            "opt_c": "2",
+            "opt_d": "18"
+        },
+        "gu": {
+            "text": "ભીષ્મ કેટલા દિવસ સુધી સેનાપતિ રહ્યા?",
+            "opt_a": "10",
+            "opt_b": "5",
+            "opt_c": "2",
+            "opt_d": "18"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "B",
+        "en": {
+            "text": "Who created the Chakravyuha on the 13th day?",
+            "opt_a": "Bhishma",
+            "opt_b": "Drona",
+            "opt_c": "Karna",
+            "opt_d": "Shalya"
+        },
+        "hi": {
+            "text": "13वें दिन चक्रव्यूह की रचना किसने की थी?",
+            "opt_a": "भीष्म",
+            "opt_b": "द्रोण",
+            "opt_c": "कर्ण",
+            "opt_d": "शल्य"
+        },
+        "gu": {
+            "text": "13મા દિવસે ચક્રવ્યૂહની રચના કોણે કરી હતી?",
+            "opt_a": "ભીષ્મ",
+            "opt_b": "દ્રોણ",
+            "opt_c": "કર્ણ",
+            "opt_d": "શલ્ય"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "D",
+        "en": {
+            "text": "Who killed Abhimanyu?",
+            "opt_a": "Karna",
+            "opt_b": "Dushasana",
+            "opt_c": "Jayadratha",
+            "opt_d": "Multiple warriors"
+        },
+        "hi": {
+            "text": "अभिमन्यु का वध किसने किया?",
+            "opt_a": "कर्ण",
+            "opt_b": "दुशासन",
+            "opt_c": "जयद्रथ",
+            "opt_d": "कई योद्धाओं ने"
+        },
+        "gu": {
+            "text": "અભિમન્યુનો વધ કોણે કર્યો?",
+            "opt_a": "કર્ણ",
+            "opt_b": "દુશાસન",
+            "opt_c": "જયદ્રથ",
+            "opt_d": "ઘણા યોદ્ધાઓએ"
+        }
+    },
+    {
+        "difficulty": "Hard",
+        "correct_option": "A",
+        "en": {
+            "text": "What was the name of Bhima's mace?",
+            "opt_a": "Kaumodaki",
+            "opt_b": "Vayavya",
+            "opt_c": "Gada",
+            "opt_d": "Vajra"
+        },
+        "hi": {
+            "text": "भीम की गदा का क्या नाम था?",
+            "opt_a": "कौमोदकी",
+            "opt_b": "वायव्य",
+            "opt_c": "गदा",
+            "opt_d": "वज्र"
+        },
+        "gu": {
+            "text": "ભીમની ગદાનું નામ શું હતું?",
+            "opt_a": "કૌમોદકી",
+            "opt_b": "વાયવ્ય",
+            "opt_c": "ગદા",
+            "opt_d": "વજ્ર"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "A",
+        "en": {
+            "text": "Who was the son of Bhima and Hidimbi?",
+            "opt_a": "Ghatotkacha",
+            "opt_b": "Barbarika",
+            "opt_c": "Abhimanyu",
+            "opt_d": "Iravan"
+        },
+        "hi": {
+            "text": "भीम और हिडिम्बी का पुत्र कौन था?",
+            "opt_a": "घटोत्कच",
+            "opt_b": "बर्बरीक",
+            "opt_c": "अभिमन्यु",
+            "opt_d": "इरावान"
+        },
+        "gu": {
+            "text": "ભીમ અને હિડિમ્બીનો પુત્ર કોણ હતો?",
+            "opt_a": "ઘટોત્કચ",
+            "opt_b": "બર્બરીક",
+            "opt_c": "અભિમન્યુ",
+            "opt_d": "ઇરાવાન"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "A",
+        "en": {
+            "text": "Who killed Ghatotkacha?",
+            "opt_a": "Karna",
+            "opt_b": "Drona",
+            "opt_c": "Duryodhana",
+            "opt_d": "Ashwatthama"
+        },
+        "hi": {
+            "text": "घटोत्कच का वध किसने किया?",
+            "opt_a": "कर्ण",
+            "opt_b": "द्रोण",
+            "opt_c": "दुर्योधन",
+            "opt_d": "अश्वत्थामा"
+        },
+        "gu": {
+            "text": "ઘટોત્કચનો વધ કોણે કર્યો?",
+            "opt_a": "કર્ણ",
+            "opt_b": "દ્રોણ",
+            "opt_c": "દુર્યોધન",
+            "opt_d": "અશ્વત્થામા"
+        }
+    },
+    {
+        "difficulty": "Hard",
+        "correct_option": "C",
+        "en": {
+            "text": "Which weapon did Karna use to kill Ghatotkacha?",
+            "opt_a": "Brahmastra",
+            "opt_b": "Pashupatastra",
+            "opt_c": "Vasavi Shakti",
+            "opt_d": "Narayanastra"
+        },
+        "hi": {
+            "text": "घटोत्कच को मारने के लिए कर्ण ने किस अस्त्र का उपयोग किया था?",
+            "opt_a": "ब्रह्मास्त्र",
+            "opt_b": "पाशुपतास्त्र",
+            "opt_c": "वासवी शक्ति",
+            "opt_d": "नारायणास्त्र"
+        },
+        "gu": {
+            "text": "ઘટોત્કચને મારવા માટે કર્ણે કયા અસ્ત્રનો ઉપયોગ કર્યો હતો?",
+            "opt_a": "બ્રહ્માસ્ત્ર",
+            "opt_b": "પાશુપતાસ્ત્ર",
+            "opt_c": "વાસવી શક્તિ",
+            "opt_d": "નારાયણાસ્ત્ર"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "B",
+        "en": {
+            "text": "Who narrated the Mahabharata war to Dhritarashtra?",
+            "opt_a": "Vidura",
+            "opt_b": "Sanjaya",
+            "opt_c": "Vyasa",
+            "opt_d": "Kripa"
+        },
+        "hi": {
+            "text": "धृतराष्ट्र को महाभारत युद्ध का वर्णन किसने सुनाया था?",
+            "opt_a": "विदुर",
+            "opt_b": "संजय",
+            "opt_c": "व्यास",
+            "opt_d": "कृपा"
+        },
+        "gu": {
+            "text": "ધૃતરાષ્ટ્રને મહાભારત યુદ્ધનું વર્ણન કોણે સંભળાવ્યું હતું?",
+            "opt_a": "વિદુર",
+            "opt_b": "સંજય",
+            "opt_c": "વ્યાસ",
+            "opt_d": "કૃપા"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "A",
+        "en": {
+            "text": "Who gave Sanjaya the divine vision?",
+            "opt_a": "Vyasa",
+            "opt_b": "Krishna",
+            "opt_c": "Shiva",
+            "opt_d": "Brahma"
+        },
+        "hi": {
+            "text": "संजय को दिव्य दृष्टि किसने दी थी?",
+            "opt_a": "व्यास",
+            "opt_b": "कृष्ण",
+            "opt_c": "शिव",
+            "opt_d": "ब्रह्मा"
+        },
+        "gu": {
+            "text": "સંજયને દિવ્ય દૃષ્ટિ કોણે આપી હતી?",
+            "opt_a": "વ્યાસ",
+            "opt_b": "કૃષ્ણ",
+            "opt_c": "શિવ",
+            "opt_d": "બ્રહ્મા"
+        }
+    },
+    {
+        "difficulty": "Hard",
+        "correct_option": "A",
+        "en": {
+            "text": "Who was the mother of Vyasa?",
+            "opt_a": "Satyavati",
+            "opt_b": "Ganga",
+            "opt_c": "Amba",
+            "opt_d": "Kunti"
+        },
+        "hi": {
+            "text": "व्यास की माता कौन थीं?",
+            "opt_a": "सत्यवती",
+            "opt_b": "गंगा",
+            "opt_c": "अंबा",
+            "opt_d": "कुंती"
+        },
+        "gu": {
+            "text": "વ્યાસની માતા કોણ હતા?",
+            "opt_a": "સત્યવતી",
+            "opt_b": "ગંગા",
+            "opt_c": "અંબા",
+            "opt_d": "કુંતી"
+        }
+    },
+    {
+        "difficulty": "Hard",
+        "correct_option": "C",
+        "en": {
+            "text": "What is the final book of Mahabharata?",
+            "opt_a": "Bhishma Parva",
+            "opt_b": "Shanti Parva",
+            "opt_c": "Swargarohanika Parva",
+            "opt_d": "Ashvamedhika Parva"
+        },
+        "hi": {
+            "text": "महाभारत का अंतिम पर्व कौन सा है?",
+            "opt_a": "भीष्म पर्व",
+            "opt_b": "शांति पर्व",
+            "opt_c": "स्वर्गारोहण पर्व",
+            "opt_d": "अश्वमेधिक पर्व"
+        },
+        "gu": {
+            "text": "મહાભારતનું અંતિમ પર્વ કયું છે?",
+            "opt_a": "ભીષ્મ પર્વ",
+            "opt_b": "શાંતિ પર્વ",
+            "opt_c": "સ્વર્ગારોહણ પર્વ",
+            "opt_d": "અશ્વમેધિક પર્વ"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "B",
+        "en": {
+            "text": "Who was Arjuna's son by Subhadra?",
+            "opt_a": "Iravan",
+            "opt_b": "Abhimanyu",
+            "opt_c": "Babhruvahana",
+            "opt_d": "Shrutakarma"
+        },
+        "hi": {
+            "text": "सुभद्रा से अर्जुन का पुत्र कौन था?",
+            "opt_a": "इरावान",
+            "opt_b": "अभिमन्यु",
+            "opt_c": "बभ्रुवाहन",
+            "opt_d": "श्रुतकर्मा"
+        },
+        "gu": {
+            "text": "સુભદ્રા દ્વારા અર્જુનનો પુત્ર કોણ હતો?",
+            "opt_a": "ઇરાવાન",
+            "opt_b": "અભિમન્યુ",
+            "opt_c": "બભ્રુવાહન",
+            "opt_d": "શ્રુતકર્મા"
+        }
+    }
+]

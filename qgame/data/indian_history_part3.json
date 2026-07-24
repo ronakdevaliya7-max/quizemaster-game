@@ -1,0 +1,627 @@
+[
+    {
+        "difficulty": "Easy",
+        "correct_option": "A",
+        "en": {
+            "text": "Who is known as the Father of the Nation in India?",
+            "opt_a": "Mahatma Gandhi",
+            "opt_b": "Jawaharlal Nehru",
+            "opt_c": "Subhas Chandra Bose",
+            "opt_d": "Sardar Patel"
+        },
+        "hi": {
+            "text": "भारत में राष्ट्रपिता के रूप में किसे जाना जाता है?",
+            "opt_a": "महात्मा गांधी",
+            "opt_b": "जवाहरलाल नेहरू",
+            "opt_c": "सुभाष चंद्र बोस",
+            "opt_d": "सरदार पटेल"
+        },
+        "gu": {
+            "text": "ભારતમાં રાષ્ટ્રપિતા તરીકે કોણ ઓળખાય છે?",
+            "opt_a": "મહાત્મા ગાંધી",
+            "opt_b": "જવાહરલાલ નેહરુ",
+            "opt_c": "સુભાષચંદ્ર બોઝ",
+            "opt_d": "સરદાર પટેલ"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "C",
+        "en": {
+            "text": "Who founded the Brahmo Samaj?",
+            "opt_a": "Swami Vivekananda",
+            "opt_b": "Dayananda Saraswati",
+            "opt_c": "Raja Ram Mohan Roy",
+            "opt_d": "Ishwar Chandra Vidyasagar"
+        },
+        "hi": {
+            "text": "ब्रह्म समाज की स्थापना किसने की?",
+            "opt_a": "स्वामी विवेकानंद",
+            "opt_b": "दयानंद सरस्वती",
+            "opt_c": "राजा राम मोहन राय",
+            "opt_d": "ईश्वर चंद्र विद्यासागर"
+        },
+        "gu": {
+            "text": "બ્રહ્મો સમાજની સ્થાપના કોણે કરી હતી?",
+            "opt_a": "સ્વામી વિવેકાનંદ",
+            "opt_b": "દયાનંદ સરસ્વતી",
+            "opt_c": "રાજા રામ મોહન રાય",
+            "opt_d": "ઈશ્વરચંદ્ર વિદ્યાસાગર"
+        }
+    },
+    {
+        "difficulty": "Hard",
+        "correct_option": "B",
+        "en": {
+            "text": "Which movement was started by Mahatma Gandhi in 1930?",
+            "opt_a": "Non-Cooperation Movement",
+            "opt_b": "Civil Disobedience Movement (Dandi March)",
+            "opt_c": "Quit India Movement",
+            "opt_d": "Khilafat Movement"
+        },
+        "hi": {
+            "text": "1930 में महात्मा गांधी ने कौन सा आंदोलन शुरू किया था?",
+            "opt_a": "असहयोग आंदोलन",
+            "opt_b": "सविनय अवज्ञा आंदोलन (दांडी मार्च)",
+            "opt_c": "भारत छोड़ो आंदोलन",
+            "opt_d": "खिलाफत आंदोलन"
+        },
+        "gu": {
+            "text": "1930 માં મહાત્મા ગાંધીએ કયું આંદોલન શરૂ કર્યું હતું?",
+            "opt_a": "અસહકાર આંદોલન",
+            "opt_b": "સવિનય કાનૂન ભંગ આંદોલન (દાંડી કૂચ)",
+            "opt_c": "ભારત છોડો આંદોલન",
+            "opt_d": "ખિલાફત આંદોલન"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "A",
+        "en": {
+            "text": "Who is known as the 'Iron Man of India'?",
+            "opt_a": "Sardar Vallabhbhai Patel",
+            "opt_b": "Lal Bahadur Shastri",
+            "opt_c": "Bhagat Singh",
+            "opt_d": "Bal Gangadhar Tilak"
+        },
+        "hi": {
+            "text": "भारत के 'लौह पुरुष' के रूप में किसे जाना जाता है?",
+            "opt_a": "सरदार वल्लभभाई पटेल",
+            "opt_b": "लाल बहादुर शास्त्री",
+            "opt_c": "भगत सिंह",
+            "opt_d": "बाल गंगाधर तिलक"
+        },
+        "gu": {
+            "text": "ભારતના 'લોખંડી પુરુષ' તરીકે કોણ ઓળખાય છે?",
+            "opt_a": "સરદાર વલ્લભભાઈ પટેલ",
+            "opt_b": "લાલ બહાદુર શાસ્ત્રી",
+            "opt_c": "ભગત સિંહ",
+            "opt_d": "બાળ ગંગાધર તિલક"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "C",
+        "en": {
+            "text": "Who established the Ramakrishna Mission?",
+            "opt_a": "Ramakrishna Paramahamsa",
+            "opt_b": "Raja Ram Mohan Roy",
+            "opt_c": "Swami Vivekananda",
+            "opt_d": "Aurobindo Ghosh"
+        },
+        "hi": {
+            "text": "रामकृष्ण मिशन की स्थापना किसने की?",
+            "opt_a": "रामकृष्ण परमहंस",
+            "opt_b": "राजा राम मोहन राय",
+            "opt_c": "स्वामी विवेकानंद",
+            "opt_d": "अरबिंदो घोष"
+        },
+        "gu": {
+            "text": "રામકૃષ્ણ મિશનની સ્થાપના કોણે કરી હતી?",
+            "opt_a": "રામકૃષ્ણ પરમહંસ",
+            "opt_b": "રાજા રામ મોહન રાય",
+            "opt_c": "સ્વામી વિવેકાનંદ",
+            "opt_d": "અરવિંદ ઘોષ"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "B",
+        "en": {
+            "text": "Who was the founder of the Indian National Army (Azad Hind Fauj)?",
+            "opt_a": "Bhagat Singh",
+            "opt_b": "Subhas Chandra Bose",
+            "opt_c": "Chandrashekhar Azad",
+            "opt_d": "Mangal Pandey"
+        },
+        "hi": {
+            "text": "भारतीय राष्ट्रीय सेना (आजाद हिंद फौज) के संस्थापक कौन थे?",
+            "opt_a": "भगत सिंह",
+            "opt_b": "सुभाष चंद्र बोस",
+            "opt_c": "चंद्रशेखर आजाद",
+            "opt_d": "मंगल पांडे"
+        },
+        "gu": {
+            "text": "ભારતીય રાષ્ટ્રીય સેના (આઝાદ હિંદ ફોજ) ના સ્થાપક કોણ હતા?",
+            "opt_a": "ભગત સિંહ",
+            "opt_b": "સુભાષચંદ્ર બોઝ",
+            "opt_c": "ચંદ્રશેખર આઝાદ",
+            "opt_d": "મંગલ પાંડે"
+        }
+    },
+    {
+        "difficulty": "Hard",
+        "correct_option": "A",
+        "en": {
+            "text": "Who was the Viceroy of India when it became independent?",
+            "opt_a": "Lord Mountbatten",
+            "opt_b": "Lord Curzon",
+            "opt_c": "Lord Dalhousie",
+            "opt_d": "Lord Irwin"
+        },
+        "hi": {
+            "text": "भारत के स्वतंत्र होने पर भारत का वायसराय कौन था?",
+            "opt_a": "लॉर्ड माउंटबेटन",
+            "opt_b": "लॉर्ड कर्जन",
+            "opt_c": "लॉर्ड डलहौजी",
+            "opt_d": "लॉर्ड इरविन"
+        },
+        "gu": {
+            "text": "ભારત આઝાદ થયું ત્યારે ભારતના વાઇસરોય કોણ હતા?",
+            "opt_a": "લોર્ડ માઉન્ટબેટન",
+            "opt_b": "લોર્ડ કર્ઝન",
+            "opt_c": "લોર્ડ ડેલહાઉસી",
+            "opt_d": "લોર્ડ ઇરવિન"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "C",
+        "en": {
+            "text": "Who was the first woman President of the Indian National Congress?",
+            "opt_a": "Sarojini Naidu",
+            "opt_b": "Indira Gandhi",
+            "opt_c": "Annie Besant",
+            "opt_d": "Vijaya Lakshmi Pandit"
+        },
+        "hi": {
+            "text": "भारतीय राष्ट्रीय कांग्रेस की पहली महिला अध्यक्ष कौन थीं?",
+            "opt_a": "सरोजिनी नायडू",
+            "opt_b": "इंदिरा गांधी",
+            "opt_c": "एनी बेसेंट",
+            "opt_d": "विजया लक्ष्मी पंडित"
+        },
+        "gu": {
+            "text": "ભારતીય રાષ્ટ્રીય કોંગ્રેસના પ્રથમ મહિલા પ્રમુખ કોણ હતા?",
+            "opt_a": "સરોજિની નાયડુ",
+            "opt_b": "ઇન્દિરા ગાંધી",
+            "opt_c": "એની બેસન્ટ",
+            "opt_d": "વિજયા લક્ષ્મી પંડિત"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "A",
+        "en": {
+            "text": "The Sepoy Mutiny (First War of Independence) took place in?",
+            "opt_a": "1857",
+            "opt_b": "1947",
+            "opt_c": "1757",
+            "opt_d": "1885"
+        },
+        "hi": {
+            "text": "सिपाही विद्रोह (प्रथम स्वतंत्रता संग्राम) कब हुआ था?",
+            "opt_a": "1857",
+            "opt_b": "1947",
+            "opt_c": "1757",
+            "opt_d": "1885"
+        },
+        "gu": {
+            "text": "સિપાહી બળવો (પ્રથમ સ્વાતંત્ર્ય સંગ્રામ) ક્યારે થયો હતો?",
+            "opt_a": "1857",
+            "opt_b": "1947",
+            "opt_c": "1757",
+            "opt_d": "1885"
+        }
+    },
+    {
+        "difficulty": "Hard",
+        "correct_option": "B",
+        "en": {
+            "text": "Who was the founder of the Gupta Empire?",
+            "opt_a": "Chandragupta I",
+            "opt_b": "Sri Gupta",
+            "opt_c": "Samudragupta",
+            "opt_d": "Kumargupta"
+        },
+        "hi": {
+            "text": "गुप्त साम्राज्य का संस्थापक कौन था?",
+            "opt_a": "चंद्रगुप्त प्रथम",
+            "opt_b": "श्री गुप्त",
+            "opt_c": "समुद्रगुप्त",
+            "opt_d": "कुमारगुप्त"
+        },
+        "gu": {
+            "text": "ગુપ્ત સામ્રાજ્યના સ્થાપક કોણ હતા?",
+            "opt_a": "ચંદ્રગુપ્ત પ્રથમ",
+            "opt_b": "શ્રી ગુપ્ત",
+            "opt_c": "સમુદ્રગુપ્ત",
+            "opt_d": "કુમારગુપ્ત"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "A",
+        "en": {
+            "text": "Which ruler embraced Buddhism after the Kalinga War?",
+            "opt_a": "Ashoka",
+            "opt_b": "Harsha",
+            "opt_c": "Chandragupta Maurya",
+            "opt_d": "Kanishka"
+        },
+        "hi": {
+            "text": "कलिंग युद्ध के बाद किस शासक ने बौद्ध धर्म अपना लिया?",
+            "opt_a": "अशोक",
+            "opt_b": "हर्ष",
+            "opt_c": "चंद्रगुप्त मौर्य",
+            "opt_d": "कनिष्क"
+        },
+        "gu": {
+            "text": "કલિંગના યુદ્ધ પછી કયા શાસકે બૌદ્ધ ધર્મ સ્વીકાર્યો?",
+            "opt_a": "અશોક",
+            "opt_b": "હર્ષ",
+            "opt_c": "ચંદ્રગુપ્ત મૌર્ય",
+            "opt_d": "કનિષ્ક"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "D",
+        "en": {
+            "text": "Who built the Red Fort in Delhi?",
+            "opt_a": "Akbar",
+            "opt_b": "Jahangir",
+            "opt_c": "Aurangzeb",
+            "opt_d": "Shah Jahan"
+        },
+        "hi": {
+            "text": "दिल्ली का लाल किला किसने बनवाया था?",
+            "opt_a": "अकबर",
+            "opt_b": "जहांगीर",
+            "opt_c": "औरंगजेब",
+            "opt_d": "शाहजहाँ"
+        },
+        "gu": {
+            "text": "દિલ્હીનો લાલ કિલ્લો કોણે બનાવ્યો હતો?",
+            "opt_a": "અકબર",
+            "opt_b": "જહાંગીર",
+            "opt_c": "ઔરંગઝેબ",
+            "opt_d": "શાહજહાં"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "A",
+        "en": {
+            "text": "The battle of Plassey was fought in the year?",
+            "opt_a": "1757",
+            "opt_b": "1764",
+            "opt_c": "1857",
+            "opt_d": "1942"
+        },
+        "hi": {
+            "text": "प्लासी का युद्ध किस वर्ष लड़ा गया था?",
+            "opt_a": "1757",
+            "opt_b": "1764",
+            "opt_c": "1857",
+            "opt_d": "1942"
+        },
+        "gu": {
+            "text": "પ્લાસીનું યુદ્ધ કયા વર્ષમાં લડાયું હતું?",
+            "opt_a": "1757",
+            "opt_b": "1764",
+            "opt_c": "1857",
+            "opt_d": "1942"
+        }
+    },
+    {
+        "difficulty": "Hard",
+        "correct_option": "B",
+        "en": {
+            "text": "Who was the last Mughal Emperor of India?",
+            "opt_a": "Akbar II",
+            "opt_b": "Bahadur Shah Zafar",
+            "opt_c": "Shah Alam II",
+            "opt_d": "Aurangzeb"
+        },
+        "hi": {
+            "text": "भारत का अंतिम मुगल सम्राट कौन था?",
+            "opt_a": "अकबर द्वितीय",
+            "opt_b": "बहादुर शाह जफर",
+            "opt_c": "शाह आलम द्वितीय",
+            "opt_d": "औरंगजेब"
+        },
+        "gu": {
+            "text": "ભારતનો છેલ્લો મુઘલ સમ્રાટ કોણ હતો?",
+            "opt_a": "અકબર દ્વિતીય",
+            "opt_b": "બહાદુર શાહ ઝફર",
+            "opt_c": "શાહ આલમ દ્વિતીય",
+            "opt_d": "ઔરંગઝેબ"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "C",
+        "en": {
+            "text": "Who is the author of 'Arthashastra'?",
+            "opt_a": "Megasthenes",
+            "opt_b": "Kalidasa",
+            "opt_c": "Chanakya (Kautilya)",
+            "opt_d": "Banabhatta"
+        },
+        "hi": {
+            "text": "'अर्थशास्त्र' के लेखक कौन हैं?",
+            "opt_a": "मेगस्थनीज",
+            "opt_b": "कालिदास",
+            "opt_c": "चाणक्य (कौटिल्य)",
+            "opt_d": "बाणभट्ट"
+        },
+        "gu": {
+            "text": "'અર્થશાસ્ત્ર' ના લેખક કોણ છે?",
+            "opt_a": "મેગસ્થનીઝ",
+            "opt_b": "કાલિદાસ",
+            "opt_c": "ચાણક્ય (કૌટિલ્ય)",
+            "opt_d": "બાણભટ્ટ"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "A",
+        "en": {
+            "text": "Which British Governor-General introduced the Doctrine of Lapse?",
+            "opt_a": "Lord Dalhousie",
+            "opt_b": "Lord Cornwallis",
+            "opt_c": "Lord Wellesley",
+            "opt_d": "Lord Hastings"
+        },
+        "hi": {
+            "text": "किस ब्रिटिश गवर्नर-जनरल ने व्यपगत का सिद्धांत (Doctrine of Lapse) पेश किया?",
+            "opt_a": "लॉर्ड डलहौजी",
+            "opt_b": "लॉर्ड कार्नवालिस",
+            "opt_c": "लॉर्ड वेलेस्ली",
+            "opt_d": "लॉर्ड हेस्टिंग्स"
+        },
+        "gu": {
+            "text": "કયા બ્રિટિશ ગવર્નર-જનરલે ખાલસા નીતિ (Doctrine of Lapse) દાખલ કરી?",
+            "opt_a": "લોર્ડ ડેલહાઉસી",
+            "opt_b": "લોર્ડ કોર્નવોલિસ",
+            "opt_c": "લોર્ડ વેલેસ્લી",
+            "opt_d": "લોર્ડ હેસ્ટિંગ્સ"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "D",
+        "en": {
+            "text": "Who composed 'Vande Mataram'?",
+            "opt_a": "Rabindranath Tagore",
+            "opt_b": "Sarojini Naidu",
+            "opt_c": "Muhammad Iqbal",
+            "opt_d": "Bankim Chandra Chatterjee"
+        },
+        "hi": {
+            "text": "'वंदे मातरम' की रचना किसने की?",
+            "opt_a": "रवींद्रनाथ टैगोर",
+            "opt_b": "सरोजिनी नायडू",
+            "opt_c": "मुहम्मद इकबाल",
+            "opt_d": "बंकिम चंद्र चटर्जी"
+        },
+        "gu": {
+            "text": "'વંદે માતરમ' ની રચના કોણે કરી?",
+            "opt_a": "રવીન્દ્રનાથ ટાગોર",
+            "opt_b": "સરોજિની નાયડુ",
+            "opt_c": "મુહમ્મદ ઈકબાલ",
+            "opt_d": "બંકિમચંદ્ર ચેટરજી"
+        }
+    },
+    {
+        "difficulty": "Hard",
+        "correct_option": "B",
+        "en": {
+            "text": "The partition of Bengal took place in which year?",
+            "opt_a": "1903",
+            "opt_b": "1905",
+            "opt_c": "1911",
+            "opt_d": "1914"
+        },
+        "hi": {
+            "text": "बंगाल का विभाजन किस वर्ष हुआ था?",
+            "opt_a": "1903",
+            "opt_b": "1905",
+            "opt_c": "1911",
+            "opt_d": "1914"
+        },
+        "gu": {
+            "text": "બંગાળના ભાગલા કયા વર્ષમાં થયા હતા?",
+            "opt_a": "1903",
+            "opt_b": "1905",
+            "opt_c": "1911",
+            "opt_d": "1914"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "A",
+        "en": {
+            "text": "Who established the Arya Samaj?",
+            "opt_a": "Dayananda Saraswati",
+            "opt_b": "Swami Vivekananda",
+            "opt_c": "Raja Ram Mohan Roy",
+            "opt_d": "Ishwar Chandra Vidyasagar"
+        },
+        "hi": {
+            "text": "आर्य समाज की स्थापना किसने की?",
+            "opt_a": "दयानंद सरस्वती",
+            "opt_b": "स्वामी विवेकानंद",
+            "opt_c": "राजा राम मोहन राय",
+            "opt_d": "ईश्वर चंद्र विद्यासागर"
+        },
+        "gu": {
+            "text": "આર્ય સમાજની સ્થાપના કોણે કરી હતી?",
+            "opt_a": "દયાનંદ સરસ્વતી",
+            "opt_b": "સ્વામી વિવેકાનંદ",
+            "opt_c": "રાજા રામ મોહન રાય",
+            "opt_d": "ઈશ્વરચંદ્ર વિદ્યાસાગર"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "C",
+        "en": {
+            "text": "The Salt Satyagraha started from which place?",
+            "opt_a": "Surat",
+            "opt_b": "Dandi",
+            "opt_c": "Sabarmati Ashram",
+            "opt_d": "Bardoli"
+        },
+        "hi": {
+            "text": "नमक सत्याग्रह किस स्थान से शुरू हुआ था?",
+            "opt_a": "सूरत",
+            "opt_b": "दांडी",
+            "opt_c": "साबरमती आश्रम",
+            "opt_d": "बारडोली"
+        },
+        "gu": {
+            "text": "મીઠાનો સત્યાગ્રહ કયા સ્થળેથી શરૂ થયો હતો?",
+            "opt_a": "સુરત",
+            "opt_b": "દાંડી",
+            "opt_c": "સાબરમતી આશ્રમ",
+            "opt_d": "બારડોલી"
+        }
+    },
+    {
+        "difficulty": "Hard",
+        "correct_option": "B",
+        "en": {
+            "text": "Who was the first Indian to pass the Indian Civil Service exam?",
+            "opt_a": "R. C. Dutt",
+            "opt_b": "Satyendranath Tagore",
+            "opt_c": "Surendranath Banerjee",
+            "opt_d": "Dadabhai Naoroji"
+        },
+        "hi": {
+            "text": "भारतीय सिविल सेवा परीक्षा उत्तीर्ण करने वाले पहले भारतीय कौन थे?",
+            "opt_a": "आर. सी. दत्त",
+            "opt_b": "सत्येंद्रनाथ टैगोर",
+            "opt_c": "सुरेंद्रनाथ बनर्जी",
+            "opt_d": "दादाभाई नौरोजी"
+        },
+        "gu": {
+            "text": "ભારતીય સનદી સેવા (ICS) પરીક્ષા પાસ કરનાર પ્રથમ ભારતીય કોણ હતા?",
+            "opt_a": "આર. સી. દત્ત",
+            "opt_b": "સત્યેન્દ્રનાથ ટાગોર",
+            "opt_c": "સુરેન્દ્રનાથ બેનર્જી",
+            "opt_d": "દાદાભાઈ નવરોજી"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "A",
+        "en": {
+            "text": "Who is known as the 'Grand Old Man of India'?",
+            "opt_a": "Dadabhai Naoroji",
+            "opt_b": "Gopal Krishna Gokhale",
+            "opt_c": "Bipin Chandra Pal",
+            "opt_d": "Lala Lajpat Rai"
+        },
+        "hi": {
+            "text": "भारत के 'ग्रैंड ओल्ड मैन' के रूप में किसे जाना जाता है?",
+            "opt_a": "दादाभाई नौरोजी",
+            "opt_b": "गोपाल कृष्ण गोखले",
+            "opt_c": "बिपिन चंद्र पाल",
+            "opt_d": "लाला लाजपत राय"
+        },
+        "gu": {
+            "text": "ભારતના 'ગ્રાન્ડ ઓલ્ડ મેન' તરીકે કોણ ઓળખાય છે?",
+            "opt_a": "દાદાભાઈ નવરોજી",
+            "opt_b": "ગોપાલ કૃષ્ણ ગોખલે",
+            "opt_c": "બિપિન ચંદ્ર પાલ",
+            "opt_d": "લાલા લાજપત રાય"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "C",
+        "en": {
+            "text": "Who gave the slogan 'Jai Jawan, Jai Kisan'?",
+            "opt_a": "Atal Bihari Vajpayee",
+            "opt_b": "Indira Gandhi",
+            "opt_c": "Lal Bahadur Shastri",
+            "opt_d": "Jawaharlal Nehru"
+        },
+        "hi": {
+            "text": "'जय जवान, जय किसान' का नारा किसने दिया?",
+            "opt_a": "अटल बिहारी वाजपेयी",
+            "opt_b": "इंदिरा गांधी",
+            "opt_c": "लाल बहादुर शास्त्री",
+            "opt_d": "जवाहरलाल नेहरू"
+        },
+        "gu": {
+            "text": "'જય જવાન, જય કિસાન' નો નારો કોણે આપ્યો?",
+            "opt_a": "અટલ બિહારી વાજપેયી",
+            "opt_b": "ઇન્દિરા ગાંધી",
+            "opt_c": "લાલ બહાદુર શાસ્ત્રી",
+            "opt_d": "જવાહરલાલ નેહરુ"
+        }
+    },
+    {
+        "difficulty": "Hard",
+        "correct_option": "A",
+        "en": {
+            "text": "Who founded the Forward Bloc?",
+            "opt_a": "Subhas Chandra Bose",
+            "opt_b": "C. R. Das",
+            "opt_c": "Motilal Nehru",
+            "opt_d": "Jawaharlal Nehru"
+        },
+        "hi": {
+            "text": "फॉरवर्ड ब्लॉक की स्थापना किसने की?",
+            "opt_a": "सुभाष चंद्र बोस",
+            "opt_b": "सी. आर. दास",
+            "opt_c": "मोतीलाल नेहरू",
+            "opt_d": "जवाहरलाल नेहरू"
+        },
+        "gu": {
+            "text": "ફોરવર્ડ બ્લોકની સ્થાપના કોણે કરી?",
+            "opt_a": "સુભાષચંદ્ર બોઝ",
+            "opt_b": "સી. આર. દાસ",
+            "opt_c": "મોતીલાલ નેહરુ",
+            "opt_d": "જવાહરલાલ નેહરુ"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "D",
+        "en": {
+            "text": "In which session did the Indian National Congress declare Purna Swaraj?",
+            "opt_a": "Surat Session 1907",
+            "opt_b": "Lucknow Session 1916",
+            "opt_c": "Karachi Session 1931",
+            "opt_d": "Lahore Session 1929"
+        },
+        "hi": {
+            "text": "भारतीय राष्ट्रीय कांग्रेस ने किस अधिवेशन में पूर्ण स्वराज्य की घोषणा की?",
+            "opt_a": "सूरत अधिवेशन 1907",
+            "opt_b": "लखनऊ अधिवेशन 1916",
+            "opt_c": "कराची अधिवेशन 1931",
+            "opt_d": "लाहौर अधिवेशन 1929"
+        },
+        "gu": {
+            "text": "ભારતીય રાષ્ટ્રીય કોંગ્રેસે કયા અધિવેશનમાં પૂર્ણ સ્વરાજની જાહેરાત કરી?",
+            "opt_a": "સુરત અધિવેશન 1907",
+            "opt_b": "લખનૌ અધિવેશન 1916",
+            "opt_c": "કરાચી અધિવેશન 1931",
+            "opt_d": "લાહોર અધિવેશન 1929"
+        }
+    }
+]
