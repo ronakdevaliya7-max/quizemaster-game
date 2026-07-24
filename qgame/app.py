@@ -1,4 +1,7 @@
 import os
+import sys
+# Add parent directory to path so 'qgame' module can be imported when running app.py directly
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import urllib.request
 import urllib.parse
 import json
@@ -23,7 +26,8 @@ import random
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'offline_quiz_secret_key_123'
-db_url = os.environ.get('DATABASE_URL', 'sqlite:///quizmaster.db')
+basedir = os.path.abspath(os.path.dirname(__file__))
+db_url = os.environ.get('DATABASE_URL', 'sqlite:///' + os.path.join(basedir, 'quizmaster.db'))
 if db_url.startswith("postgres://"):
     db_url = db_url.replace("postgres://", "postgresql://", 1)
 app.config['SQLALCHEMY_DATABASE_URI'] = db_url
@@ -130,7 +134,8 @@ def register():
         name = request.form.get('name')
         password = request.form.get('password')
         confirm_password = request.form.get('confirm_password')
-        age = request.form.get('age')
+        age_str = request.form.get('age')
+        age = int(age_str) if age_str and age_str.strip() else None
         gender = request.form.get('gender')
         college = request.form.get('college')
         department = request.form.get('department')
@@ -159,8 +164,9 @@ def register():
         db.session.add(new_user)
         db.session.commit()
         
-        flash('Registration successful. Please login.')
-        return redirect(url_for('login'))
+        flash('Registration successful. Welcome!')
+        login_user(new_user)
+        return redirect(url_for('user_dashboard'))
         
     return render_template('register.html')
 
@@ -315,7 +321,8 @@ def download_certificate(cert_id):
 def profile():
     if request.method == 'POST':
         current_user.name = request.form.get('name')
-        current_user.age = request.form.get('age')
+        age_str = request.form.get('age')
+        current_user.age = int(age_str) if age_str and age_str.strip() else None
         current_user.gender = request.form.get('gender')
         current_user.college = request.form.get('college')
         current_user.department = request.form.get('department')
