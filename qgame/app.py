@@ -25,6 +25,7 @@ import urllib.request
 import random
 
 app = Flask(__name__)
+app.url_map.strict_slashes = False
 app.config['SECRET_KEY'] = 'offline_quiz_secret_key_123'
 basedir = os.path.abspath(os.path.dirname(__file__))
 db_url = os.environ.get('DATABASE_URL', 'sqlite:///' + os.path.join(basedir, 'quizmaster.db'))
