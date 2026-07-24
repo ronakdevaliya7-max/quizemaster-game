@@ -705,8 +705,11 @@ def search():
     return render_template('user/search.html', query=query, categories=matching_categories)
 
 @app.route('/admin/import_custom', methods=['POST'])
-@admin_required
+@login_required
 def admin_import_custom():
+    if current_user.role != 'admin':
+        return redirect(url_for('user_dashboard'))
+        
     import json
     import os
     data_file = os.path.join(basedir, 'data', 'ramayana.json')
