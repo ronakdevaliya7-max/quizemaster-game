@@ -401,66 +401,73 @@ def admin_categories():
             tdb_id = category_map.get(name, 9)
             
             amounts_to_try = [50, 40, 30, 20, 10, 5]
-            data = None
             
-            for amount in amounts_to_try:
-                url = f"https://opentdb.com/api.php?amount={amount}&category={tdb_id}&type=multiple&difficulty=easy"
-                try:
-                    req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-                    response = urllib.request.urlopen(req)
-                    data = json.loads(response.read())
-                    if data.get('response_code') == 0:
-                        break
-                except Exception as e:
-                    print(f"API request failed for {amount} questions: {e}")
-                    
-            if data and data.get('response_code') == 0:
-                try:
-                    for res in data['results']:
-                        question_text = html.unescape(res['question'])
-                        correct = html.unescape(res['correct_answer'])
-                        incorrects = [html.unescape(ans) for ans in res['incorrect_answers']]
-                        
-                        all_opts = incorrects + [correct]
-                        random.shuffle(all_opts)
-                        correct_letter = chr(65 + all_opts.index(correct))
-                        
-                        for lang in ['en', 'gu', 'hi']:
-                            if lang == 'en':
-                                q_text, opt_a, opt_b, opt_c, opt_d = question_text, all_opts[0], all_opts[1], all_opts[2], all_opts[3]
-                            else:
-                                translator = GoogleTranslator(source='en', target=lang)
-                                try:
-                                    to_trans = [question_text, all_opts[0], all_opts[1], all_opts[2], all_opts[3]]
-                                    translated = translator.translate_batch(to_trans)
-                                    q_text, opt_a, opt_b, opt_c, opt_d = translated
-                                except Exception as e:
-                                    print(f"Translation error: {e}")
-                                    q_text, opt_a, opt_b, opt_c, opt_d = question_text, all_opts[0], all_opts[1], all_opts[2], all_opts[3]
+            def fetch_and_translate(app_instance, category_id, category_name, tdb_id, amounts):
+                with app_instance.app_context():
+                    cat = Category.query.get(category_id)
+                    if not cat: return
+                    data = None
+                    for amount in amounts:
+                        url = f"https://opentdb.com/api.php?amount={amount}&category={tdb_id}&type=multiple&difficulty=easy"
+                        try:
+                            req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+                            response = urllib.request.urlopen(req)
+                            data = json.loads(response.read())
+                            if data.get('response_code') == 0:
+                                break
+                        except Exception as e:
+                            print(f"API request failed for {amount} questions: {e}")
                             
-                            q = Question(
-                                category_id=cat.id,
-                                text=q_text,
-                                option_a=opt_a,
-                                option_b=opt_b,
-                                option_c=opt_c,
-                                option_d=opt_d,
-                                correct_option=correct_letter,
-                                difficulty=res['difficulty'].capitalize(),
-                                language=lang
-                            )
-                            db.session.add(q)
-                    db.session.commit()
-                    flash(f'Category "{name}" added with easy questions!', 'success')
-                except Exception as e:
-                    db.session.delete(cat)
-                    db.session.commit()
-                    flash(f'Error saving questions for "{name}": {e}', 'danger')
-            else:
-                db.session.delete(cat)
-                db.session.commit()
-                flash(f'Failed to fetch questions for "{name}". API Error.', 'danger')
-                
+                    if data and data.get('response_code') == 0:
+                        try:
+                            for res in data['results']:
+                                question_text = html.unescape(res['question'])
+                                correct = html.unescape(res['correct_answer'])
+                                incorrects = [html.unescape(ans) for ans in res['incorrect_answers']]
+                                
+                                all_opts = incorrects + [correct]
+                                random.shuffle(all_opts)
+                                correct_letter = chr(65 + all_opts.index(correct))
+                                
+                                for lang in ['en', 'gu', 'hi']:
+                                    if lang == 'en':
+                                        q_text, opt_a, opt_b, opt_c, opt_d = question_text, all_opts[0], all_opts[1], all_opts[2], all_opts[3]
+                                    else:
+                                        translator = GoogleTranslator(source='en', target=lang)
+                                        try:
+                                            to_trans = [question_text, all_opts[0], all_opts[1], all_opts[2], all_opts[3]]
+                                            translated = translator.translate_batch(to_trans)
+                                            q_text, opt_a, opt_b, opt_c, opt_d = translated
+                                        except Exception as e:
+                                            print(f"Translation error: {e}")
+                                            q_text, opt_a, opt_b, opt_c, opt_d = question_text, all_opts[0], all_opts[1], all_opts[2], all_opts[3]
+                                    
+                                    q = Question(
+                                        category_id=cat.id,
+                                        text=q_text,
+                                        option_a=opt_a,
+                                        option_b=opt_b,
+                                        option_c=opt_c,
+                                        option_d=opt_d,
+                                        correct_option=correct_letter,
+                                        difficulty=res['difficulty'].capitalize(),
+                                        language=lang
+                                    )
+                                    db.session.add(q)
+                            db.session.commit()
+                            print(f'Category "{category_name}" populated with questions successfully!')
+                        except Exception as e:
+                            print(f'Error saving questions for "{category_name}": {e}')
+                    else:
+                        print(f'Failed to fetch questions for "{category_name}".')
+                        
+            # Run in background thread
+            from threading import Thread
+            thread = Thread(target=fetch_and_translate, args=(app._get_current_object(), cat.id, name, tdb_id, amounts_to_try))
+            thread.daemon = True
+            thread.start()
+            
+            flash(f'Category "{name}" added! Questions are being fetched and translated in the background. Please wait a minute or two.', 'info')
             return redirect(url_for('admin_categories'))
         
     categories = Category.query.all()
