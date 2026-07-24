@@ -407,22 +407,36 @@ def admin_categories():
                     
                     data = None
                     amount = 10
-                    try:
-                        # First, find out how many easy questions exist
-                        count_url = f"https://opentdb.com/api_count.php?category={tdb_id}"
-                        req_count = urllib.request.Request(count_url, headers={'User-Agent': 'Mozilla/5.0'})
-                        res_count = urllib.request.urlopen(req_count)
-                        count_data = json.loads(res_count.read())
+                    import time
+                    
+                    def fetch_json_with_retry(url, max_retries=5):
+                        import urllib.error
+                        for attempt in range(max_retries):
+                            try:
+                                req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+                                response = urllib.request.urlopen(req)
+                                return json.loads(response.read())
+                            except urllib.error.HTTPError as e:
+                                if e.code == 429:
+                                    print(f"Rate limited (429), waiting 6 seconds... (Attempt {attempt+1}/{max_retries})")
+                                    time.sleep(6)
+                                else:
+                                    print(f"HTTP Error {e.code}: {e.reason}")
+                                    break
+                            except Exception as e:
+                                print(f"API request failed: {e}")
+                                break
+                        return None
+
+                    count_url = f"https://opentdb.com/api_count.php?category={tdb_id}"
+                    count_data = fetch_json_with_retry(count_url)
+                    
+                    if count_data:
                         easy_count = count_data.get('category_question_count', {}).get('total_easy_question_count', 0)
-                        
                         if easy_count > 0:
                             amount = min(50, easy_count)
                             url = f"https://opentdb.com/api.php?amount={amount}&category={tdb_id}&type=multiple&difficulty=easy"
-                            req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-                            response = urllib.request.urlopen(req)
-                            data = json.loads(response.read())
-                    except Exception as e:
-                        print(f"API request failed: {e}")
+                            data = fetch_json_with_retry(url)
                             
                     if data and data.get('response_code') == 0:
                         try:
