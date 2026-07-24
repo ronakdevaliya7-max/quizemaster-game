@@ -704,6 +704,53 @@ def search():
     
     return render_template('user/search.html', query=query, categories=matching_categories)
 
+@app.route('/admin/import_custom', methods=['POST'])
+@admin_required
+def admin_import_custom():
+    import json
+    import os
+    data_file = os.path.join(basedir, 'data', 'ramayana.json')
+    
+    if not os.path.exists(data_file):
+        flash('Data file not found!', 'danger')
+        return redirect(url_for('admin_categories'))
+        
+    with open(data_file, 'r', encoding='utf-8') as f:
+        questions = json.load(f)
+        
+    # Check if category exists, create if not
+    cat_name = "Ramayana"
+    cat = Category.query.filter_by(name=cat_name).first()
+    if not cat:
+        cat = Category(name=cat_name, description="Test your knowledge of the Ramayana epic, its characters, events, and teachings.")
+        db.session.add(cat)
+        db.session.commit()
+        
+    # Add questions
+    added_count = 0
+    for q_data in questions:
+        # Avoid exact duplicates if possible by checking text in english
+        existing = Question.query.filter_by(category_id=cat.id, text=q_data['en']['text']).first()
+        if not existing:
+            for lang in ['en', 'hi', 'gu']:
+                q = Question(
+                    category_id=cat.id,
+                    text=q_data[lang]['text'],
+                    option_a=q_data[lang]['opt_a'],
+                    option_b=q_data[lang]['opt_b'],
+                    option_c=q_data[lang]['opt_c'],
+                    option_d=q_data[lang]['opt_d'],
+                    correct_option=q_data['correct_option'],
+                    difficulty=q_data['difficulty'],
+                    language=lang
+                )
+                db.session.add(q)
+            added_count += 3 # 1 for each language
+            
+    db.session.commit()
+    flash(f'Successfully imported {added_count // 3} Ramayana questions in 3 languages!', 'success')
+    return redirect(url_for('admin_categories'))
+
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
