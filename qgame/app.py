@@ -388,7 +388,7 @@ def admin_categories():
             }
             tdb_id = category_map.get(name, 9)
             
-            amounts_to_try = [10, 5]
+            amounts_to_try = [50, 40, 30, 20, 10, 5]
             data = None
             
             for amount in amounts_to_try:
