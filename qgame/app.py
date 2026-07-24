@@ -400,23 +400,29 @@ def admin_categories():
             }
             tdb_id = category_map.get(name, 9)
             
-            amounts_to_try = [50, 40, 30, 20, 10, 5]
-            
-            def fetch_and_translate(app_instance, category_id, category_name, tdb_id, amounts):
+            def fetch_and_translate(app_instance, category_id, category_name, tdb_id):
                 with app_instance.app_context():
                     cat = Category.query.get(category_id)
                     if not cat: return
+                    
                     data = None
-                    for amount in amounts:
-                        url = f"https://opentdb.com/api.php?amount={amount}&category={tdb_id}&type=multiple&difficulty=easy"
-                        try:
+                    amount = 10
+                    try:
+                        # First, find out how many easy questions exist
+                        count_url = f"https://opentdb.com/api_count.php?category={tdb_id}"
+                        req_count = urllib.request.Request(count_url, headers={'User-Agent': 'Mozilla/5.0'})
+                        res_count = urllib.request.urlopen(req_count)
+                        count_data = json.loads(res_count.read())
+                        easy_count = count_data.get('category_question_count', {}).get('total_easy_question_count', 0)
+                        
+                        if easy_count > 0:
+                            amount = min(50, easy_count)
+                            url = f"https://opentdb.com/api.php?amount={amount}&category={tdb_id}&type=multiple&difficulty=easy"
                             req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
                             response = urllib.request.urlopen(req)
                             data = json.loads(response.read())
-                            if data.get('response_code') == 0:
-                                break
-                        except Exception as e:
-                            print(f"API request failed for {amount} questions: {e}")
+                    except Exception as e:
+                        print(f"API request failed: {e}")
                             
                     if data and data.get('response_code') == 0:
                         try:
@@ -459,11 +465,13 @@ def admin_categories():
                         except Exception as e:
                             print(f'Error saving questions for "{category_name}": {e}')
                     else:
-                        print(f'Failed to fetch questions for "{category_name}".')
+                        print(f'Failed to fetch questions for "{category_name}". Deleting empty category.')
+                        db.session.delete(cat)
+                        db.session.commit()
                         
             # Run in background thread
             from threading import Thread
-            thread = Thread(target=fetch_and_translate, args=(app, cat.id, name, tdb_id, amounts_to_try))
+            thread = Thread(target=fetch_and_translate, args=(app, cat.id, name, tdb_id))
             thread.daemon = True
             thread.start()
             
