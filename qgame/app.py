@@ -463,7 +463,7 @@ def admin_categories():
                         
             # Run in background thread
             from threading import Thread
-            thread = Thread(target=fetch_and_translate, args=(app._get_current_object(), cat.id, name, tdb_id, amounts_to_try))
+            thread = Thread(target=fetch_and_translate, args=(app, cat.id, name, tdb_id, amounts_to_try))
             thread.daemon = True
             thread.start()
             
