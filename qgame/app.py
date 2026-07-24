@@ -434,9 +434,19 @@ def admin_categories():
                     if count_data:
                         easy_count = count_data.get('category_question_count', {}).get('total_easy_question_count', 0)
                         if easy_count > 0:
-                            amount = min(50, easy_count)
-                            url = f"https://opentdb.com/api.php?amount={amount}&category={tdb_id}&type=multiple&difficulty=easy"
-                            data = fetch_json_with_retry(url)
+                            amounts_to_try = [min(50, easy_count)]
+                            for a in [40, 30, 20, 10, 5]:
+                                if a < easy_count:
+                                    amounts_to_try.append(a)
+                                    
+                            for amount in amounts_to_try:
+                                url = f"https://opentdb.com/api.php?amount={amount}&category={tdb_id}&type=multiple&difficulty=easy"
+                                data = fetch_json_with_retry(url)
+                                if data and data.get('response_code') == 0:
+                                    break
+                                elif data and data.get('response_code') == 1:
+                                    print(f"Code 1 for amount {amount}. Waiting 6s before trying lower amount...")
+                                    time.sleep(6)
                             
                     if data and data.get('response_code') == 0:
                         try:
