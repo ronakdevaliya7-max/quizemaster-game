@@ -1,0 +1,377 @@
+[
+    {
+        "difficulty": "Easy",
+        "correct_option": "B",
+        "en": {
+            "text": "Who was the first Prime Minister of India?",
+            "opt_a": "Mahatma Gandhi",
+            "opt_b": "Jawaharlal Nehru",
+            "opt_c": "Sardar Patel",
+            "opt_d": "B.R. Ambedkar"
+        },
+        "hi": {
+            "text": "भारत के पहले प्रधानमंत्री कौन थे?",
+            "opt_a": "महात्मा गांधी",
+            "opt_b": "जवाहरलाल नेहरू",
+            "opt_c": "सरदार पटेल",
+            "opt_d": "बी.आर. अंबेडकर"
+        },
+        "gu": {
+            "text": "ભારતના પ્રથમ વડાપ્રધાન કોણ હતા?",
+            "opt_a": "મહાત્મા ગાંધી",
+            "opt_b": "જવાહરલાલ નેહરુ",
+            "opt_c": "સરદાર પટેલ",
+            "opt_d": "બી.આર. આંબેડકર"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "B",
+        "en": {
+            "text": "In which year did India get independence?",
+            "opt_a": "1945",
+            "opt_b": "1947",
+            "opt_c": "1950",
+            "opt_d": "1952"
+        },
+        "hi": {
+            "text": "भारत को किस वर्ष स्वतंत्रता मिली?",
+            "opt_a": "1945",
+            "opt_b": "1947",
+            "opt_c": "1950",
+            "opt_d": "1952"
+        },
+        "gu": {
+            "text": "ભારતને કયા વર્ષમાં આઝાદી મળી?",
+            "opt_a": "1945",
+            "opt_b": "1947",
+            "opt_c": "1950",
+            "opt_d": "1952"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "C",
+        "en": {
+            "text": "When did India become a Republic?",
+            "opt_a": "1947",
+            "opt_b": "1948",
+            "opt_c": "1950",
+            "opt_d": "1952"
+        },
+        "hi": {
+            "text": "भारत गणतंत्र कब बना?",
+            "opt_a": "1947",
+            "opt_b": "1948",
+            "opt_c": "1950",
+            "opt_d": "1952"
+        },
+        "gu": {
+            "text": "ભારત પ્રજાસત્તાક ક્યારે બન્યું?",
+            "opt_a": "1947",
+            "opt_b": "1948",
+            "opt_c": "1950",
+            "opt_d": "1952"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "A",
+        "en": {
+            "text": "Who was the first President of India?",
+            "opt_a": "Dr. Rajendra Prasad",
+            "opt_b": "Dr. S. Radhakrishnan",
+            "opt_c": "Zakir Husain",
+            "opt_d": "V. V. Giri"
+        },
+        "hi": {
+            "text": "भारत के पहले राष्ट्रपति कौन थे?",
+            "opt_a": "डॉ. राजेंद्र प्रसाद",
+            "opt_b": "डॉ. एस. राधाकृष्णन",
+            "opt_c": "जाकिर हुसैन",
+            "opt_d": "वी. वी. गिरि"
+        },
+        "gu": {
+            "text": "ભારતના પ્રથમ રાષ્ટ્રપતિ કોણ હતા?",
+            "opt_a": "ડૉ. રાજેન્દ્ર પ્રસાદ",
+            "opt_b": "ડૉ. એસ. રાધાકૃષ્ણન",
+            "opt_c": "ઝાકિર હુસૈન",
+            "opt_d": "વી. વી. ગિરી"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "B",
+        "en": {
+            "text": "Who wrote the Indian National Anthem?",
+            "opt_a": "Bankim Chandra Chatterjee",
+            "opt_b": "Rabindranath Tagore",
+            "opt_c": "Sarojini Naidu",
+            "opt_d": "Subramania Bharati"
+        },
+        "hi": {
+            "text": "भारतीय राष्ट्रगान किसने लिखा था?",
+            "opt_a": "बंकिम चंद्र चटर्जी",
+            "opt_b": "रवींद्रनाथ टैगोर",
+            "opt_c": "सरोजिनी नायडू",
+            "opt_d": "सुब्रमण्य भारती"
+        },
+        "gu": {
+            "text": "ભારતીય રાષ્ટ્રગીત કોણે લખ્યું હતું?",
+            "opt_a": "બંકિમચંદ્ર ચેટરજી",
+            "opt_b": "રવીન્દ્રનાથ ટાગોર",
+            "opt_c": "સરોજિની નાયડુ",
+            "opt_d": "સુબ્રમણ્ય ભારતી"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "B",
+        "en": {
+            "text": "Who was the founder of the Maurya Empire?",
+            "opt_a": "Ashoka",
+            "opt_b": "Chandragupta Maurya",
+            "opt_c": "Bindusara",
+            "opt_d": "Dasharatha"
+        },
+        "hi": {
+            "text": "मौर्य साम्राज्य के संस्थापक कौन थे?",
+            "opt_a": "अशोक",
+            "opt_b": "चंद्रगुप्त मौर्य",
+            "opt_c": "बिंदुसार",
+            "opt_d": "दशरथ"
+        },
+        "gu": {
+            "text": "મૌર્ય સામ્રાજ્યના સ્થાપક કોણ હતા?",
+            "opt_a": "અશોક",
+            "opt_b": "ચંદ્રગુપ્ત મૌર્ય",
+            "opt_c": "બિંદુસાર",
+            "opt_d": "દશરથ"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "C",
+        "en": {
+            "text": "Who was the founder of the Mughal Empire in India?",
+            "opt_a": "Akbar",
+            "opt_b": "Humayun",
+            "opt_c": "Babur",
+            "opt_d": "Shah Jahan"
+        },
+        "hi": {
+            "text": "भारत में मुगल साम्राज्य का संस्थापक कौन था?",
+            "opt_a": "अकबर",
+            "opt_b": "हुमायूँ",
+            "opt_c": "बाबर",
+            "opt_d": "शाहजहाँ"
+        },
+        "gu": {
+            "text": "ભારતમાં મુઘલ સામ્રાજ્યનો સ્થાપક કોણ હતો?",
+            "opt_a": "અકબર",
+            "opt_b": "હુમાયુ",
+            "opt_c": "બાબર",
+            "opt_d": "શાહજહાં"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "C",
+        "en": {
+            "text": "Which Mughal emperor built the Taj Mahal?",
+            "opt_a": "Akbar",
+            "opt_b": "Jahangir",
+            "opt_c": "Shah Jahan",
+            "opt_d": "Aurangzeb"
+        },
+        "hi": {
+            "text": "किस मुगल सम्राट ने ताजमहल बनवाया था?",
+            "opt_a": "अकबर",
+            "opt_b": "जहांगीर",
+            "opt_c": "शाहजहाँ",
+            "opt_d": "औरंगजेब"
+        },
+        "gu": {
+            "text": "કયા મુઘલ સમ્રાટે તાજમહેલ બનાવ્યો હતો?",
+            "opt_a": "અકબર",
+            "opt_b": "જહાંગીર",
+            "opt_c": "શાહજહાં",
+            "opt_d": "ઔરંગઝેબ"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "B",
+        "en": {
+            "text": "Who was the first female Prime Minister of India?",
+            "opt_a": "Sarojini Naidu",
+            "opt_b": "Indira Gandhi",
+            "opt_c": "Pratibha Patil",
+            "opt_d": "Sonia Gandhi"
+        },
+        "hi": {
+            "text": "भारत की पहली महिला प्रधानमंत्री कौन थीं?",
+            "opt_a": "सरोजिनी नायडू",
+            "opt_b": "इंदिरा गांधी",
+            "opt_c": "प्रतिभा पाटिल",
+            "opt_d": "सोनिया गांधी"
+        },
+        "gu": {
+            "text": "ભારતના પ્રથમ મહિલા વડાપ્રધાન કોણ હતા?",
+            "opt_a": "સરોજિની નાયડુ",
+            "opt_b": "ઇન્દિરા ગાંધી",
+            "opt_c": "પ્રતિભા પાટીલ",
+            "opt_d": "સોનિયા ગાંધી"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "C",
+        "en": {
+            "text": "Who gave the slogan 'Give me blood, and I shall give you freedom'?",
+            "opt_a": "Bhagat Singh",
+            "opt_b": "Chandra Shekhar Azad",
+            "opt_c": "Subhas Chandra Bose",
+            "opt_d": "Lala Lajpat Rai"
+        },
+        "hi": {
+            "text": "'तुम मुझे खून दो, मैं तुम्हें आजादी दूंगा' का नारा किसने दिया था?",
+            "opt_a": "भगत सिंह",
+            "opt_b": "चंद्रशेखर आजाद",
+            "opt_c": "सुभाष चंद्र बोस",
+            "opt_d": "लाला लाजपत राय"
+        },
+        "gu": {
+            "text": "'તમે મને લોહી આપો, હું તમને આઝાદી આપીશ' આ નારો કોણે આપ્યો હતો?",
+            "opt_a": "ભગત સિંહ",
+            "opt_b": "ચંદ્રશેખર આઝાદ",
+            "opt_c": "સુભાષચંદ્ર બોઝ",
+            "opt_d": "લાલા લાજપત રાય"
+        }
+    },
+    {
+        "difficulty": "Hard",
+        "correct_option": "A",
+        "en": {
+            "text": "The Indian National Congress was founded in which year?",
+            "opt_a": "1885",
+            "opt_b": "1905",
+            "opt_c": "1919",
+            "opt_d": "1942"
+        },
+        "hi": {
+            "text": "भारतीय राष्ट्रीय कांग्रेस की स्थापना किस वर्ष हुई थी?",
+            "opt_a": "1885",
+            "opt_b": "1905",
+            "opt_c": "1919",
+            "opt_d": "1942"
+        },
+        "gu": {
+            "text": "ભારતીય રાષ્ટ્રીય કોંગ્રેસની સ્થાપના કયા વર્ષમાં થઈ હતી?",
+            "opt_a": "1885",
+            "opt_b": "1905",
+            "opt_c": "1919",
+            "opt_d": "1942"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "B",
+        "en": {
+            "text": "When did the Jallianwala Bagh massacre occur?",
+            "opt_a": "1917",
+            "opt_b": "1919",
+            "opt_c": "1921",
+            "opt_d": "1923"
+        },
+        "hi": {
+            "text": "जलियांवाला बाग हत्याकांड कब हुआ था?",
+            "opt_a": "1917",
+            "opt_b": "1919",
+            "opt_c": "1921",
+            "opt_d": "1923"
+        },
+        "gu": {
+            "text": "જલિયાંવાલા બાગ હત્યાકાંડ ક્યારે થયો હતો?",
+            "opt_a": "1917",
+            "opt_b": "1919",
+            "opt_c": "1921",
+            "opt_d": "1923"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "C",
+        "en": {
+            "text": "Which movement was launched in 1942?",
+            "opt_a": "Non-Cooperation Movement",
+            "opt_b": "Civil Disobedience Movement",
+            "opt_c": "Quit India Movement",
+            "opt_d": "Swadeshi Movement"
+        },
+        "hi": {
+            "text": "1942 में कौन सा आंदोलन शुरू किया गया था?",
+            "opt_a": "असहयोग आंदोलन",
+            "opt_b": "सविनय अवज्ञा आंदोलन",
+            "opt_c": "भारत छोड़ो आंदोलन",
+            "opt_d": "स्वदेशी आंदोलन"
+        },
+        "gu": {
+            "text": "1942 માં કયું આંદોલન શરૂ કરવામાં આવ્યું હતું?",
+            "opt_a": "અસહકાર આંદોલન",
+            "opt_b": "સવિનય કાનૂન ભંગ આંદોલન",
+            "opt_c": "ભારત છોડો આંદોલન",
+            "opt_d": "સ્વદેશી આંદોલન"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "B",
+        "en": {
+            "text": "Who was the main architect of the Indian Constitution?",
+            "opt_a": "Jawaharlal Nehru",
+            "opt_b": "B. R. Ambedkar",
+            "opt_c": "Rajendra Prasad",
+            "opt_d": "B. N. Rau"
+        },
+        "hi": {
+            "text": "भारतीय संविधान के मुख्य निर्माता कौन थे?",
+            "opt_a": "जवाहरलाल नेहरू",
+            "opt_b": "बी. आर. अंबेडकर",
+            "opt_c": "राजेंद्र प्रसाद",
+            "opt_d": "बी. एन. राव"
+        },
+        "gu": {
+            "text": "ભારતીય બંધારણના મુખ્ય ઘડવૈયા કોણ હતા?",
+            "opt_a": "જવાહરલાલ નેહરુ",
+            "opt_b": "બી. આર. આંબેડકર",
+            "opt_c": "રાજેન્દ્ર પ્રસાદ",
+            "opt_d": "બી. એન. રાવ"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "A",
+        "en": {
+            "text": "The first battle of Panipat was fought in?",
+            "opt_a": "1526",
+            "opt_b": "1556",
+            "opt_c": "1761",
+            "opt_d": "1857"
+        },
+        "hi": {
+            "text": "पानीपत का प्रथम युद्ध कब लड़ा गया था?",
+            "opt_a": "1526",
+            "opt_b": "1556",
+            "opt_c": "1761",
+            "opt_d": "1857"
+        },
+        "gu": {
+            "text": "પાણીપતનું પ્રથમ યુદ્ધ ક્યારે લડાયું હતું?",
+            "opt_a": "1526",
+            "opt_b": "1556",
+            "opt_c": "1761",
+            "opt_d": "1857"
+        }
+    }
+]

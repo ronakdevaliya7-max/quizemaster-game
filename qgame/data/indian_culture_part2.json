@@ -1,0 +1,377 @@
+[
+    {
+        "difficulty": "Easy",
+        "correct_option": "B",
+        "en": {
+            "text": "Which festival is known as the Festival of Colors?",
+            "opt_a": "Diwali",
+            "opt_b": "Holi",
+            "opt_c": "Navratri",
+            "opt_d": "Dussehra"
+        },
+        "hi": {
+            "text": "किस त्योहार को रंगों का त्योहार कहा जाता है?",
+            "opt_a": "दिवाली",
+            "opt_b": "होली",
+            "opt_c": "नवरात्रि",
+            "opt_d": "दशहरा"
+        },
+        "gu": {
+            "text": "કયા તહેવારને રંગોના તહેવાર તરીકે ઓળખવામાં આવે છે?",
+            "opt_a": "દિવાળી",
+            "opt_b": "હોળી",
+            "opt_c": "નવરાત્રી",
+            "opt_d": "દશેરા"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "B",
+        "en": {
+            "text": "Which festival is known as the Festival of Lights?",
+            "opt_a": "Holi",
+            "opt_b": "Diwali",
+            "opt_c": "Eid",
+            "opt_d": "Christmas"
+        },
+        "hi": {
+            "text": "किस त्योहार को रोशनी का त्योहार कहा जाता है?",
+            "opt_a": "होली",
+            "opt_b": "दिवाली",
+            "opt_c": "ईद",
+            "opt_d": "क्रिसमस"
+        },
+        "gu": {
+            "text": "કયા તહેવારને પ્રકાશના તહેવાર તરીકે ઓળખવામાં આવે છે?",
+            "opt_a": "હોળી",
+            "opt_b": "દિવાળી",
+            "opt_c": "ઈદ",
+            "opt_d": "નાતાલ"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "B",
+        "en": {
+            "text": "Bharatanatyam is a classical dance from which state?",
+            "opt_a": "Kerala",
+            "opt_b": "Tamil Nadu",
+            "opt_c": "Andhra Pradesh",
+            "opt_d": "Odisha"
+        },
+        "hi": {
+            "text": "भरतनाट्यम किस राज्य का शास्त्रीय नृत्य है?",
+            "opt_a": "केरल",
+            "opt_b": "तमिलनाडु",
+            "opt_c": "आंध्र प्रदेश",
+            "opt_d": "ओडिशा"
+        },
+        "gu": {
+            "text": "ભરતનાટ્યમ કયા રાજ્યનું શાસ્ત્રીય નૃત્ય છે?",
+            "opt_a": "કેરળ",
+            "opt_b": "તમિલનાડુ",
+            "opt_c": "આંધ્ર પ્રદેશ",
+            "opt_d": "ઓડિશા"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "A",
+        "en": {
+            "text": "Kathakali is a classical dance from which state?",
+            "opt_a": "Kerala",
+            "opt_b": "Karnataka",
+            "opt_c": "Tamil Nadu",
+            "opt_d": "Andhra Pradesh"
+        },
+        "hi": {
+            "text": "कथकली किस राज्य का शास्त्रीय नृत्य है?",
+            "opt_a": "केरल",
+            "opt_b": "कर्नाटक",
+            "opt_c": "तमिलनाडु",
+            "opt_d": "आंध्र प्रदेश"
+        },
+        "gu": {
+            "text": "કથકલી કયા રાજ્યનું શાસ્ત્રીય નૃત્ય છે?",
+            "opt_a": "કેરળ",
+            "opt_b": "કર્ણાટક",
+            "opt_c": "તમિલનાડુ",
+            "opt_d": "આંધ્ર પ્રદેશ"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "C",
+        "en": {
+            "text": "Kathak is a classical dance form mainly from?",
+            "opt_a": "South India",
+            "opt_b": "East India",
+            "opt_c": "North India",
+            "opt_d": "West India"
+        },
+        "hi": {
+            "text": "कथक मुख्य रूप से कहाँ का शास्त्रीय नृत्य है?",
+            "opt_a": "दक्षिण भारत",
+            "opt_b": "पूर्वी भारत",
+            "opt_c": "उत्तर भारत",
+            "opt_d": "पश्चिम भारत"
+        },
+        "gu": {
+            "text": "કથક મુખ્યત્વે ક્યાંનું શાસ્ત્રીય નૃત્ય છે?",
+            "opt_a": "દક્ષિણ ભારત",
+            "opt_b": "પૂર્વ ભારત",
+            "opt_c": "ઉત્તર ભારત",
+            "opt_d": "પશ્ચિમ ભારત"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "B",
+        "en": {
+            "text": "Garba is a popular folk dance of which state?",
+            "opt_a": "Maharashtra",
+            "opt_b": "Gujarat",
+            "opt_c": "Rajasthan",
+            "opt_d": "Punjab"
+        },
+        "hi": {
+            "text": "गरबा किस राज्य का लोकप्रिय लोक नृत्य है?",
+            "opt_a": "महाराष्ट्र",
+            "opt_b": "गुजरात",
+            "opt_c": "राजस्थान",
+            "opt_d": "पंजाब"
+        },
+        "gu": {
+            "text": "ગરબા કયા રાજ્યનું લોકપ્રિય લોક નૃત્ય છે?",
+            "opt_a": "મહારાષ્ટ્ર",
+            "opt_b": "ગુજરાત",
+            "opt_c": "રાજસ્થાન",
+            "opt_d": "પંજાબ"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "C",
+        "en": {
+            "text": "Bhangra is a traditional dance from which state?",
+            "opt_a": "Gujarat",
+            "opt_b": "Haryana",
+            "opt_c": "Punjab",
+            "opt_d": "Rajasthan"
+        },
+        "hi": {
+            "text": "भांगड़ा किस राज्य का पारंपरिक नृत्य है?",
+            "opt_a": "गुजरात",
+            "opt_b": "हरियाणा",
+            "opt_c": "पंजाब",
+            "opt_d": "राजस्थान"
+        },
+        "gu": {
+            "text": "ભાંગડા કયા રાજ્યનું પરંપરાગત નૃત્ય છે?",
+            "opt_a": "ગુજરાત",
+            "opt_b": "હરિયાણા",
+            "opt_c": "પંજાબ",
+            "opt_d": "રાજસ્થાન"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "B",
+        "en": {
+            "text": "What is the traditional garment worn by Indian women?",
+            "opt_a": "Kimono",
+            "opt_b": "Sari",
+            "opt_c": "Hanbok",
+            "opt_d": "Cheongsam"
+        },
+        "hi": {
+            "text": "भारतीय महिलाओं द्वारा पहना जाने वाला पारंपरिक परिधान क्या है?",
+            "opt_a": "किमोनो",
+            "opt_b": "साड़ी",
+            "opt_c": "हनबोक",
+            "opt_d": "चेओंगसम"
+        },
+        "gu": {
+            "text": "ભારતીય સ્ત્રીઓ દ્વારા પહેરવામાં આવતો પરંપરાગત પોશાક કયો છે?",
+            "opt_a": "કિમોનો",
+            "opt_b": "સાડી",
+            "opt_c": "હાનબોક",
+            "opt_d": "ચેઓંગસમ"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "C",
+        "en": {
+            "text": "Which language is known as the 'mother of all languages' in India?",
+            "opt_a": "Hindi",
+            "opt_b": "Tamil",
+            "opt_c": "Sanskrit",
+            "opt_d": "Prakrit"
+        },
+        "hi": {
+            "text": "भारत में किस भाषा को 'सभी भाषाओं की जननी' कहा जाता है?",
+            "opt_a": "हिंदी",
+            "opt_b": "तमिल",
+            "opt_c": "संस्कृत",
+            "opt_d": "प्राकृत"
+        },
+        "gu": {
+            "text": "ભારતમાં કઈ ભાષાને 'બધી ભાષાઓની માતા' કહેવામાં આવે છે?",
+            "opt_a": "હિન્દી",
+            "opt_b": "તમિલ",
+            "opt_c": "સંસ્કૃત",
+            "opt_d": "પ્રાકૃત"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "A",
+        "en": {
+            "text": "Onam is a major festival of which state?",
+            "opt_a": "Kerala",
+            "opt_b": "Tamil Nadu",
+            "opt_c": "Karnataka",
+            "opt_d": "Andhra Pradesh"
+        },
+        "hi": {
+            "text": "ओणम किस राज्य का प्रमुख त्योहार है?",
+            "opt_a": "केरल",
+            "opt_b": "तमिलनाडु",
+            "opt_c": "कर्नाटक",
+            "opt_d": "आंध्र प्रदेश"
+        },
+        "gu": {
+            "text": "ઓણમ કયા રાજ્યનો મુખ્ય તહેવાર છે?",
+            "opt_a": "કેરળ",
+            "opt_b": "તમિલનાડુ",
+            "opt_c": "કર્ણાટક",
+            "opt_d": "આંધ્ર પ્રદેશ"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "B",
+        "en": {
+            "text": "Pongal is a harvest festival celebrated in?",
+            "opt_a": "Kerala",
+            "opt_b": "Tamil Nadu",
+            "opt_c": "Andhra Pradesh",
+            "opt_d": "Karnataka"
+        },
+        "hi": {
+            "text": "पोंगल फसल का त्योहार कहाँ मनाया जाता है?",
+            "opt_a": "केरल",
+            "opt_b": "तमिलनाडु",
+            "opt_c": "आंध्र प्रदेश",
+            "opt_d": "कर्नाटक"
+        },
+        "gu": {
+            "text": "પોંગલ લણણીનો તહેવાર ક્યાં ઉજવવામાં આવે છે?",
+            "opt_a": "કેરળ",
+            "opt_b": "તમિલનાડુ",
+            "opt_c": "આંધ્ર પ્રદેશ",
+            "opt_d": "કર્ણાટક"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "C",
+        "en": {
+            "text": "Which Indian festival celebrates the bond between brothers and sisters?",
+            "opt_a": "Diwali",
+            "opt_b": "Holi",
+            "opt_c": "Raksha Bandhan",
+            "opt_d": "Navratri"
+        },
+        "hi": {
+            "text": "कौन सा भारतीय त्योहार भाई-बहनों के बीच के बंधन का जश्न मनाता है?",
+            "opt_a": "दिवाली",
+            "opt_b": "होली",
+            "opt_c": "रक्षा बंधन",
+            "opt_d": "नवरात्रि"
+        },
+        "gu": {
+            "text": "કયો ભારતીય તહેવાર ભાઈ-બહેન વચ્ચેના પ્રેમને ઉજવે છે?",
+            "opt_a": "દિવાળી",
+            "opt_b": "હોળી",
+            "opt_c": "રક્ષાબંધન",
+            "opt_d": "નવરાત્રી"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "B",
+        "en": {
+            "text": "Which Indian musician popularized the sitar in the West?",
+            "opt_a": "Zakir Hussain",
+            "opt_b": "Ravi Shankar",
+            "opt_c": "A. R. Rahman",
+            "opt_d": "Bismillah Khan"
+        },
+        "hi": {
+            "text": "किस भारतीय संगीतकार ने पश्चिम में सितार को लोकप्रिय बनाया?",
+            "opt_a": "जाकिर हुसैन",
+            "opt_b": "रवि शंकर",
+            "opt_c": "ए. आर. रहमान",
+            "opt_d": "बिस्मिल्लाह खान"
+        },
+        "gu": {
+            "text": "કયા ભારતીય સંગીતકારે પશ્ચિમમાં સિતારને લોકપ્રિય બનાવ્યો?",
+            "opt_a": "ઝાકિર હુસૈન",
+            "opt_b": "રવિ શંકર",
+            "opt_c": "એ. આર. રહેમાન",
+            "opt_d": "બિસ્મિલ્લાહ ખાન"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "C",
+        "en": {
+            "text": "Which is the largest religion in India?",
+            "opt_a": "Islam",
+            "opt_b": "Christianity",
+            "opt_c": "Hinduism",
+            "opt_d": "Sikhism"
+        },
+        "hi": {
+            "text": "भारत में सबसे बड़ा धर्म कौन सा है?",
+            "opt_a": "इस्लाम",
+            "opt_b": "ईसाई धर्म",
+            "opt_c": "हिंदू धर्म",
+            "opt_d": "सिख धर्म"
+        },
+        "gu": {
+            "text": "ભારતમાં સૌથી મોટો ધર્મ કયો છે?",
+            "opt_a": "ઇસ્લામ",
+            "opt_b": "ખ્રિસ્તી ધર્મ",
+            "opt_c": "હિન્દુ ધર્મ",
+            "opt_d": "શીખ ધર્મ"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "B",
+        "en": {
+            "text": "The Golden Temple is located in which city?",
+            "opt_a": "Chandigarh",
+            "opt_b": "Amritsar",
+            "opt_c": "Ludhiana",
+            "opt_d": "Jalandhar"
+        },
+        "hi": {
+            "text": "स्वर्ण मंदिर किस शहर में स्थित है?",
+            "opt_a": "चंडीगढ़",
+            "opt_b": "अमृतसर",
+            "opt_c": "लुधियाना",
+            "opt_d": "जालंधर"
+        },
+        "gu": {
+            "text": "સુવર્ણ મંદિર કયા શહેરમાં આવેલું છે?",
+            "opt_a": "ચંડીગઢ",
+            "opt_b": "અમૃતસર",
+            "opt_c": "લુધિયાણા",
+            "opt_d": "જાલંધર"
+        }
+    }
+]

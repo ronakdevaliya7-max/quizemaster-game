@@ -1,0 +1,377 @@
+[
+    {
+        "difficulty": "Easy",
+        "correct_option": "B",
+        "en": {
+            "text": "Who was the father of Pandavas?",
+            "opt_a": "Dhritarashtra",
+            "opt_b": "Pandu",
+            "opt_c": "Vidura",
+            "opt_d": "Shantanu"
+        },
+        "hi": {
+            "text": "पांडवों के पिता कौन थे?",
+            "opt_a": "धृतराष्ट्र",
+            "opt_b": "पांडु",
+            "opt_c": "विदुर",
+            "opt_d": "शांतनु"
+        },
+        "gu": {
+            "text": "પાંડવોના પિતા કોણ હતા?",
+            "opt_a": "ધૃતરાષ્ટ્ર",
+            "opt_b": "પાંડુ",
+            "opt_c": "વિદુર",
+            "opt_d": "શાંતનુ"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "C",
+        "en": {
+            "text": "Who was the eldest Pandava?",
+            "opt_a": "Bhima",
+            "opt_b": "Arjuna",
+            "opt_c": "Yudhishthira",
+            "opt_d": "Nakula"
+        },
+        "hi": {
+            "text": "सबसे बड़े पांडव कौन थे?",
+            "opt_a": "भीम",
+            "opt_b": "अर्जुन",
+            "opt_c": "युधिष्ठिर",
+            "opt_d": "नकुल"
+        },
+        "gu": {
+            "text": "સૌથી મોટા પાંડવ કોણ હતા?",
+            "opt_a": "ભીમ",
+            "opt_b": "અર્જુન",
+            "opt_c": "યુધિષ્ઠિર",
+            "opt_d": "નકુલ"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "C",
+        "en": {
+            "text": "Who was the mother of Kauravas?",
+            "opt_a": "Kunti",
+            "opt_b": "Madri",
+            "opt_c": "Gandhari",
+            "opt_d": "Satyavati"
+        },
+        "hi": {
+            "text": "कौरवों की माता कौन थीं?",
+            "opt_a": "कुंती",
+            "opt_b": "माद्री",
+            "opt_c": "गांधारी",
+            "opt_d": "सत्यवती"
+        },
+        "gu": {
+            "text": "કૌરવોની માતા કોણ હતા?",
+            "opt_a": "કુંતી",
+            "opt_b": "માદ્રી",
+            "opt_c": "ગાંધારી",
+            "opt_d": "સત્યવતી"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "A",
+        "en": {
+            "text": "Who was the guru of Pandavas and Kauravas?",
+            "opt_a": "Dronacharya",
+            "opt_b": "Kripacharya",
+            "opt_c": "Parashurama",
+            "opt_d": "Vishwamitra"
+        },
+        "hi": {
+            "text": "पांडवों और कौरवों के गुरु कौन थे?",
+            "opt_a": "द्रोणाचार्य",
+            "opt_b": "कृपाचार्य",
+            "opt_c": "परशुराम",
+            "opt_d": "विश्वामित्र"
+        },
+        "gu": {
+            "text": "પાંડવો અને કૌરવોના ગુરુ કોણ હતા?",
+            "opt_a": "દ્રોણાચાર્ય",
+            "opt_b": "કૃપાચાર્ય",
+            "opt_c": "પરશુરામ",
+            "opt_d": "વિશ્વામિત્ર"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "B",
+        "en": {
+            "text": "What was the name of Arjuna's bow?",
+            "opt_a": "Pinaka",
+            "opt_b": "Gandiva",
+            "opt_c": "Sharanga",
+            "opt_d": "Vijaya"
+        },
+        "hi": {
+            "text": "अर्जुन के धनुष का क्या नाम था?",
+            "opt_a": "पिनाक",
+            "opt_b": "गांडीव",
+            "opt_c": "शारंग",
+            "opt_d": "विजय"
+        },
+        "gu": {
+            "text": "અર્જુનના ધનુષનું નામ શું હતું?",
+            "opt_a": "પિનાક",
+            "opt_b": "ગાંડીવ",
+            "opt_c": "શારંગ",
+            "opt_d": "વિજય"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "B",
+        "en": {
+            "text": "Who wrote the Mahabharata?",
+            "opt_a": "Valmiki",
+            "opt_b": "Ved Vyasa",
+            "opt_c": "Tulsidas",
+            "opt_d": "Kalidasa"
+        },
+        "hi": {
+            "text": "महाभारत किसने लिखा था?",
+            "opt_a": "वाल्मीकि",
+            "opt_b": "वेद व्यास",
+            "opt_c": "तुलसीदास",
+            "opt_d": "कालिदास"
+        },
+        "gu": {
+            "text": "મહાભારત કોણે લખ્યું હતું?",
+            "opt_a": "વાલ્મીકિ",
+            "opt_b": "વેદ વ્યાસ",
+            "opt_c": "તુલસીદાસ",
+            "opt_d": "કાલિદાસ"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "C",
+        "en": {
+            "text": "How many days did the Kurukshetra war last?",
+            "opt_a": "14",
+            "opt_b": "16",
+            "opt_c": "18",
+            "opt_d": "20"
+        },
+        "hi": {
+            "text": "कुरुक्षेत्र का युद्ध कितने दिनों तक चला था?",
+            "opt_a": "14",
+            "opt_b": "16",
+            "opt_c": "18",
+            "opt_d": "20"
+        },
+        "gu": {
+            "text": "કુરુક્ષેત્રનું યુદ્ધ કેટલા દિવસ ચાલ્યું હતું?",
+            "opt_a": "14",
+            "opt_b": "16",
+            "opt_c": "18",
+            "opt_d": "20"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "C",
+        "en": {
+            "text": "Who killed Karna?",
+            "opt_a": "Bhima",
+            "opt_b": "Yudhishthira",
+            "opt_c": "Arjuna",
+            "opt_d": "Abhimanyu"
+        },
+        "hi": {
+            "text": "कर्ण का वध किसने किया?",
+            "opt_a": "भीम",
+            "opt_b": "युधिष्ठिर",
+            "opt_c": "अर्जुन",
+            "opt_d": "अभिमन्यु"
+        },
+        "gu": {
+            "text": "કર્ણનો વધ કોણે કર્યો?",
+            "opt_a": "ભીમ",
+            "opt_b": "યુધિષ્ઠિર",
+            "opt_c": "અર્જુન",
+            "opt_d": "અભિમન્યુ"
+        }
+    },
+    {
+        "difficulty": "Hard",
+        "correct_option": "A",
+        "en": {
+            "text": "What was the real name of Bhishma?",
+            "opt_a": "Devavrata",
+            "opt_b": "Shantanu",
+            "opt_c": "Chitrangada",
+            "opt_d": "Vichitravirya"
+        },
+        "hi": {
+            "text": "भीष्म का असली नाम क्या था?",
+            "opt_a": "देवव्रत",
+            "opt_b": "शांतनु",
+            "opt_c": "चित्रांगद",
+            "opt_d": "विचित्रवीर्य"
+        },
+        "gu": {
+            "text": "ભીષ્મનું સાચું નામ શું હતું?",
+            "opt_a": "દેવવ્રત",
+            "opt_b": "શાંતનુ",
+            "opt_c": "ચિત્રાંગદ",
+            "opt_d": "વિચિત્રવીર્ય"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "C",
+        "en": {
+            "text": "Who was the father of Abhimanyu?",
+            "opt_a": "Yudhishthira",
+            "opt_b": "Bhima",
+            "opt_c": "Arjuna",
+            "opt_d": "Nakula"
+        },
+        "hi": {
+            "text": "अभिमन्यु के पिता कौन थे?",
+            "opt_a": "युधिष्ठिर",
+            "opt_b": "भीम",
+            "opt_c": "अर्जुन",
+            "opt_d": "नकुल"
+        },
+        "gu": {
+            "text": "અભિમન્યુના પિતા કોણ હતા?",
+            "opt_a": "યુધિષ્ઠિર",
+            "opt_b": "ભીમ",
+            "opt_c": "અર્જુન",
+            "opt_d": "નકુલ"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "A",
+        "en": {
+            "text": "Who was the wife of all five Pandavas?",
+            "opt_a": "Draupadi",
+            "opt_b": "Subhadra",
+            "opt_c": "Ulupi",
+            "opt_d": "Chitrangada"
+        },
+        "hi": {
+            "text": "पांचों पांडवों की पत्नी कौन थी?",
+            "opt_a": "द्रौपदी",
+            "opt_b": "सुभद्रा",
+            "opt_c": "उलूपी",
+            "opt_d": "चित्रांगदा"
+        },
+        "gu": {
+            "text": "પાંચેય પાંડવોની પત્ની કોણ હતી?",
+            "opt_a": "દ્રૌપદી",
+            "opt_b": "સુભદ્રા",
+            "opt_c": "ઉલૂપી",
+            "opt_d": "ચિત્રાંગદા"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "A",
+        "en": {
+            "text": "Who killed Dushasana?",
+            "opt_a": "Bhima",
+            "opt_b": "Arjuna",
+            "opt_c": "Yudhishthira",
+            "opt_d": "Sahadeva"
+        },
+        "hi": {
+            "text": "दुशासन को किसने मारा?",
+            "opt_a": "भीम",
+            "opt_b": "अर्जुन",
+            "opt_c": "युधिष्ठिर",
+            "opt_d": "सहदेव"
+        },
+        "gu": {
+            "text": "દુશાસનને કોણે માર્યો?",
+            "opt_a": "ભીમ",
+            "opt_b": "અર્જુન",
+            "opt_c": "યુધિષ્ઠિર",
+            "opt_d": "સહદેવ"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "B",
+        "en": {
+            "text": "What game did the Pandavas lose to the Kauravas?",
+            "opt_a": "Chess",
+            "opt_b": "Dice",
+            "opt_c": "Archery",
+            "opt_d": "Wrestling"
+        },
+        "hi": {
+            "text": "पांडव कौरवों से कौन सा खेल हार गए थे?",
+            "opt_a": "शतरंज",
+            "opt_b": "चौसर (पासा)",
+            "opt_c": "तीरंदाजी",
+            "opt_d": "कुश्ती"
+        },
+        "gu": {
+            "text": "પાંડવો કૌરવો સામે કઈ રમત હારી ગયા હતા?",
+            "opt_a": "ચેસ",
+            "opt_b": "ચોપાટ (પાસા)",
+            "opt_c": "તીરંદાજી",
+            "opt_d": "કુસ્તી"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "A",
+        "en": {
+            "text": "Who was the charioteer of Arjuna?",
+            "opt_a": "Krishna",
+            "opt_b": "Sanjaya",
+            "opt_c": "Drona",
+            "opt_d": "Bhishma"
+        },
+        "hi": {
+            "text": "अर्जुन के सारथी कौन थे?",
+            "opt_a": "कृष्ण",
+            "opt_b": "संजय",
+            "opt_c": "द्रोण",
+            "opt_d": "भीष्म"
+        },
+        "gu": {
+            "text": "અર્જુનના સારથી કોણ હતા?",
+            "opt_a": "કૃષ્ણ",
+            "opt_b": "સંજય",
+            "opt_c": "દ્રોણ",
+            "opt_d": "ભીષ્મ"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "B",
+        "en": {
+            "text": "Who recited the Bhagavad Gita?",
+            "opt_a": "Sanjaya",
+            "opt_b": "Krishna",
+            "opt_c": "Vyasa",
+            "opt_d": "Arjuna"
+        },
+        "hi": {
+            "text": "भगवद गीता किसने सुनाई?",
+            "opt_a": "संजय",
+            "opt_b": "कृष्ण",
+            "opt_c": "व्यास",
+            "opt_d": "अर्जुन"
+        },
+        "gu": {
+            "text": "ભગવદ ગીતા કોણે કહી હતી?",
+            "opt_a": "સંજય",
+            "opt_b": "કૃષ્ણ",
+            "opt_c": "વ્યાસ",
+            "opt_d": "અર્જુન"
+        }
+    }
+]

@@ -1,0 +1,377 @@
+[
+    {
+        "difficulty": "Easy",
+        "correct_option": "B",
+        "en": {
+            "text": "Who is the preserver of the universe?",
+            "opt_a": "Brahma",
+            "opt_b": "Vishnu",
+            "opt_c": "Shiva",
+            "opt_d": "Indra"
+        },
+        "hi": {
+            "text": "ब्रह्मांड के पालनहार कौन हैं?",
+            "opt_a": "ब्रह्मा",
+            "opt_b": "विष्णु",
+            "opt_c": "शिव",
+            "opt_d": "इंद्र"
+        },
+        "gu": {
+            "text": "બ્રહ્માંડના પાલનહાર કોણ છે?",
+            "opt_a": "બ્રહ્મા",
+            "opt_b": "વિષ્ણુ",
+            "opt_c": "શિવ",
+            "opt_d": "ઇન્દ્ર"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "A",
+        "en": {
+            "text": "Who is the creator of the universe?",
+            "opt_a": "Brahma",
+            "opt_b": "Vishnu",
+            "opt_c": "Shiva",
+            "opt_d": "Indra"
+        },
+        "hi": {
+            "text": "ब्रह्मांड के निर्माता कौन हैं?",
+            "opt_a": "ब्रह्मा",
+            "opt_b": "विष्णु",
+            "opt_c": "शिव",
+            "opt_d": "इंद्र"
+        },
+        "gu": {
+            "text": "બ્રહ્માંડના સર્જક કોણ છે?",
+            "opt_a": "બ્રહ્મા",
+            "opt_b": "વિષ્ણુ",
+            "opt_c": "શિવ",
+            "opt_d": "ઇન્દ્ર"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "C",
+        "en": {
+            "text": "Who is the destroyer in the Holy Trinity?",
+            "opt_a": "Brahma",
+            "opt_b": "Vishnu",
+            "opt_c": "Shiva",
+            "opt_d": "Agni"
+        },
+        "hi": {
+            "text": "पवित्र त्रिमूर्ति में संहारक कौन हैं?",
+            "opt_a": "ब्रह्मा",
+            "opt_b": "विष्णु",
+            "opt_c": "शिव",
+            "opt_d": "अग्नि"
+        },
+        "gu": {
+            "text": "પવિત્ર ત્રિમૂર્તિમાં સંહારક કોણ છે?",
+            "opt_a": "બ્રહ્મા",
+            "opt_b": "વિષ્ણુ",
+            "opt_c": "શિવ",
+            "opt_d": "અગ્નિ"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "C",
+        "en": {
+            "text": "Who is the goddess of wealth?",
+            "opt_a": "Saraswati",
+            "opt_b": "Parvati",
+            "opt_c": "Lakshmi",
+            "opt_d": "Durga"
+        },
+        "hi": {
+            "text": "धन की देवी कौन हैं?",
+            "opt_a": "सरस्वती",
+            "opt_b": "पार्वती",
+            "opt_c": "लक्ष्मी",
+            "opt_d": "दुर्गा"
+        },
+        "gu": {
+            "text": "ધનની દેવી કોણ છે?",
+            "opt_a": "સરસ્વતી",
+            "opt_b": "પાર્વતી",
+            "opt_c": "લક્ષ્મી",
+            "opt_d": "દુર્ગા"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "A",
+        "en": {
+            "text": "Who is the goddess of knowledge?",
+            "opt_a": "Saraswati",
+            "opt_b": "Parvati",
+            "opt_c": "Lakshmi",
+            "opt_d": "Kali"
+        },
+        "hi": {
+            "text": "ज्ञान की देवी कौन हैं?",
+            "opt_a": "सरस्वती",
+            "opt_b": "पार्वती",
+            "opt_c": "लक्ष्मी",
+            "opt_d": "काली"
+        },
+        "gu": {
+            "text": "જ્ઞાનની દેવી કોણ છે?",
+            "opt_a": "સરસ્વતી",
+            "opt_b": "પાર્વતી",
+            "opt_c": "લક્ષ્મી",
+            "opt_d": "કાલી"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "C",
+        "en": {
+            "text": "What is the weapon of Lord Indra?",
+            "opt_a": "Trishul",
+            "opt_b": "Sudarshana Chakra",
+            "opt_c": "Vajra",
+            "opt_d": "Gada"
+        },
+        "hi": {
+            "text": "भगवान इंद्र का अस्त्र क्या है?",
+            "opt_a": "त्रिशूल",
+            "opt_b": "सुदर्शन चक्र",
+            "opt_c": "वज्र",
+            "opt_d": "गदा"
+        },
+        "gu": {
+            "text": "ભગવાન ઇન્દ્રનું શસ્ત્ર કયું છે?",
+            "opt_a": "ત્રિશૂળ",
+            "opt_b": "સુદર્શન ચક્ર",
+            "opt_c": "વજ્ર",
+            "opt_d": "ગદા"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "D",
+        "en": {
+            "text": "What is the vehicle of Lord Shiva?",
+            "opt_a": "Lion",
+            "opt_b": "Tiger",
+            "opt_c": "Mouse",
+            "opt_d": "Bull (Nandi)"
+        },
+        "hi": {
+            "text": "भगवान शिव का वाहन क्या है?",
+            "opt_a": "शेर",
+            "opt_b": "बाघ",
+            "opt_c": "चूहा",
+            "opt_d": "बैल (नंदी)"
+        },
+        "gu": {
+            "text": "ભગવાન શિવનું વાહન કયું છે?",
+            "opt_a": "સિંહ",
+            "opt_b": "વાઘ",
+            "opt_c": "ઉંદર",
+            "opt_d": "બળદ (નંદી)"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "A",
+        "en": {
+            "text": "What is the vehicle of Lord Vishnu?",
+            "opt_a": "Garuda",
+            "opt_b": "Hamsa",
+            "opt_c": "Airavata",
+            "opt_d": "Peacock"
+        },
+        "hi": {
+            "text": "भगवान विष्णु का वाहन क्या है?",
+            "opt_a": "गरुड़",
+            "opt_b": "हंस",
+            "opt_c": "ऐरावत",
+            "opt_d": "मोर"
+        },
+        "gu": {
+            "text": "ભગવાન વિષ્ણુનું વાહન કયું છે?",
+            "opt_a": "ગરુડ",
+            "opt_b": "હંસ",
+            "opt_c": "ઐરાવત",
+            "opt_d": "મોર"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "C",
+        "en": {
+            "text": "Who is the god of fire?",
+            "opt_a": "Vayu",
+            "opt_b": "Varuna",
+            "opt_c": "Agni",
+            "opt_d": "Yama"
+        },
+        "hi": {
+            "text": "अग्नि के देवता कौन हैं?",
+            "opt_a": "वायु",
+            "opt_b": "वरुण",
+            "opt_c": "अग्नि",
+            "opt_d": "यम"
+        },
+        "gu": {
+            "text": "અગ્નિના દેવતા કોણ છે?",
+            "opt_a": "વાયુ",
+            "opt_b": "વરુણ",
+            "opt_c": "અગ્નિ",
+            "opt_d": "યમ"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "D",
+        "en": {
+            "text": "Who is the god of water/ocean?",
+            "opt_a": "Agni",
+            "opt_b": "Vayu",
+            "opt_c": "Indra",
+            "opt_d": "Varuna"
+        },
+        "hi": {
+            "text": "जल/समुद्र के देवता कौन हैं?",
+            "opt_a": "अग्नि",
+            "opt_b": "वायु",
+            "opt_c": "इंद्र",
+            "opt_d": "वरुण"
+        },
+        "gu": {
+            "text": "જળ/સમુદ્રના દેવતા કોણ છે?",
+            "opt_a": "અગ્નિ",
+            "opt_b": "વાયુ",
+            "opt_c": "ઇન્દ્ર",
+            "opt_d": "વરુણ"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "A",
+        "en": {
+            "text": "Who is the sun god?",
+            "opt_a": "Surya",
+            "opt_b": "Chandra",
+            "opt_c": "Mangala",
+            "opt_d": "Shukra"
+        },
+        "hi": {
+            "text": "सूर्य देव कौन हैं?",
+            "opt_a": "सूर्य",
+            "opt_b": "चंद्र",
+            "opt_c": "मंगल",
+            "opt_d": "शुक्र"
+        },
+        "gu": {
+            "text": "સૂર્ય દેવ કોણ છે?",
+            "opt_a": "સૂર્ય",
+            "opt_b": "ચંદ્ર",
+            "opt_c": "મંગળ",
+            "opt_d": "શુક્ર"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "A",
+        "en": {
+            "text": "Which god wears a crescent moon on his head?",
+            "opt_a": "Shiva",
+            "opt_b": "Vishnu",
+            "opt_c": "Brahma",
+            "opt_d": "Kartikeya"
+        },
+        "hi": {
+            "text": "कौन से भगवान अपने सिर पर अर्धचंद्र धारण करते हैं?",
+            "opt_a": "शिव",
+            "opt_b": "विष्णु",
+            "opt_c": "ब्रह्मा",
+            "opt_d": "कार्तिकेय"
+        },
+        "gu": {
+            "text": "કયા ભગવાન પોતાના માથા પર અર્ધચંદ્ર ધારણ કરે છે?",
+            "opt_a": "શિવ",
+            "opt_b": "વિષ્ણુ",
+            "opt_c": "બ્રહ્મા",
+            "opt_d": "કાર્તિકેય"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "A",
+        "en": {
+            "text": "What is the vehicle of Lord Ganesha?",
+            "opt_a": "Mouse",
+            "opt_b": "Peacock",
+            "opt_c": "Lion",
+            "opt_d": "Bull"
+        },
+        "hi": {
+            "text": "भगवान गणेश का वाहन क्या है?",
+            "opt_a": "चूहा",
+            "opt_b": "मोर",
+            "opt_c": "शेर",
+            "opt_d": "बैल"
+        },
+        "gu": {
+            "text": "ભગવાન ગણેશનું વાહન કયું છે?",
+            "opt_a": "ઉંદર",
+            "opt_b": "મોર",
+            "opt_c": "સિંહ",
+            "opt_d": "બળદ"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "B",
+        "en": {
+            "text": "Who is the god of wealth?",
+            "opt_a": "Indra",
+            "opt_b": "Kubera",
+            "opt_c": "Varuna",
+            "opt_d": "Yama"
+        },
+        "hi": {
+            "text": "धन के देवता कौन हैं?",
+            "opt_a": "इंद्र",
+            "opt_b": "कुबेर",
+            "opt_c": "वरुण",
+            "opt_d": "यम"
+        },
+        "gu": {
+            "text": "ધનના દેવતા કોણ છે?",
+            "opt_a": "ઇન્દ્ર",
+            "opt_b": "કુબેર",
+            "opt_c": "વરુણ",
+            "opt_d": "યમ"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "D",
+        "en": {
+            "text": "Which avatar of Vishnu was a half-man, half-lion?",
+            "opt_a": "Varaha",
+            "opt_b": "Kurma",
+            "opt_c": "Matsya",
+            "opt_d": "Narasimha"
+        },
+        "hi": {
+            "text": "विष्णु का कौन सा अवतार आधा मनुष्य और आधा सिंह था?",
+            "opt_a": "वराह",
+            "opt_b": "कूर्म",
+            "opt_c": "मत्स्य",
+            "opt_d": "नरसिंह"
+        },
+        "gu": {
+            "text": "વિષ્ણુનો કયો અવતાર અડધો મનુષ્ય અને અડધો સિંહ હતો?",
+            "opt_a": "વરાહ",
+            "opt_b": "કૂર્મ",
+            "opt_c": "મત્સ્ય",
+            "opt_d": "નરસિંહ"
+        }
+    }
+]

@@ -715,10 +715,10 @@ def admin_import_custom():
     
     topics = [
         ("Ramayana", ['ramayana.json', 'ramayana_part2.json', 'ramayana_part3.json'], "Test your knowledge of the Ramayana epic, its characters, events, and teachings."),
-        ("Mahabharata", ['mahabharata.json'], "Test your knowledge of the Mahabharata epic."),
-        ("Hindu Gods", ['hindu_gods.json'], "Test your knowledge about Hindu Gods and Deities."),
-        ("Indian History", ['indian_history.json'], "Test your knowledge of Indian History."),
-        ("Indian Culture", ['indian_culture.json'], "Test your knowledge of Indian Culture and traditions.")
+        ("Mahabharata", ['mahabharata.json', 'mahabharata_part2.json'], "Test your knowledge of the Mahabharata epic."),
+        ("Hindu Gods", ['hindu_gods.json', 'hindu_gods_part2.json'], "Test your knowledge about Hindu Gods and Deities."),
+        ("Indian History", ['indian_history.json', 'indian_history_part2.json'], "Test your knowledge of Indian History."),
+        ("Indian Culture", ['indian_culture.json', 'indian_culture_part2.json'], "Test your knowledge of Indian Culture and traditions.")
     ]
     
     total_added = 0
