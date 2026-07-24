@@ -713,13 +713,25 @@ def admin_import_custom():
     import json
     import os
     data_file = os.path.join(basedir, 'data', 'ramayana.json')
+    data_file2 = os.path.join(basedir, 'data', 'ramayana_part2.json')
+    data_file3 = os.path.join(basedir, 'data', 'ramayana_part3.json')
     
-    if not os.path.exists(data_file):
-        flash('Data file not found!', 'danger')
+    questions = []
+    if os.path.exists(data_file):
+        with open(data_file, 'r', encoding='utf-8') as f:
+            questions.extend(json.load(f))
+            
+    if os.path.exists(data_file2):
+        with open(data_file2, 'r', encoding='utf-8') as f:
+            questions.extend(json.load(f))
+            
+    if os.path.exists(data_file3):
+        with open(data_file3, 'r', encoding='utf-8') as f:
+            questions.extend(json.load(f))
+            
+    if not questions:
+        flash('Data files not found!', 'danger')
         return redirect(url_for('admin_categories'))
-        
-    with open(data_file, 'r', encoding='utf-8') as f:
-        questions = json.load(f)
         
     # Check if category exists, create if not
     cat_name = "Ramayana"

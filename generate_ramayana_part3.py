@@ -1,0 +1,266 @@
+import json
+import os
+
+questions = [
+    {
+        "difficulty": "Easy",
+        "correct_option": "A",
+        "en": {
+            "text": "Who is the brother of Kumbhakarna and Vibhishana?",
+            "opt_a": "Ravana", "opt_b": "Khara", "opt_c": "Maricha", "opt_d": "Subahu"
+        },
+        "hi": {
+            "text": "कुंभकर्ण और विभीषण का भाई कौन है?",
+            "opt_a": "रावण", "opt_b": "खर", "opt_c": "मारीच", "opt_d": "सुबाहु"
+        },
+        "gu": {
+            "text": "કુંભકર્ણ અને વિભીષણનો ભાઈ કોણ છે?",
+            "opt_a": "રાવણ", "opt_b": "ખર", "opt_c": "મારીચ", "opt_d": "સુબાહુ"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "B",
+        "en": {
+            "text": "What is the name of Sugriva's wife who was forcefully taken by Vali?",
+            "opt_a": "Tara", "opt_b": "Ruma", "opt_c": "Mandodari", "opt_d": "Sulochana"
+        },
+        "hi": {
+            "text": "सुग्रीव की पत्नी का क्या नाम है जिसे बाली ने बलपूर्वक ले लिया था?",
+            "opt_a": "तारा", "opt_b": "रूमा", "opt_c": "मंदोदरी", "opt_d": "सुलोचना"
+        },
+        "gu": {
+            "text": "સુગ્રીવની પત્નીનું નામ શું છે જેને વાલીએ બળજબરીથી લઈ લીધી હતી?",
+            "opt_a": "તારા", "opt_b": "રૂમા", "opt_c": "મંદોદરી", "opt_d": "સુલોચના"
+        }
+    },
+    {
+        "difficulty": "Hard",
+        "correct_option": "C",
+        "en": {
+            "text": "Which sage advised Rama to worship the Sun God before fighting Ravana?",
+            "opt_a": "Vashistha", "opt_b": "Vishwamitra", "opt_c": "Agastya", "opt_d": "Bharadwaja"
+        },
+        "hi": {
+            "text": "किस ऋषि ने रावण से युद्ध करने से पहले राम को सूर्य देव की पूजा करने की सलाह दी थी?",
+            "opt_a": "वशिष्ठ", "opt_b": "विश्वामित्र", "opt_c": "अगस्त्य", "opt_d": "भारद्वाज"
+        },
+        "gu": {
+            "text": "કયા ઋષિએ રાવણ સામે યુદ્ધ કરતા પહેલા રામને સૂર્ય દેવની પૂજા કરવાની સલાહ આપી હતી?",
+            "opt_a": "વશિષ્ઠ", "opt_b": "વિશ્વામિત્ર", "opt_c": "અગસ્ત્ય", "opt_d": "ભારદ્વાજ"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "D",
+        "en": {
+            "text": "What was the name of the hymn taught to Rama to defeat Ravana?",
+            "opt_a": "Shiva Tandava Stotram", "opt_b": "Hanuman Chalisa", "opt_c": "Vishnu Sahasranama", "opt_d": "Aditya Hrudayam"
+        },
+        "hi": {
+            "text": "रावण को हराने के लिए राम को सिखाए गए स्तोत्र का क्या नाम था?",
+            "opt_a": "शिव तांडव स्तोत्र", "opt_b": "हनुमान चालीसा", "opt_c": "विष्णु सहस्रनाम", "opt_d": "आदित्य हृदयम्"
+        },
+        "gu": {
+            "text": "રાવણને હરાવવા માટે રામને શીખવવામાં આવેલા સ્તોત્રનું નામ શું હતું?",
+            "opt_a": "શિવ તાંડવ સ્તોત્ર", "opt_b": "હનુમાન ચાલીસા", "opt_c": "વિષ્ણુ સહસ્ત્રનામ", "opt_d": "આદિત્ય હૃદયમ્"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "A",
+        "en": {
+            "text": "Who is the father of Vali and Sugriva?",
+            "opt_a": "Surya and Indra (spiritually) and Riksharaja", "opt_b": "Vayu", "opt_c": "Brahma", "opt_d": "Shiva"
+        },
+        "hi": {
+            "text": "बाली और सुग्रीव के पिता कौन हैं?",
+            "opt_a": "सूर्य और इंद्र (आध्यात्मिक रूप से) और ऋक्षराज", "opt_b": "वायु", "opt_c": "ब्रह्मा", "opt_d": "शिव"
+        },
+        "gu": {
+            "text": "વાલી અને સુગ્રીવના પિતા કોણ છે?",
+            "opt_a": "સૂર્ય અને ઇન્દ્ર (આધ્યાત્મિક રીતે) અને ઋક્ષરાજ", "opt_b": "વાયુ", "opt_c": "બ્રહ્મા", "opt_d": "શિવ"
+        }
+    },
+    {
+        "difficulty": "Hard",
+        "correct_option": "B",
+        "en": {
+            "text": "What is the name of the celestial weapon used by Rama to finally kill Ravana?",
+            "opt_a": "Pashupatastra", "opt_b": "Brahmastra", "opt_c": "Narayanastra", "opt_d": "Vajra"
+        },
+        "hi": {
+            "text": "अंततः रावण को मारने के लिए राम द्वारा उपयोग किए गए दिव्य अस्त्र का क्या नाम है?",
+            "opt_a": "पाशुपतास्त्र", "opt_b": "ब्रह्मास्त्र", "opt_c": "नारायणास्त्र", "opt_d": "वज्र"
+        },
+        "gu": {
+            "text": "અંતે રાવણને મારવા માટે રામ દ્વારા ઉપયોગમાં લેવાયેલા દિવ્ય અસ્ત્રનું નામ શું છે?",
+            "opt_a": "પાશુપતાસ્ત્ર", "opt_b": "બ્રહ્માસ્ત્ર", "opt_c": "નારાયણાસ્ત્ર", "opt_d": "વજ્ર"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "C",
+        "en": {
+            "text": "Who did Sita pray to, to prove her purity after the war?",
+            "opt_a": "Surya Dev", "opt_b": "Vayu Dev", "opt_c": "Agni Dev", "opt_d": "Varuna Dev"
+        },
+        "hi": {
+            "text": "युद्ध के बाद अपनी पवित्रता सिद्ध करने के लिए सीता ने किससे प्रार्थना की थी?",
+            "opt_a": "सूर्य देव", "opt_b": "वायु देव", "opt_c": "अग्नि देव", "opt_d": "वरुण देव"
+        },
+        "gu": {
+            "text": "યુદ્ધ પછી પોતાની પવિત્રતા સાબિત કરવા સીતાએ કોની પ્રાર્થના કરી હતી?",
+            "opt_a": "સૂર્ય દેવ", "opt_b": "વાયુ દેવ", "opt_c": "અગ્નિ દેવ", "opt_d": "વરુણ દેવ"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "D",
+        "en": {
+            "text": "Who wrote the Tamil version of Ramayana called Ramavataram?",
+            "opt_a": "Valmiki", "opt_b": "Tulsidas", "opt_c": "Kalidasa", "opt_d": "Kambar"
+        },
+        "hi": {
+            "text": "रामावतारम नामक रामायण का तमिल संस्करण किसने लिखा था?",
+            "opt_a": "वाल्मीकि", "opt_b": "तुलसीदास", "opt_c": "कालिदास", "opt_d": "कंबर"
+        },
+        "gu": {
+            "text": "રામાવતારમ નામનું રામાયણનું તમિલ સંસ્કરણ કોણે લખ્યું હતું?",
+            "opt_a": "વાલ્મીકિ", "opt_b": "તુલસીદાસ", "opt_c": "કાલિદાસ", "opt_d": "કંબર"
+        }
+    },
+    {
+        "difficulty": "Hard",
+        "correct_option": "A",
+        "en": {
+            "text": "Who is the mother of the demon twins Khara and Dushana?",
+            "opt_a": "Kaikesi's sister Raka", "opt_b": "Tataka", "opt_c": "Simhika", "opt_d": "Surpanakha"
+        },
+        "hi": {
+            "text": "राक्षस जुड़वां खर और दूषण की माता कौन है?",
+            "opt_a": "कैकसी की बहन राका", "opt_b": "ताड़का", "opt_c": "सिंहिका", "opt_d": "शूर्पणखा"
+        },
+        "gu": {
+            "text": "રાક્ષસ જોડિયા ખર અને દૂષણની માતા કોણ છે?",
+            "opt_a": "કૈકસીની બહેન રાકા", "opt_b": "તાડકા", "opt_c": "સિંહિકા", "opt_d": "શૂર્પણખા"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "B",
+        "en": {
+            "text": "What does the word 'Ramayana' mean?",
+            "opt_a": "The God Rama", "opt_b": "The Journey of Rama", "opt_c": "The Story of Sita", "opt_d": "The War of Lanka"
+        },
+        "hi": {
+            "text": "'रामायण' शब्द का अर्थ क्या है?",
+            "opt_a": "भगवान राम", "opt_b": "राम की यात्रा", "opt_c": "सीता की कहानी", "opt_d": "लंका का युद्ध"
+        },
+        "gu": {
+            "text": "'રામાયણ' શબ્દનો અર્થ શું થાય છે?",
+            "opt_a": "ભગવાન રામ", "opt_b": "રામની યાત્રા", "opt_c": "સીતાની વાર્તા", "opt_d": "લંકાનું યુદ્ધ"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "C",
+        "en": {
+            "text": "In which yuga did the events of Ramayana take place?",
+            "opt_a": "Satya Yuga", "opt_b": "Dvapara Yuga", "opt_c": "Treta Yuga", "opt_d": "Kali Yuga"
+        },
+        "hi": {
+            "text": "रामायण की घटनाएँ किस युग में हुई थीं?",
+            "opt_a": "सत्य युग", "opt_b": "द्वापर युग", "opt_c": "त्रेता युग", "opt_d": "कलि युग"
+        },
+        "gu": {
+            "text": "રામાયણની ઘટનાઓ કયા યુગમાં બની હતી?",
+            "opt_a": "સત્ય યુગ", "opt_b": "દ્વાપર યુગ", "opt_c": "ત્રેતા યુગ", "opt_d": "કળિયુગ"
+        }
+    },
+    {
+        "difficulty": "Hard",
+        "correct_option": "D",
+        "en": {
+            "text": "What is the name of the river that flows through Ayodhya?",
+            "opt_a": "Ganga", "opt_b": "Yamuna", "opt_c": "Saraswati", "opt_d": "Sarayu"
+        },
+        "hi": {
+            "text": "अयोध्या से होकर बहने वाली नदी का क्या नाम है?",
+            "opt_a": "गंगा", "opt_b": "यमुना", "opt_c": "सरस्वती", "opt_d": "सरयू"
+        },
+        "gu": {
+            "text": "અયોધ્યામાંથી વહેતી નદીનું નામ શું છે?",
+            "opt_a": "ગંગા", "opt_b": "યમુના", "opt_c": "સરસ્વતી", "opt_d": "સરયૂ"
+        }
+    },
+    {
+        "difficulty": "Easy",
+        "correct_option": "A",
+        "en": {
+            "text": "Who provided the boat for Rama, Sita, and Lakshmana to cross the river during their exile?",
+            "opt_a": "Kevata (Nishadaraja Guha)", "opt_b": "Sugriva", "opt_c": "Jatayu", "opt_d": "Vibhishana"
+        },
+        "hi": {
+            "text": "राम, सीता और लक्ष्मण को वनवास के दौरान नदी पार करने के लिए नाव किसने प्रदान की थी?",
+            "opt_a": "केवट (निषादराज गुह)", "opt_b": "सुग्रीव", "opt_c": "जटायु", "opt_d": "विभीषण"
+        },
+        "gu": {
+            "text": "વનવાસ દરમિયાન નદી પાર કરવા માટે રામ, સીતા અને લક્ષ્મણને હોડી કોણે આપી હતી?",
+            "opt_a": "કેવટ (નિષાદરાજ ગુહ)", "opt_b": "સુગ્રીવ", "opt_c": "જટાયુ", "opt_d": "વિભીષણ"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "B",
+        "en": {
+            "text": "Who was the maternal uncle of Ravana, who helped in kidnapping Sita?",
+            "opt_a": "Khara", "opt_b": "Maricha", "opt_c": "Subahu", "opt_d": "Kumbhakarna"
+        },
+        "hi": {
+            "text": "रावण का मामा कौन था, जिसने सीता के अपहरण में मदद की थी?",
+            "opt_a": "खर", "opt_b": "मारीच", "opt_c": "सुबाहु", "opt_d": "कुंभकर्ण"
+        },
+        "gu": {
+            "text": "રાવણના મામા કોણ હતા, જેમણે સીતાના અપહરણમાં મદદ કરી હતી?",
+            "opt_a": "ખર", "opt_b": "મારીચ", "opt_c": "સુબાહુ", "opt_d": "કુંભકર્ણ"
+        }
+    },
+    {
+        "difficulty": "Hard",
+        "correct_option": "C",
+        "en": {
+            "text": "Who cursed King Dasharatha that he would die grieving for his son?",
+            "opt_a": "Sage Durvasa", "opt_b": "Sage Vishwamitra", "opt_c": "Shravan Kumar's parents", "opt_d": "Sage Bhrigu"
+        },
+        "hi": {
+            "text": "राजा दशरथ को किसने श्राप दिया था कि उनकी मृत्यु पुत्र वियोग में होगी?",
+            "opt_a": "ऋषि दुर्वासा", "opt_b": "ऋषि विश्वामित्र", "opt_c": "श्रवण कुमार के माता-पिता", "opt_d": "ऋषि भृगु"
+        },
+        "gu": {
+            "text": "રાજા દશરથને કોણે શ્રાપ આપ્યો હતો કે તેમનું મૃત્યુ પુત્ર વિયોગમાં થશે?",
+            "opt_a": "ઋષિ દુર્વાસા", "opt_b": "ઋષિ વિશ્વામિત્ર", "opt_c": "શ્રવણ કુમારના માતાપિતા", "opt_d": "ઋષિ ભૃગુ"
+        }
+    },
+    {
+        "difficulty": "Medium",
+        "correct_option": "D",
+        "en": {
+            "text": "How many Kanda (chapters/books) are there in Valmiki Ramayana?",
+            "opt_a": "5", "opt_b": "6", "opt_c": "8", "opt_d": "7"
+        },
+        "hi": {
+            "text": "वाल्मीकि रामायण में कितने कांड (अध्याय/पुस्तकें) हैं?",
+            "opt_a": "5", "opt_b": "6", "opt_c": "8", "opt_d": "7"
+        },
+        "gu": {
+            "text": "વાલ્મીકિ રામાયણમાં કેટલા કાંડ (પ્રકરણ/પુસ્તકો) છે?",
+            "opt_a": "5", "opt_b": "6", "opt_c": "8", "opt_d": "7"
+        }
+    }
+]
+
+os.makedirs('d:/project/qgame/qgame/data', exist_ok=True)
+with open('d:/project/qgame/qgame/data/ramayana_part3.json', 'w', encoding='utf-8') as f:
+    json.dump(questions, f, ensure_ascii=False, indent=4)
+print(f"Created ramayana_part3.json with {len(questions)} questions.")
