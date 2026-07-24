@@ -312,6 +312,18 @@ def download_certificate(cert_id):
     directory = os.path.join(base_dir, 'static', 'certificates')
     filename = os.path.basename(cert.file_path)
     
+    filepath = os.path.join(directory, filename)
+    if not os.path.exists(filepath):
+        # Regenerate if file is missing (e.g. after a deploy on ephemeral filesystem)
+        attempt = QuizAttempt.query.get(cert.attempt_id)
+        if attempt:
+            category = Category.query.get(attempt.category_id)
+            cert_id_new, file_path_new = generate_certificate(current_user, attempt, category)
+            cert.certificate_id = cert_id_new
+            cert.file_path = file_path_new
+            db.session.commit()
+            filename = os.path.basename(cert.file_path)
+    
     response = send_from_directory(directory, filename)
     response.headers['Content-Disposition'] = f'inline; filename="{filename}"'
     return response
