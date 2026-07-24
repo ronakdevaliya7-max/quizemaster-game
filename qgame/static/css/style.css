@@ -638,3 +638,33 @@ body.dark-mode .dynamic-bg::after {
 .border-ruby { border: 4px solid #ff003c; box-shadow: 0 0 15px #ff003c; }
 .title-legend { font-weight: 900; background: linear-gradient(90deg, #ff003c, #00f0ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .title-expert { font-weight: 800; color: #2563eb; }
+
+/* Mobile Responsiveness for Auth Pages and Navbar */
+@media (max-width: 768px) {
+    .auth-split-wrapper {
+        flex-direction: column;
+        overflow-y: auto;
+        position: relative;
+        height: auto;
+        min-height: 100vh;
+    }
+    .auth-split-left {
+        display: none;
+    }
+    .auth-split-right {
+        padding: 2rem 1rem;
+        border-left: none;
+        width: 100%;
+        min-height: 100vh;
+        justify-content: flex-start;
+    }
+    .auth-container {
+        margin-top: 2rem;
+    }
+    .navbar {
+        padding: 1rem 0.5rem;
+    }
+    .navbar .nav-links {
+        gap: 10px;
+    }
+}
