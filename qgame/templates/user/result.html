@@ -79,16 +79,11 @@
     </div>
     
     <style>
-        @keyframes popInBounce {
-            0% { opacity: 0; transform: scale(0.5) translateY(20px); }
-            60% { opacity: 1; transform: scale(1.1) translateY(-10px); }
-            80% { transform: scale(0.95) translateY(5px); }
-            100% { transform: scale(1) translateY(0); }
-        }
         .cert-bounce {
-            animation: popInBounce 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            animation-delay: 0.5s;
-            opacity: 0;
+            transition: transform 0.2s;
+        }
+        .cert-bounce:hover {
+            transform: scale(1.05);
         }
     </style>
 
