@@ -61,6 +61,7 @@
                     <th style="text-align: left; padding: 1rem; color: var(--text-secondary); font-size: 0.85rem; text-transform: uppercase;">ID</th>
                     <th style="text-align: left; padding: 1rem; color: var(--text-secondary); font-size: 0.85rem; text-transform: uppercase;">Name</th>
                     <th style="text-align: left; padding: 1rem; color: var(--text-secondary); font-size: 0.85rem; text-transform: uppercase;">Description</th>
+                    <th style="text-align: center; padding: 1rem; color: var(--text-secondary); font-size: 0.85rem; text-transform: uppercase;">Questions</th>
                     <th style="text-align: right; padding: 1rem; color: var(--text-secondary); font-size: 0.85rem; text-transform: uppercase;">Actions</th>
                 </tr>
             </thead>
@@ -75,6 +76,11 @@
                         {{ category.name }}
                     </td>
                     <td style="padding: 1rem; color: var(--text-secondary);">{{ category.description }}</td>
+                    <td style="padding: 1rem; text-align: center;">
+                        <a href="{{ url_for('admin_questions', category_id=category.id) }}" style="background: rgba(59, 130, 246, 0.1); color: var(--primary); padding: 4px 10px; border-radius: 99px; font-weight: 700; text-decoration: none; font-size: 0.9rem;">
+                            {{ category_counts[category.id] }}
+                        </a>
+                    </td>
                     <td style="padding: 1rem; text-align: right;">
                         <form action="{{ url_for('admin_delete_category', category_id=category.id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this category? All related questions will also be deleted.');">
                             <button type="submit" class="btn" style="background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); padding: 6px 12px; border-radius: 6px; cursor: pointer;">Delete</button>
@@ -83,7 +89,7 @@
                 </tr>
                 {% else %}
                 <tr>
-                    <td colspan="4" style="text-align: center; padding: 2rem; color: var(--text-secondary);">No categories found.</td>
+                    <td colspan="5" style="text-align: center; padding: 2rem; color: var(--text-secondary);">No categories found.</td>
                 </tr>
                 {% endfor %}
             </tbody>

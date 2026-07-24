@@ -504,7 +504,10 @@ def admin_categories():
             return redirect(url_for('admin_categories'))
         
     categories = Category.query.all()
-    return render_template('admin/categories.html', categories=categories)
+    category_counts = {}
+    for c in categories:
+        category_counts[c.id] = Question.query.filter_by(category_id=c.id, language='en').count()
+    return render_template('admin/categories.html', categories=categories, category_counts=category_counts)
 
 @app.route('/admin/categories/delete/<int:category_id>', methods=['POST'])
 @login_required
@@ -541,7 +544,11 @@ def admin_questions():
         flash('Question added.')
         return redirect(url_for('admin_questions'))
         
-    questions = Question.query.all()
+    category_id = request.args.get('category_id')
+    if category_id:
+        questions = Question.query.filter_by(category_id=category_id).all()
+    else:
+        questions = Question.query.all()
     categories = Category.query.all()
     return render_template('admin/questions.html', questions=questions, categories=categories)
 
