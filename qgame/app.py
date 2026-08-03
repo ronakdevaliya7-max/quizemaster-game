@@ -1000,6 +1000,14 @@ def migrate_db_route():
         
     return redirect(url_for('admin_dashboard'))
 
+@app.route('/debug_categories')
+def debug_categories():
+    categories = Category.query.all()
+    out = "<h2>Live Database Categories:</h2>"
+    for c in categories:
+        out += f"{c.name} | Ed: {c.education_level} | Course: {c.course} | Std: {c.standard} | Board: {c.board}<br>"
+    return out
+
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
