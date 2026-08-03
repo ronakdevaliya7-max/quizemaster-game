@@ -62,10 +62,11 @@ with app.app_context():
     ]
     for table, col, dtype in columns_to_add:
         try:
-            db.session.execute(text(f"ALTER TABLE {table} ADD COLUMN {col} {dtype}"))
+            db.session.execute(text(f'ALTER TABLE "{table}" ADD COLUMN {col} {dtype}'))
             db.session.commit()
             print(f"Added column {col} to {table}")
         except Exception as e:
+            print(f"Error adding {col} to {table}: {e}")
             db.session.rollback()
 
     admin = User.query.filter_by(username="admin").first()
