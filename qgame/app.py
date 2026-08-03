@@ -963,14 +963,15 @@ def migrate_db_route():
         cursor.execute("SELECT category_id, text, option_a, option_b, option_c, option_d, correct_option, explanation, difficulty, language FROM question")
         sqlite_questions = cursor.fetchall()
         
-        existing_q_texts = set(q.text for q in Question.query.all())
+        existing_qs = set((q.category_id, q.text, q.language) for q in Question.query.all())
         
         new_questions = []
         for row in sqlite_questions:
             cat_id, text, opt_a, opt_b, opt_c, opt_d, corr, expl, diff, lang = row
-            if text not in existing_q_texts:
-                live_cat_id = cat_id_mapping.get(cat_id)
-                if live_cat_id:
+            live_cat_id = cat_id_mapping.get(cat_id)
+            if live_cat_id:
+                q_key = (live_cat_id, text, lang)
+                if q_key not in existing_qs:
                     new_q = Question(
                         category_id=live_cat_id,
                         text=text,
@@ -978,7 +979,7 @@ def migrate_db_route():
                         correct_option=corr, explanation=expl, difficulty=diff, language=lang
                     )
                     new_questions.append(new_q)
-                    existing_q_texts.add(text)
+                    existing_qs.add(q_key)
                     
         if new_questions:
             db.session.bulk_save_objects(new_questions)
