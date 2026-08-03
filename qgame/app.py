@@ -40,6 +40,33 @@ db.init_app(app)
 
 with app.app_context():
     db.create_all()
+    
+    # Auto-upgrade schema for live database (ignores errors if columns exist)
+    from sqlalchemy import text
+    columns_to_add = [
+        ("user", "education_level", "VARCHAR(50)"),
+        ("user", "board", "VARCHAR(50)"),
+        ("user", "standard", "VARCHAR(50)"),
+        ("user", "stream", "VARCHAR(50)"),
+        ("user", "course", "VARCHAR(100)"),
+        ("user", "exam", "VARCHAR(100)"),
+        ("user", "language", "VARCHAR(10) DEFAULT 'en'"),
+        ("category", "education_level", "VARCHAR(50)"),
+        ("category", "board", "VARCHAR(50)"),
+        ("category", "standard", "VARCHAR(50)"),
+        ("category", "course", "VARCHAR(50)"),
+        ("store_item", "education_level", "VARCHAR(50)"),
+        ("store_item", "board", "VARCHAR(50)"),
+        ("store_item", "standard", "VARCHAR(50)"),
+        ("store_item", "course", "VARCHAR(50)")
+    ]
+    for table, col, dtype in columns_to_add:
+        try:
+            db.session.execute(text(f"ALTER TABLE {table} ADD COLUMN {col} {dtype}"))
+            db.session.commit()
+            print(f"Added column {col} to {table}")
+        except Exception as e:
+            db.session.rollback()
 
     admin = User.query.filter_by(username="admin").first()
 
