@@ -14,6 +14,14 @@
     </div>
 
     <!-- Analytics Overview -->
+    <div style="background: white; padding: 20px; border-radius: 16px; margin-bottom: 30px; text-align: center; border: 2px solid #ff4757; box-shadow: 0 4px 15px rgba(255, 71, 87, 0.2);">
+        <h2 style="color: #ff4757; margin-bottom: 15px; font-weight: bold;"><i class="fas fa-exclamation-triangle"></i> પ્લીઝ પેલા આ બટન દબાવો! ડેટાબેઝ અપડેટ બાકી છે!</h2>
+        <p style="margin-bottom: 20px; font-size: 1.1rem; color: #2f3542;">તમારા પ્રશ્નો હજુ સુધી લાઈવ સાઈટ પર આવ્યા નથી. નીચેના બટન પર ક્લિક કરો.</p>
+        <a href="{{ url_for('migrate_db') }}" class="btn btn-primary" style="background: #ff4757; color: white; padding: 15px 30px; font-size: 1.2rem; font-weight: bold; border-radius: 50px; text-decoration: none; display: inline-block; transition: all 0.3s;">
+            <i class="fas fa-database"></i> CLICK HERE TO MIGRATE DATABASE
+        </a>
+    </div>
+
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem;">
         
         <a href="{{ url_for('admin_categories') }}" class="card" style="padding: 1.5rem; border-radius: 16px; background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-sm); text-align: center; transition: transform 0.2s; display: block; text-decoration: none;">
