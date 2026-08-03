@@ -475,9 +475,6 @@ msgstr "ક્વિઝ શરૂ કરો"
 msgid "Go Back"
 msgstr "પાછા જાઓ"
 
-msgid "Search for quizzes..."
-msgstr "ક્વિઝ શોધો..."
-
 msgid "Python"
 msgstr "પાયથોન"
 

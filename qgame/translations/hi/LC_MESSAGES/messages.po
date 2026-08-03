@@ -457,33 +457,6 @@ msgstr[1] ""
 msgid "Unknown standard stream '{name}'"
 msgstr ""
 
-msgid "Manage Users"
-msgstr "उपयोगकर्ताओं का प्रबंधन"
-
-msgid "Back to Dashboard"
-msgstr "डैशबोर्ड पर वापस जाएं"
-
-msgid "ID"
-msgstr "आईडी"
-
-msgid "Username"
-msgstr "यूज़रनेम"
-
-msgid "Name"
-msgstr "नाम"
-
-msgid "Role"
-msgstr "भूमिका"
-
-msgid "Points"
-msgstr "अंक"
-
-msgid "Actions"
-msgstr "कार्रवाइयां"
-
-msgid "Delete"
-msgstr "हटाएं"
-
 msgid "Welcome back,"
 msgstr "वापसी पर स्वागत है,"
 
@@ -510,9 +483,6 @@ msgstr "क्विज़ शुरू करें"
 
 msgid "Go Back"
 msgstr "वापस जाएं"
-
-msgid "Search for quizzes..."
-msgstr "क्विज़ खोजें..."
 
 msgid "Python"
 msgstr "पायथन"
