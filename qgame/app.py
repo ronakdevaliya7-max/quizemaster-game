@@ -956,6 +956,23 @@ def migrate_db_route():
                 db.session.add(new_cat)
                 db.session.commit()
                 live_categories[name] = new_cat
+            else:
+                existing_cat = live_categories[name]
+                updated = False
+                if not existing_cat.education_level and ed_level:
+                    existing_cat.education_level = ed_level
+                    updated = True
+                if not existing_cat.board and board:
+                    existing_cat.board = board
+                    updated = True
+                if not existing_cat.standard and std:
+                    existing_cat.standard = std
+                    updated = True
+                if not existing_cat.course and course:
+                    existing_cat.course = course
+                    updated = True
+                if updated:
+                    db.session.commit()
                 
             cat_id_mapping[sqlite_id] = live_categories[name].id
             
