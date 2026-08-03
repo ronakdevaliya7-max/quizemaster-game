@@ -55,6 +55,8 @@ with app.app_context():
         db.session.commit()
 
 def get_locale():
+    if current_user and current_user.is_authenticated:
+        return current_user.language or 'en'
     return session.get('lang', request.accept_languages.best_match(app.config['BABEL_SUPPORTED_LOCALES']) or 'en')
 
 babel = Babel(app, locale_selector=get_locale)
@@ -105,6 +107,9 @@ def index():
 def set_language(lang):
     if lang in app.config['BABEL_SUPPORTED_LOCALES']:
         session['lang'] = lang
+        if current_user.is_authenticated:
+            current_user.language = lang
+            db.session.commit()
     return redirect(request.referrer or url_for('index'))
 
 # ----------------- AUTH ROUTES -----------------
@@ -130,43 +135,66 @@ def login():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('user_dashboard'))
+        
     if request.method == 'POST':
         username = request.form.get('username')
-        name = request.form.get('name')
         password = request.form.get('password')
         confirm_password = request.form.get('confirm_password')
-        age_str = request.form.get('age')
-        age = int(age_str) if age_str and age_str.strip() else None
-        gender = request.form.get('gender')
-        college = request.form.get('college')
-        department = request.form.get('department')
-        semester = request.form.get('semester')
+        name = request.form.get('name')
         
         if password != confirm_password:
-            flash('Passwords do not match.')
+            flash('Passwords do not match!')
             return redirect(url_for('register'))
-            
+        
         user = User.query.filter_by(username=username).first()
         if user:
-            flash('Username already exists.')
+            flash('Username already exists. Please choose a different one.')
             return redirect(url_for('register'))
             
-        new_user = User(
-            username=username,
-            name=name,
-            password_hash=generate_password_hash(password, method='scrypt'),
-            age=age,
-            gender=gender,
-            college=college,
-            department=department,
-            semester=semester
-        )
+        hashed_password = generate_password_hash(password, method='scrypt')
+        new_user = User(username=username, password_hash=hashed_password, name=name, role='user')
         
+        try:
+            new_user.email = request.form.get('email')
+            new_user.mobile = request.form.get('mobile')
+            new_user.gender = request.form.get('gender')
+            new_user.dob = request.form.get('dob')
+            new_user.country = request.form.get('country')
+            new_user.state = request.form.get('state')
+            new_user.city = request.form.get('city')
+            
+            # Education Details
+            ed_level = request.form.get('education_level')
+            new_user.education_level = ed_level
+            
+            if ed_level == 'School':
+                new_user.board = request.form.get('board')
+                new_user.standard = request.form.get('standard')
+                new_user.stream = request.form.get('stream')
+            elif ed_level == 'Diploma':
+                new_user.course = request.form.get('diploma_branch')
+                new_user.semester = request.form.get('diploma_semester')
+            elif ed_level == 'Graduation':
+                new_user.college = request.form.get('university')
+                new_user.course = request.form.get('grad_course')
+                new_user.semester = request.form.get('grad_semester')
+            elif ed_level == 'Post Graduation':
+                new_user.course = request.form.get('pg_course')
+                new_user.semester = request.form.get('pg_semester')
+            elif ed_level == 'Competitive Exam':
+                new_user.exam = request.form.get('exam')
+                
+        except Exception as e:
+            print("DB field missing:", e)
+            pass
+            
         db.session.add(new_user)
         db.session.commit()
         
-        flash('Registration successful. Welcome!')
         login_user(new_user)
+        flash('Account created successfully! Welcome to your dashboard.')
         return redirect(url_for('user_dashboard'))
         
     return render_template('register.html')
@@ -183,23 +211,84 @@ def logout():
 def user_dashboard():
     if current_user.role == 'admin':
         return redirect(url_for('admin_dashboard'))
-    categories = Category.query.all()
-    lang = session.get('lang', 'en')
+        
+    query = Category.query
+    if current_user.education_level == 'School':
+        query = query.filter_by(education_level='School', standard=current_user.standard, board=current_user.board)
+    elif current_user.education_level in ['Graduation', 'Diploma', 'Post Graduation']:
+        query = query.filter_by(education_level=current_user.education_level, course=current_user.course)
+        if current_user.semester and current_user.semester != 'None':
+            query = query.filter_by(standard=current_user.semester)
+    elif current_user.education_level == 'Competitive Exam':
+        query = query.filter_by(education_level='Competitive Exam', course=current_user.exam)
+        
+    categories = query.all()
+    
+    # If no subjects are specifically matched, don't show random ones! 
+    # Just show empty list so they know their specific profile has no subjects yet.
+    # We will seed the DB to ensure there ARE subjects.
+        
     category_counts = {}
     for c in categories:
-        category_counts[c.id] = Question.query.filter_by(category_id=c.id, language=lang).count()
-    return render_template('user/dashboard.html', user=current_user, categories=categories, category_counts=category_counts)
+        category_counts[c.id] = Question.query.filter_by(category_id=c.id).count()
+        
+    user_quizzes = QuizAttempt.query.filter_by(user_id=current_user.id).order_by(QuizAttempt.date.desc()).limit(5).all()
+    user_inventory = [inv.store_item_id for inv in current_user.inventory]
+    equipped_title = StoreItem.query.get(current_user.active_title_id) if current_user.active_title_id else None
+    equipped_border = StoreItem.query.get(current_user.active_border_id) if current_user.active_border_id else None
+    
+    return render_template('user/dashboard.html', categories=categories, category_counts=category_counts, user_quizzes=user_quizzes, user=current_user, equipped_title=equipped_title, equipped_border=equipped_border)
 
 @app.route('/quiz/<int:category_id>', methods=['GET'])
 @login_required
 def take_quiz(category_id):
     category = Category.query.get_or_404(category_id)
-    questions = Question.query.filter_by(category_id=category.id, language=session.get('lang', 'en')).all()
+    lang = get_locale()
+    questions = Question.query.filter_by(category_id=category.id, language=lang).all()
     
     if not questions:
-        flash("No questions available for this category yet.")
-        return redirect(url_for('user_dashboard'))
-        
+        if lang != 'en':
+            # Try to fetch English questions and translate them
+            en_questions = Question.query.filter_by(category_id=category.id, language='en').all()
+            if not en_questions:
+                flash(_("No questions available for this category yet."))
+                return redirect(url_for('user_dashboard'))
+                
+            from deep_translator import GoogleTranslator
+            translator = GoogleTranslator(source='en', target=lang)
+            translated_qs = []
+            
+            # Translate up to 10 random questions to not block the request for too long
+            random.shuffle(en_questions)
+            en_questions = en_questions[:10]
+            
+            for eq in en_questions:
+                try:
+                    to_trans = [eq.text, eq.option_a, eq.option_b, eq.option_c, eq.option_d]
+                    t_text, t_a, t_b, t_c, t_d = translator.translate_batch(to_trans)
+                    q = Question(
+                        category_id=category.id,
+                        text=t_text,
+                        option_a=t_a, option_b=t_b, option_c=t_c, option_d=t_d,
+                        correct_option=eq.correct_option,
+                        difficulty=eq.difficulty,
+                        language=lang
+                    )
+                    db.session.add(q)
+                    translated_qs.append(q)
+                except Exception as e:
+                    print(f"Error translating: {e}")
+                    
+            db.session.commit()
+            
+            if translated_qs:
+                questions = translated_qs
+            else:
+                questions = en_questions # Fallback to english if translation entirely failed
+        else:
+            flash(_("No questions available for this category yet."))
+            return redirect(url_for('user_dashboard'))
+            
     random.shuffle(questions)
     # Take up to 10 questions so that they are randomly chosen each time from the available pool
     questions = questions[:10]
@@ -337,9 +426,37 @@ def profile():
         age_str = request.form.get('age')
         current_user.age = int(age_str) if age_str and age_str.strip() else None
         current_user.gender = request.form.get('gender')
-        current_user.college = request.form.get('college')
-        current_user.department = request.form.get('department')
-        current_user.semester = request.form.get('semester')
+        current_user.email = request.form.get('email')
+        current_user.mobile = request.form.get('mobile')
+        current_user.dob = request.form.get('dob')
+        current_user.country = request.form.get('country')
+        current_user.state = request.form.get('state')
+        current_user.city = request.form.get('city')
+        
+        ed_level = request.form.get('education_level')
+        current_user.education_level = ed_level
+        if ed_level == 'School':
+            current_user.board = request.form.get('board')
+            current_user.standard = request.form.get('standard')
+            current_user.stream = request.form.get('stream')
+        elif ed_level == 'Diploma':
+            current_user.course = request.form.get('diploma_branch')
+            current_user.semester = request.form.get('diploma_semester')
+        elif ed_level == 'Graduation':
+            current_user.college = request.form.get('university')
+            current_user.course = request.form.get('grad_course')
+            current_user.semester = request.form.get('grad_semester')
+        elif ed_level == 'Post Graduation':
+            current_user.course = request.form.get('pg_course')
+            current_user.semester = request.form.get('pg_semester')
+        elif ed_level == 'Competitive Exam':
+            current_user.exam = request.form.get('exam')
+            
+        lang = request.form.get('language')
+        if lang in app.config['BABEL_SUPPORTED_LOCALES']:
+            current_user.language = lang
+            session['lang'] = lang
+
         db.session.commit()
         flash('Profile updated successfully.')
         return redirect(url_for('profile'))
@@ -763,6 +880,74 @@ def admin_import_custom():
         
     flash(f'Successfully imported {total_added // 3} questions across special topics in 3 languages!', 'success')
     return redirect(url_for('admin_categories'))
+
+@app.route('/admin/migrate_db')
+@login_required
+def migrate_db_route():
+    if current_user.role != 'admin':
+        return redirect(url_for('user_dashboard'))
+    
+    import sqlite3
+    db_path = os.path.join(basedir, 'quizmaster.db')
+    if not os.path.exists(db_path):
+        flash('Local SQLite database not found!')
+        return redirect(url_for('admin_dashboard'))
+        
+    try:
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        
+        # Migrate Categories
+        cursor.execute("SELECT id, name, description, image_filename, education_level, board, standard, course FROM category")
+        sqlite_categories = cursor.fetchall()
+        
+        live_categories = {c.name: c for c in Category.query.all()}
+        cat_id_mapping = {} 
+        
+        for row in sqlite_categories:
+            sqlite_id, name, desc, img, ed_level, board, std, course = row
+            if name not in live_categories:
+                new_cat = Category(name=name, description=desc, image_filename=img)
+                new_cat.education_level = ed_level
+                new_cat.board = board
+                new_cat.standard = std
+                new_cat.course = course
+                db.session.add(new_cat)
+                db.session.commit()
+                live_categories[name] = new_cat
+                
+            cat_id_mapping[sqlite_id] = live_categories[name].id
+            
+        # Migrate Questions
+        cursor.execute("SELECT category_id, text, option_a, option_b, option_c, option_d, correct_option, explanation, difficulty, language FROM question")
+        sqlite_questions = cursor.fetchall()
+        
+        existing_q_texts = set(q.text for q in Question.query.all())
+        
+        new_questions = []
+        for row in sqlite_questions:
+            cat_id, text, opt_a, opt_b, opt_c, opt_d, corr, expl, diff, lang = row
+            if text not in existing_q_texts:
+                live_cat_id = cat_id_mapping.get(cat_id)
+                if live_cat_id:
+                    new_q = Question(
+                        category_id=live_cat_id,
+                        text=text,
+                        option_a=opt_a, option_b=opt_b, option_c=opt_c, option_d=opt_d,
+                        correct_option=corr, explanation=expl, difficulty=diff, language=lang
+                    )
+                    new_questions.append(new_q)
+                    existing_q_texts.add(text)
+                    
+        if new_questions:
+            db.session.bulk_save_objects(new_questions)
+            db.session.commit()
+            
+        flash(f'Migration successful! Added {len(new_questions)} new questions from the local database.', 'success')
+    except Exception as e:
+        flash(f'Error during migration: {str(e)}', 'danger')
+        
+    return redirect(url_for('admin_dashboard'))
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
