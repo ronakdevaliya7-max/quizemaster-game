@@ -9,8 +9,6 @@ __pycache__/
 # Database & Instance folders
 instance/
 **/instance/
-*.db
-*.sqlite
 
 # IDE & System files
 .vscode/

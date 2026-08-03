@@ -1,22 +1,24 @@
 {% extends 'base.html' %}
 
+{% block title %}Register - Smart Education Quiz{% endblock %}
+
 {% block content %}
 <div class="auth-split-wrapper auth-gaming-bg">
     <!-- Left Side: Branding / Animation -->
     <div class="auth-split-left" style="position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; border: none; background: transparent;">
         <!-- Animated Background Elements -->
-        <div class="floating-icon" style="position: absolute; top: 10%; left: 15%; font-size: 3rem; color: rgba(255,255,255,0.2); animation: float 6s ease-in-out infinite;"><i class="fas fa-question"></i></div>
-        <div class="floating-icon" style="position: absolute; top: 70%; left: 10%; font-size: 4rem; color: rgba(255,255,255,0.15); animation: float 8s ease-in-out infinite reverse;"><i class="fas fa-trophy"></i></div>
+        <div class="floating-icon" style="position: absolute; top: 10%; left: 15%; font-size: 3rem; color: rgba(255,255,255,0.2); animation: float 6s ease-in-out infinite;"><i class="fas fa-rocket"></i></div>
+        <div class="floating-icon" style="position: absolute; top: 70%; left: 10%; font-size: 4rem; color: rgba(255,255,255,0.15); animation: float 8s ease-in-out infinite reverse;"><i class="fas fa-medal"></i></div>
         <div class="floating-icon" style="position: absolute; top: 20%; right: 20%; font-size: 2.5rem; color: rgba(255,255,255,0.2); animation: float 7s ease-in-out infinite 1s;"><i class="fas fa-star"></i></div>
-        <div class="floating-icon" style="position: absolute; bottom: 15%; right: 15%; font-size: 3.5rem; color: rgba(255,255,255,0.15); animation: float 9s ease-in-out infinite 2s;"><i class="fas fa-gamepad"></i></div>
-        <div class="floating-icon" style="position: absolute; top: 50%; left: 5%; font-size: 2rem; color: rgba(255,255,255,0.2); animation: float 5s ease-in-out infinite 0.5s;"><i class="fas fa-brain"></i></div>
+        <div class="floating-icon" style="position: absolute; bottom: 15%; right: 15%; font-size: 3.5rem; color: rgba(255,255,255,0.15); animation: float 9s ease-in-out infinite 2s;"><i class="fas fa-crown"></i></div>
+        <div class="floating-icon" style="position: absolute; top: 50%; left: 5%; font-size: 2rem; color: rgba(255,255,255,0.2); animation: float 5s ease-in-out infinite 0.5s;"><i class="fas fa-book-open"></i></div>
 
         <div style="z-index: 10; max-width: 500px; text-align: center; position: relative; background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; padding: 3rem 2rem; box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
-            <div style="font-size: 4rem; margin-bottom: 1rem; animation: pulse 2s infinite; color: #00ffff;"><i class="fas fa-layer-group"></i></div>
-            <h1 style="font-size: 3.8rem; font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; text-shadow: 0 4px 15px rgba(0,0,0,0.4); color: white;">Join the Elite</h1>
-            <p style="font-size: 1.2rem; color: rgba(255,255,255,0.85); margin-bottom: 2rem; text-shadow: 0 2px 10px rgba(0,0,0,0.2);">Create your free account today and start your journey towards mastery with our premium quizzes.</p>
+            <div style="font-size: 4rem; margin-bottom: 1rem; animation: pulse 2s infinite; color: #00ffff;"><i class="fas fa-user-plus"></i></div>
+            <h1 style="font-size: 3.5rem; font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; text-shadow: 0 4px 15px rgba(0,0,0,0.4); color: white;">Join QuizStore</h1>
+            <p style="font-size: 1.2rem; color: rgba(255,255,255,0.85); margin-bottom: 2rem; text-shadow: 0 2px 10px rgba(0,0,0,0.2);">Create your premium account today. Challenge yourself, track your progress, and rise to the top!</p>
             <div style="display: inline-block; background: linear-gradient(135deg, rgba(236, 72, 153, 0.2), rgba(59, 130, 246, 0.2)); border: 1px solid rgba(255,255,255,0.3); padding: 12px 25px; border-radius: 50px; font-weight: 600; font-size: 1.1rem; color: white; box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);">
-                <i class="fas fa-rocket" style="color: #60a5fa; margin-right: 8px;"></i> Start your adventure!
+                <i class="fas fa-sparkles" style="color: #fbbf24; margin-right: 8px;"></i> Start your journey
             </div>
         </div>
         
@@ -36,96 +38,259 @@
             }
         </style>
     </div>
-
+    
     <!-- Right Side: Form -->
-    <div class="auth-split-right" style="overflow-y: auto; padding: 2rem;">
-        <div class="auth-container" style="max-width: 500px; margin-top: auto; margin-bottom: auto;">
-            <h2>Create an Account</h2>
-
-            <div class="flash-messages">
-                {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                {% for message in messages %}
-                <div class="flash" style="margin-bottom: 1.5rem; color: var(--danger); font-weight: 600;">{{ message }}
-                </div>
-                {% endfor %}
-                {% endif %}
-                {% endwith %}
-            </div>
-
-            <form method="POST" action="{{ url_for('register') }}">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                    <div class="form-group">
-                        <label for="name">Full Name</label>
-                        <input type="text" id="name" name="name" class="form-control" required autofocus
-                            placeholder="John Doe">
+    <div class="auth-split-right" style="overflow-y: auto; padding-top: 2rem; padding-bottom: 2rem; justify-content: flex-start;">
+        <div class="auth-container" style="max-width: 600px; width: 90%;">
+            <h2 style="text-align: center; margin-bottom: 1.5rem; font-size: 2.2rem; color: white;">Create Account</h2>
+            
+            <form method="POST" action="{{ url_for('register') }}" enctype="multipart/form-data">
+                <div class="row">
+                    <!-- Profile Photo -->
+                    <div class="col-12 form-group mb-3">
+                        <label class="form-label" style="color: rgba(255,255,255,0.9);">Profile Photo</label>
+                        <input type="file" class="form-control" name="profile_photo" accept="image/*" style="background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2);">
                     </div>
-
-                    <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" id="username" name="username" class="form-control" required
-                            placeholder="johndoe123">
+                    
+                    <!-- Personal Info -->
+                    <div class="col-md-6 form-group mb-3">
+                        <label class="form-label" style="color: rgba(255,255,255,0.9);">Full Name</label>
+                        <input type="text" class="form-control" name="name" required placeholder="John Doe" style="background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2);">
                     </div>
-                </div>
-
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" name="password" class="form-control" required>
+                    <div class="col-md-6 form-group mb-3">
+                        <label class="form-label" style="color: rgba(255,255,255,0.9);">Username</label>
+                        <input type="text" class="form-control" name="username" required placeholder="johndoe123" style="background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2);">
                     </div>
-
-                    <div class="form-group">
-                        <label for="confirm_password">Confirm</label>
-                        <input type="password" id="confirm_password" name="confirm_password" class="form-control"
-                            required>
+                    <div class="col-md-6 form-group mb-3">
+                        <label class="form-label" style="color: rgba(255,255,255,0.9);">Email</label>
+                        <input type="email" class="form-control" name="email" required placeholder="john@example.com" style="background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2);">
                     </div>
-                </div>
-
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                    <div class="form-group">
-                        <label for="age">Age</label>
-                        <input type="number" id="age" name="age" class="form-control" min="10" max="100">
+                    <div class="col-md-6 form-group mb-3">
+                        <label class="form-label" style="color: rgba(255,255,255,0.9);">Mobile Number</label>
+                        <input type="tel" class="form-control" name="mobile" required placeholder="9876543210" style="background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2);">
                     </div>
-
-                    <div class="form-group">
-                        <label for="gender">Gender</label>
-                        <select id="gender" name="gender" class="form-control">
-                            <option value="">Select Gender</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Other">Other</option>
+                    
+                    <div class="col-md-6 form-group mb-3">
+                        <label class="form-label" style="color: rgba(255,255,255,0.9);">Gender</label>
+                        <select class="form-control" name="gender" required style="background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                            <option value="" style="color: black;">Select Gender</option>
+                            <option value="Male" style="color: black;">Male</option>
+                            <option value="Female" style="color: black;">Female</option>
+                            <option value="Other" style="color: black;">Other</option>
                         </select>
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="college">College/Institution</label>
-                    <input type="text" id="college" name="college" class="form-control" placeholder="Optional">
-                </div>
-
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                    <div class="form-group">
-                        <label for="department">Department</label>
-                        <input type="text" id="department" name="department" class="form-control"
-                            placeholder="Optional">
+                    <div class="col-md-6 form-group mb-3">
+                        <label class="form-label" style="color: rgba(255,255,255,0.9);">Date of Birth</label>
+                        <input type="date" class="form-control" name="dob" required style="background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                    </div>
+                    
+                    <!-- Location Info -->
+                    <div class="col-md-4 form-group mb-3">
+                        <label class="form-label" style="color: rgba(255,255,255,0.9);">Country</label>
+                        <input type="text" class="form-control" name="country" required placeholder="India" style="background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                    </div>
+                    <div class="col-md-4 form-group mb-3">
+                        <label class="form-label" style="color: rgba(255,255,255,0.9);">State</label>
+                        <input type="text" class="form-control" name="state" required placeholder="Gujarat" style="background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                    </div>
+                    <div class="col-md-4 form-group mb-3">
+                        <label class="form-label" style="color: rgba(255,255,255,0.9);">City</label>
+                        <input type="text" class="form-control" name="city" required placeholder="Surat" style="background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2);">
                     </div>
 
-                    <div class="form-group">
-                        <label for="semester">Semester/Year</label>
-                        <input type="text" id="semester" name="semester" class="form-control" placeholder="Optional">
+                    <!-- Dynamic Education Profile Section -->
+                    <div class="col-12 form-group mb-3 mt-3 pt-3" style="border-top: 1px solid rgba(255,255,255,0.2);">
+                        <h5 style="color: #00ffff; margin-bottom: 1rem;">Education Profile</h5>
+                        <label class="form-label" style="color: rgba(255,255,255,0.9);">Education Level</label>
+                        <select class="form-control" name="education_level" id="educationLevel" onchange="updateForm()" required style="background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                            <option value="" style="color: black;">Select Level...</option>
+                            <option value="School" style="color: black;">School</option>
+                            <option value="Diploma" style="color: black;">Diploma</option>
+                            <option value="Graduation" style="color: black;">Graduation</option>
+                            <option value="Post Graduation" style="color: black;">Post Graduation</option>
+                            <option value="Competitive Exam" style="color: black;">Competitive Exam</option>
+                            <option value="Other" style="color: black;">Other</option>
+                        </select>
+                    </div>
+
+                    <!-- School Fields -->
+                    <div id="schoolFields" class="col-12 mb-3" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-6 form-group mb-3">
+                                <label class="form-label" style="color: rgba(255,255,255,0.9);">Board</label>
+                                <select class="form-control" name="board" style="background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                                    <option value="GSEB" style="color: black;">GSEB</option>
+                                    <option value="CBSE" style="color: black;">CBSE</option>
+                                    <option value="ICSE" style="color: black;">ICSE</option>
+                                    <option value="IB" style="color: black;">IB</option>
+                                    <option value="NIOS" style="color: black;">NIOS</option>
+                                    <option value="Other" style="color: black;">Other</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 form-group mb-3">
+                                <label class="form-label" style="color: rgba(255,255,255,0.9);">Standard</label>
+                                <select class="form-control" name="standard" id="standardSelect" onchange="updateStream()" style="background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                                    <option value="1" style="color: black;">1</option><option value="2" style="color: black;">2</option><option value="3" style="color: black;">3</option>
+                                    <option value="4" style="color: black;">4</option><option value="5" style="color: black;">5</option><option value="6" style="color: black;">6</option>
+                                    <option value="7" style="color: black;">7</option><option value="8" style="color: black;">8</option><option value="9" style="color: black;">9</option>
+                                    <option value="10" selected style="color: black;">10</option><option value="11" style="color: black;">11</option><option value="12" style="color: black;">12</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12 form-group mb-3" id="streamField" style="display: none;">
+                                <label class="form-label" style="color: rgba(255,255,255,0.9);">Stream</label>
+                                <select class="form-control" name="stream" style="background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                                    <option value="Science" style="color: black;">Science</option>
+                                    <option value="Commerce" style="color: black;">Commerce</option>
+                                    <option value="Arts" style="color: black;">Arts</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Diploma Fields -->
+                    <div id="diplomaFields" class="col-12 mb-3" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-6 form-group mb-3">
+                                <label class="form-label" style="color: rgba(255,255,255,0.9);">Branch</label>
+                                <select class="form-control" name="diploma_branch" style="background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                                    <option value="Computer Engineering" style="color: black;">Computer Engineering</option>
+                                    <option value="Mechanical" style="color: black;">Mechanical</option>
+                                    <option value="Civil" style="color: black;">Civil</option>
+                                    <option value="Electrical" style="color: black;">Electrical</option>
+                                    <option value="Automobile" style="color: black;">Automobile</option>
+                                    <option value="IT" style="color: black;">IT</option>
+                                    <option value="Electronics" style="color: black;">Electronics</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 form-group mb-3">
+                                <label class="form-label" style="color: rgba(255,255,255,0.9);">Semester</label>
+                                <select class="form-control" name="diploma_semester" style="background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                                    <option value="1" style="color: black;">1</option><option value="2" style="color: black;">2</option><option value="3" style="color: black;">3</option>
+                                    <option value="4" style="color: black;">4</option><option value="5" style="color: black;">5</option><option value="6" style="color: black;">6</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Graduation Fields -->
+                    <div id="graduationFields" class="col-12 mb-3" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-12 form-group mb-3">
+                                <label class="form-label" style="color: rgba(255,255,255,0.9);">University</label>
+                                <input type="text" class="form-control" name="university" placeholder="Example University" style="background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                            </div>
+                            <div class="col-md-6 form-group mb-3">
+                                <label class="form-label" style="color: rgba(255,255,255,0.9);">Course</label>
+                                <select class="form-control" name="grad_course" style="background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                                    <option value="BCA" style="color: black;">BCA</option>
+                                    <option value="BBA" style="color: black;">BBA</option>
+                                    <option value="B.Com" style="color: black;">B.Com</option>
+                                    <option value="BA" style="color: black;">BA</option>
+                                    <option value="B.Sc" style="color: black;">B.Sc</option>
+                                    <option value="B.Tech" style="color: black;">B.Tech</option>
+                                    <option value="BE" style="color: black;">BE</option>
+                                    <option value="B.Ed" style="color: black;">B.Ed</option>
+                                    <option value="LLB" style="color: black;">LLB</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 form-group mb-3">
+                                <label class="form-label" style="color: rgba(255,255,255,0.9);">Semester</label>
+                                <select class="form-control" name="grad_semester" style="background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                                    <option value="1" style="color: black;">1</option><option value="2" style="color: black;">2</option><option value="3" style="color: black;">3</option>
+                                    <option value="4" style="color: black;">4</option><option value="5" style="color: black;">5</option><option value="6" style="color: black;">6</option>
+                                    <option value="7" style="color: black;">7</option><option value="8" style="color: black;">8</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Post Graduation Fields -->
+                    <div id="postGradFields" class="col-12 mb-3" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-6 form-group mb-3">
+                                <label class="form-label" style="color: rgba(255,255,255,0.9);">Course</label>
+                                <select class="form-control" name="pg_course" style="background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                                    <option value="MCA" style="color: black;">MCA</option>
+                                    <option value="MBA" style="color: black;">MBA</option>
+                                    <option value="M.Com" style="color: black;">M.Com</option>
+                                    <option value="M.Sc" style="color: black;">M.Sc</option>
+                                    <option value="MA" style="color: black;">MA</option>
+                                    <option value="ME" style="color: black;">ME</option>
+                                    <option value="M.Tech" style="color: black;">M.Tech</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 form-group mb-3">
+                                <label class="form-label" style="color: rgba(255,255,255,0.9);">Semester</label>
+                                <select class="form-control" name="pg_semester" style="background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                                    <option value="1" style="color: black;">1</option><option value="2" style="color: black;">2</option>
+                                    <option value="3" style="color: black;">3</option><option value="4" style="color: black;">4</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Competitive Exam Fields -->
+                    <div id="examFields" class="col-12 form-group mb-3" style="display: none;">
+                        <div class="mb-3">
+                            <label class="form-label" style="color: rgba(255,255,255,0.9);">Exam</label>
+                            <select class="form-control" name="exam" style="background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                                <option value="UPSC" style="color: black;">UPSC</option>
+                                <option value="GPSC" style="color: black;">GPSC</option>
+                                <option value="SSC" style="color: black;">SSC</option>
+                                <option value="RRB" style="color: black;">RRB</option>
+                                <option value="Banking" style="color: black;">Banking</option>
+                                <option value="Police" style="color: black;">Police</option>
+                                <option value="Forest" style="color: black;">Forest</option>
+                                <option value="Army" style="color: black;">Army</option>
+                                <option value="Air Force" style="color: black;">Air Force</option>
+                                <option value="Navy" style="color: black;">Navy</option>
+                                <option value="NEET" style="color: black;">NEET</option>
+                                <option value="JEE" style="color: black;">JEE</option>
+                                <option value="GUJCET" style="color: black;">GUJCET</option>
+                                <option value="CAT" style="color: black;">CAT</option>
+                                <option value="CLAT" style="color: black;">CLAT</option>
+                                <option value="GATE" style="color: black;">GATE</option>
+                                <option value="Other" style="color: black;">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Security -->
+                    <div class="col-md-6 form-group mb-4 mt-3 pt-3" style="border-top: 1px solid rgba(255,255,255,0.2);">
+                        <label class="form-label" style="color: rgba(255,255,255,0.9);">Password</label>
+                        <input type="password" class="form-control" name="password" required style="background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                    </div>
+                    <div class="col-md-6 form-group mb-4 mt-3 pt-3" style="border-top: 1px solid rgba(255,255,255,0.2);">
+                        <label class="form-label" style="color: rgba(255,255,255,0.9);">Confirm Password</label>
+                        <input type="password" class="form-control" name="confirm_password" required style="background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2);">
                     </div>
                 </div>
-
-                <button type="submit" class="btn btn-primary btn-pulse"
-                    style="font-size: 1.1rem; padding: 14px 20px; margin-top: 1rem;">
-                    Register Now <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
+                
+                <button type="submit" class="btn btn-primary btn-pulse" style="width: 100%; margin-bottom: 1rem; font-size: 1.1rem; padding: 14px 20px;">
+                    Create Account <i class="fas fa-check-circle" style="margin-left: 8px;"></i>
                 </button>
+                <p style="text-align: center; color: rgba(255,255,255,0.85); margin-bottom: 0;">
+                    Already have an account? <a href="{{ url_for('login') }}" style="font-weight: 700; color: #00ffff;">Log in here</a>.
+                </p>
             </form>
-
-            <p style="margin-top: 2rem; font-size: 0.95rem; color: var(--text-secondary); text-align: center;">
-                Already have an account? <a href="{{ url_for('login') }}" style="font-weight: 700;">Login here</a>
-            </p>
         </div>
     </div>
 </div>
+
+<script>
+function updateForm() {
+    var level = document.getElementById('educationLevel').value;
+    document.getElementById('schoolFields').style.display = (level === 'School') ? 'block' : 'none';
+    document.getElementById('diplomaFields').style.display = (level === 'Diploma') ? 'block' : 'none';
+    document.getElementById('graduationFields').style.display = (level === 'Graduation') ? 'block' : 'none';
+    document.getElementById('postGradFields').style.display = (level === 'Post Graduation') ? 'block' : 'none';
+    document.getElementById('examFields').style.display = (level === 'Competitive Exam') ? 'block' : 'none';
+    updateStream();
+}
+
+function updateStream() {
+    var standard = parseInt(document.getElementById('standardSelect').value);
+    document.getElementById('streamField').style.display = (standard >= 11) ? 'block' : 'none';
+}
+</script>
 {% endblock %}
