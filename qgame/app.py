@@ -270,8 +270,16 @@ def user_dashboard():
     # We will seed the DB to ensure there ARE subjects.
         
     category_counts = {}
+    if categories:
+        cat_ids = [c.id for c in categories]
+        from sqlalchemy import func
+        counts = db.session.query(Question.category_id, func.count(Question.id)).filter(Question.category_id.in_(cat_ids)).group_by(Question.category_id).all()
+        for cat_id, count in counts:
+            category_counts[cat_id] = count
+    
     for c in categories:
-        category_counts[c.id] = Question.query.filter_by(category_id=c.id).count()
+        if c.id not in category_counts:
+            category_counts[c.id] = 0
         
     user_quizzes = QuizAttempt.query.filter_by(user_id=current_user.id).order_by(QuizAttempt.date.desc()).limit(5).all()
     user_inventory = [inv.store_item_id for inv in current_user.inventory]
@@ -289,47 +297,49 @@ def take_quiz(category_id):
     
     if not questions:
         if lang != 'en':
-            # Try to fetch English questions and translate them
+            # Fallback to English questions
             en_questions = Question.query.filter_by(category_id=category.id, language='en').all()
             if not en_questions:
                 flash(_("No questions available for this category yet."))
                 return redirect(url_for('user_dashboard'))
-                
-            from deep_translator import GoogleTranslator
-            translator = GoogleTranslator(source='en', target=lang)
-            translated_qs = []
             
-            # Translate up to 10 random questions to not block the request for too long
-            random.shuffle(en_questions)
-            en_questions = en_questions[:10]
+            flash(_("Questions in your preferred language are not available yet. Showing English questions."))
+            questions = en_questions
             
-            for eq in en_questions:
-                try:
-                    to_trans = [eq.text, eq.option_a, eq.option_b, eq.option_c, eq.option_d]
-                    t_text, t_a, t_b, t_c, t_d = translator.translate_batch(to_trans)
-                    q = Question(
-                        category_id=category.id,
-                        text=t_text,
-                        option_a=t_a, option_b=t_b, option_c=t_c, option_d=t_d,
-                        correct_option=eq.correct_option,
-                        difficulty=eq.difficulty,
-                        language=lang
-                    )
-                    db.session.add(q)
-                    translated_qs.append(q)
-                except Exception as e:
-                    print(f"Error translating: {e}")
-                    
-            db.session.commit()
+            # Translate in background (optional, simple thread)
+            def translate_in_background(app_instance, cat_id, target_lang):
+                with app_instance.app_context():
+                    from deep_translator import GoogleTranslator
+                    import random
+                    qs = Question.query.filter_by(category_id=cat_id, language='en').all()
+                    if not qs: return
+                    random.shuffle(qs)
+                    qs = qs[:10]
+                    translator = GoogleTranslator(source='en', target=target_lang)
+                    for eq in qs:
+                        try:
+                            # Check if already translated
+                            exists = Question.query.filter_by(category_id=cat_id, text=eq.text, language=target_lang).first()
+                            if exists: continue
+                            to_trans = [eq.text, eq.option_a, eq.option_b, eq.option_c, eq.option_d]
+                            t_text, t_a, t_b, t_c, t_d = translator.translate_batch(to_trans)
+                            q = Question(
+                                category_id=cat_id, text=t_text,
+                                option_a=t_a, option_b=t_b, option_c=t_c, option_d=t_d,
+                                correct_option=eq.correct_option, difficulty=eq.difficulty, language=target_lang
+                            )
+                            db.session.add(q)
+                            db.session.commit()
+                        except Exception as e:
+                            db.session.rollback()
             
-            if translated_qs:
-                questions = translated_qs
-            else:
-                questions = en_questions # Fallback to english if translation entirely failed
+            from threading import Thread
+            Thread(target=translate_in_background, args=(app, category.id, lang)).start()
         else:
             flash(_("No questions available for this category yet."))
             return redirect(url_for('user_dashboard'))
             
+    import random
     random.shuffle(questions)
     # Take up to 10 questions so that they are randomly chosen each time from the available pool
     questions = questions[:10]
@@ -667,8 +677,17 @@ def admin_categories():
         
     categories = Category.query.all()
     category_counts = {}
+    if categories:
+        cat_ids = [c.id for c in categories]
+        from sqlalchemy import func
+        counts = db.session.query(Question.category_id, func.count(Question.id)).filter(Question.category_id.in_(cat_ids), Question.language == 'en').group_by(Question.category_id).all()
+        for cat_id, count in counts:
+            category_counts[cat_id] = count
+            
     for c in categories:
-        category_counts[c.id] = Question.query.filter_by(category_id=c.id, language='en').count()
+        if c.id not in category_counts:
+            category_counts[c.id] = 0
+            
     return render_template('admin/categories.html', categories=categories, category_counts=category_counts)
 
 @app.route('/admin/categories/delete/<int:category_id>', methods=['POST'])
