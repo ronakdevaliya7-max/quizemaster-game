@@ -545,10 +545,13 @@ def admin_delete_all_questions():
     if current_user.role != 'admin':
         return redirect(url_for('user_dashboard'))
     try:
+        # Must delete in this order due to Foreign Key constraints
+        cert_count = Certificate.query.delete()
+        quiz_count = QuizAttempt.query.delete()
         q_count = Question.query.delete()
         c_count = Category.query.delete()
         db.session.commit()
-        flash(f'Successfully deleted {q_count} questions and {c_count} categories!', 'success')
+        flash(f'Successfully deleted {q_count} questions, {c_count} categories, {quiz_count} quizzes, and {cert_count} certificates!', 'success')
     except Exception as e:
         db.session.rollback()
         flash(f'Error deleting data: {e}', 'error')
