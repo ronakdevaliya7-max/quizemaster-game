@@ -1,0 +1,390 @@
+Mathematics (Easy): What is 15 x 4?
+
+A: 45
+B: 50
+C: 60
+D: 65
+
+Correct Answer: C
+
+Explanation:
+15 multiplied by 4 equals 60.
+--------------------------------------------------
+
+Science (Medium): Which planet is known as the Red Planet?
+
+A: Venus
+B: Mars
+C: Jupiter
+D: Saturn
+
+Correct Answer: B
+
+Explanation:
+Mars is known as the Red Planet due to iron oxide on its surface.
+--------------------------------------------------
+
+Science (Hard): What is the powerhouse of the cell?
+
+A: Nucleus
+B: Mitochondria
+C: Ribosome
+D: Endoplasmic Reticulum
+
+Correct Answer: B
+
+Explanation:
+Mitochondria generate most of the chemical energy needed to power the cell's biochemical reactions.
+--------------------------------------------------
+
+Computer (Easy): What does CPU stand for?
+
+A: Central Process Unit
+B: Computer Personal Unit
+C: Central Processing Unit
+D: Central Processor Unit
+
+Correct Answer: C
+
+Explanation:
+CPU stands for Central Processing Unit.
+--------------------------------------------------
+
+General Knowledge (Medium): Who wrote the Indian National Anthem?
+
+A: Rabindranath Tagore
+B: Bankim Chandra Chatterjee
+C: Mahatma Gandhi
+D: Subhas Chandra Bose
+
+Correct Answer: A
+
+Explanation:
+Rabindranath Tagore wrote Jana Gana Mana.
+--------------------------------------------------
+
+History (Hard): In which year did India gain independence?
+
+A: 1945
+B: 1947
+C: 1950
+D: 1952
+
+Correct Answer: B
+
+Explanation:
+India gained independence from British rule in 1947.
+--------------------------------------------------
+
+Geography (Medium): What is the capital of Australia?
+
+A: Sydney
+B: Melbourne
+C: Canberra
+D: Perth
+
+Correct Answer: C
+
+Explanation:
+Canberra is the capital city of Australia.
+--------------------------------------------------
+
+Science (Easy): What is the chemical symbol for water?
+
+A: H2O
+B: O2
+C: CO2
+D: HO
+
+Correct Answer: A
+
+Explanation:
+Water is composed of two hydrogen atoms and one oxygen atom.
+--------------------------------------------------
+
+Sports (Medium): In which sport is the term 'LBW' used?
+
+A: Football
+B: Cricket
+C: Tennis
+D: Baseball
+
+Correct Answer: B
+
+Explanation:
+LBW stands for Leg Before Wicket in Cricket.
+--------------------------------------------------
+
+Mathematics (Hard): What is the square root of 144?
+
+A: 10
+B: 12
+C: 14
+D: 16
+
+Correct Answer: B
+
+Explanation:
+12 multiplied by 12 equals 144.
+--------------------------------------------------
+
+Science (Medium): What gas do plants absorb from the atmosphere?
+
+A: Oxygen
+B: Nitrogen
+C: Carbon Dioxide
+D: Hydrogen
+
+Correct Answer: C
+
+Explanation:
+Plants absorb Carbon Dioxide for photosynthesis.
+--------------------------------------------------
+
+Computer (Hard): Which programming language is known as the mother of all languages?
+
+A: Java
+B: Python
+C: C
+D: C++
+
+Correct Answer: C
+
+Explanation:
+C is considered the mother of all programming languages.
+--------------------------------------------------
+
+General Knowledge (Easy): Which is the largest continent in the world?
+
+A: Africa
+B: Asia
+C: Europe
+D: North America
+
+Correct Answer: B
+
+Explanation:
+Asia is the largest continent by land area.
+--------------------------------------------------
+
+History (Medium): Who was the first Prime Minister of India?
+
+A: Sardar Patel
+B: Jawaharlal Nehru
+C: Indira Gandhi
+D: Lal Bahadur Shastri
+
+Correct Answer: B
+
+Explanation:
+Jawaharlal Nehru was the first PM of independent India.
+--------------------------------------------------
+
+Geography (Hard): Which is the longest river in the world?
+
+A: Amazon
+B: Nile
+C: Yangtze
+D: Mississippi
+
+Correct Answer: B
+
+Explanation:
+The Nile is traditionally considered the longest river in the world.
+--------------------------------------------------
+
+Mathematics (Medium): What is 25% of 200?
+
+A: 25
+B: 50
+C: 75
+D: 100
+
+Correct Answer: B
+
+Explanation:
+25% is one-quarter, and one-quarter of 200 is 50.
+--------------------------------------------------
+
+Sports (Easy): How many players are there in a cricket team?
+
+A: 9
+B: 10
+C: 11
+D: 12
+
+Correct Answer: C
+
+Explanation:
+A cricket team consists of 11 players.
+--------------------------------------------------
+
+Science (Hard): What is the hardest natural substance on Earth?
+
+A: Gold
+B: Iron
+C: Diamond
+D: Platinum
+
+Correct Answer: C
+
+Explanation:
+Diamond is the hardest known natural material.
+--------------------------------------------------
+
+Computer (Medium): What does HTML stand for?
+
+A: Hyper Text Markup Language
+B: High Text Markup Language
+C: Hyper Tabular Markup Language
+D: None of these
+
+Correct Answer: A
+
+Explanation:
+HTML stands for Hyper Text Markup Language.
+--------------------------------------------------
+
+General Knowledge (Hard): Who is known as the 'Missile Man of India'?
+
+A: C.V. Raman
+B: Homi Bhabha
+C: A.P.J. Abdul Kalam
+D: Vikram Sarabhai
+
+Correct Answer: C
+
+Explanation:
+A.P.J. Abdul Kalam is known as the Missile Man of India.
+--------------------------------------------------
+
+History (Easy): Who built the Taj Mahal?
+
+A: Akbar
+B: Jahangir
+C: Shah Jahan
+D: Aurangzeb
+
+Correct Answer: C
+
+Explanation:
+Shah Jahan built the Taj Mahal in memory of his wife Mumtaz Mahal.
+--------------------------------------------------
+
+Geography (Medium): Mount Everest is located in which mountain range?
+
+A: Alps
+B: Andes
+C: Himalayas
+D: Rockies
+
+Correct Answer: C
+
+Explanation:
+Mount Everest is part of the Himalayas.
+--------------------------------------------------
+
+Mathematics (Hard): If x + 5 = 12, what is the value of x?
+
+A: 5
+B: 6
+C: 7
+D: 8
+
+Correct Answer: C
+
+Explanation:
+Subtracting 5 from both sides gives x = 7.
+--------------------------------------------------
+
+Sports (Medium): Which country won the first FIFA World Cup?
+
+A: Brazil
+B: Germany
+C: Argentina
+D: Uruguay
+
+Correct Answer: D
+
+Explanation:
+Uruguay won the first FIFA World Cup in 1930.
+--------------------------------------------------
+
+Science (Easy): How many planets are in our solar system?
+
+A: 7
+B: 8
+C: 9
+D: 10
+
+Correct Answer: B
+
+Explanation:
+There are 8 planets in our solar system.
+--------------------------------------------------
+
+Computer (Hard): What is the full form of RAM?
+
+A: Random Access Memory
+B: Read Access Memory
+C: Run Access Memory
+D: Rapid Access Memory
+
+Correct Answer: A
+
+Explanation:
+RAM stands for Random Access Memory.
+--------------------------------------------------
+
+General Knowledge (Medium): Which bird is the universal symbol of peace?
+
+A: Eagle
+B: Dove
+C: Peacock
+D: Swan
+
+Correct Answer: B
+
+Explanation:
+The white dove is recognized as a symbol of peace.
+--------------------------------------------------
+
+History (Hard): The Battle of Plassey was fought in which year?
+
+A: 1757
+B: 1764
+C: 1857
+D: 1947
+
+Correct Answer: A
+
+Explanation:
+The Battle of Plassey was fought in 1757.
+--------------------------------------------------
+
+Geography (Easy): Which is the smallest state in India by area?
+
+A: Sikkim
+B: Goa
+C: Tripura
+D: Mizoram
+
+Correct Answer: B
+
+Explanation:
+Goa is the smallest state in India by land area.
+--------------------------------------------------
+
+Mathematics (Medium): What is the area of a rectangle with length 10 and width 5?
+
+A: 15
+B: 30
+C: 50
+D: 100
+
+Correct Answer: C
+
+Explanation:
+Area = length x width = 10 x 5 = 50.
+--------------------------------------------------
+
