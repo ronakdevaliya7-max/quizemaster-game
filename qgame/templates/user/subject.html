@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="fw-bold mb-4">{{ subject.name }} Topics</h2>
+<div class="row">
+    {% for topic in topics %}
+    <div class="col-md-6 mb-4">
+        <div class="card glass-card p-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h5 class="fw-bold mb-1">{{ topic.name }}</h5>
+                    <span class="badge bg-{{ 'success' if topic.difficulty == 'Easy' else 'warning' if topic.difficulty == 'Medium' else 'danger' }}">{{ topic.difficulty }}</span>
+                </div>
+                <a href="/topic/{{ topic.id }}" class="btn btn-outline-dark rounded-pill">View Topic</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
