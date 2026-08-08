@@ -13,34 +13,6 @@
         </a>
     </div>
 
-    <!-- Data Management Overview -->
-    <div style="background: white; padding: 20px; border-radius: 16px; margin-bottom: 30px; border: 1px solid var(--border); box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; gap: 20px; flex-wrap: wrap;">
-        
-        <!-- Delete Data Section -->
-        <div style="flex: 1; min-width: 300px; padding: 20px; border-radius: 12px; background: rgba(255, 71, 87, 0.05); border: 2px dashed #ff4757; text-align: center;">
-            <h3 style="color: #ff4757; margin-top: 0;"><i class="fas fa-trash-alt"></i> Delete Dummy Data</h3>
-            <p style="color: #64748b; font-size: 0.95rem;">If you have dummy questions generated from scripts, you can clear them all here.</p>
-            <form action="{{ url_for('admin_delete_all_questions') }}" method="POST" onsubmit="return confirm('Are you sure you want to delete ALL questions and categories? This cannot be undone.');">
-                <button type="submit" class="btn" style="background: #ff4757; color: white; padding: 10px 20px; font-weight: bold; border-radius: 8px; border: none; cursor: pointer;">
-                    <i class="fas fa-radiation"></i> DELETE ALL DATA
-                </button>
-            </form>
-        </div>
-
-        <!-- Import JSON Section -->
-        <div style="flex: 2; min-width: 300px; padding: 20px; border-radius: 12px; background: rgba(16, 185, 129, 0.05); border: 2px dashed #10b981;">
-            <h3 style="color: #10b981; margin-top: 0;"><i class="fas fa-cloud-upload-alt"></i> Import ChatGPT JSON</h3>
-            <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 15px;">Paste the JSON array output from ChatGPT to instantly create real questions.</p>
-            <form action="{{ url_for('admin_import_json') }}" method="POST" style="display: flex; flex-direction: column; gap: 10px;">
-                <input type="text" name="category_name" placeholder="Category Name (e.g. GSEB Class 10 Science)" required style="padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1; font-family: 'Inter', sans-serif;">
-                <textarea name="json_data" placeholder='[{"question": "What is...", "option_a": "A", "option_b": "B", ...}]' required style="padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1; font-family: monospace; min-height: 100px; resize: vertical;"></textarea>
-                <button type="submit" class="btn" style="background: #10b981; color: white; padding: 10px 20px; font-weight: bold; border-radius: 8px; border: none; cursor: pointer; align-self: flex-start;">
-                    <i class="fas fa-check"></i> IMPORT JSON
-                </button>
-            </form>
-        </div>
-        
-    </div>
 
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem;">
         
