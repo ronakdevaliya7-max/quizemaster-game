@@ -12,8 +12,8 @@ def generate_questions_with_gemini(board, standard, subject, num_questions=10):
         
     genai.configure(api_key=api_key)
     
-    # Using gemini-1.5-flash-latest for better compatibility across regions
-    model = genai.GenerativeModel('gemini-1.5-flash-latest')
+    # Using gemini-pro (Gemini 1.0) for maximum compatibility across all regions and API keys
+    model = genai.GenerativeModel('gemini-pro')
     
     prompt = f"""
 Act as a Senior Education Content Creator for {board} Board.
