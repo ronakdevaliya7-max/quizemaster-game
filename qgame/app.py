@@ -945,72 +945,47 @@ def admin_import_custom():
     if current_user.role != 'admin':
         return redirect(url_for('user_dashboard'))
         
-    import os
-    import re
+    from flask import current_app
+    app_instance = current_app._get_current_object()
     
-    data_file = os.path.join(basedir, 'data', 'questions.txt')
-    if not os.path.exists(data_file):
-        flash('questions.txt file not found in data folder!', 'error')
-        return redirect(url_for('admin_categories'))
-        
-    try:
-        with open(data_file, 'r', encoding='utf-8') as f:
-            content = f.read()
+    def seed_all_stds(app_obj):
+        with app_obj.app_context():
+            boards = ["GSEB"]
+            general_subjects = ["Mathematics", "Science", "English", "Hindi", "Social Studies", "Gujarati"]
+            science_subjects = ["Physics", "Chemistry", "Mathematics", "Biology", "English", "Computer Science"]
+            commerce_subjects = ["Accountancy", "Economics", "Business Administration", "Statistics", "English"]
+            arts_subjects = ["History", "Geography", "Political Science", "Psychology", "Sociology", "English"]
             
-        # Parse blocks separated by dashes
-        blocks = re.split(r'-{10,}', content)
-        
-        count = 0
-        for block in blocks:
-            block = block.strip()
-            if not block:
-                continue
-                
-            # Regex to extract Category, Difficulty, Question
-            header_match = re.search(r'([A-Za-z\s&:]+)\s*\((Easy|Medium|Hard)\):\s*(.+)', block)
-            if not header_match:
-                continue
-                
-            cat_name = header_match.group(1).strip()
-            diff = header_match.group(2).strip()
-            q_text = header_match.group(3).strip()
+            def seed_subjects(std_list, stream, subj_list):
+                for board in boards:
+                    for std in std_list:
+                        for subj in subj_list:
+                            name = f"Std {std} {subj}"
+                            actual_stream = stream if std >= 11 else "None"
+                            cat = Category.query.filter_by(name=name, standard=str(std)).first()
+                            if not cat:
+                                cat = Category(
+                                    name=name, 
+                                    description=f"Standard {std} {board} {subj}", 
+                                    education_level="School", 
+                                    board=board, 
+                                    standard=str(std), 
+                                    course=actual_stream
+                                )
+                                db.session.add(cat)
+                            db.session.commit()
             
-            # Extract options
-            opt_a = re.search(r'A:\s*(.+)', block).group(1).strip()
-            opt_b = re.search(r'B:\s*(.+)', block).group(1).strip()
-            opt_c = re.search(r'C:\s*(.+)', block).group(1).strip()
-            opt_d = re.search(r'D:\s*(.+)', block).group(1).strip()
-            
-            # Extract correct answer
-            correct = re.search(r'Correct Answer:\s*([A-D])', block).group(1).strip()
-            
-            # Get or create category
-            cat = Category.query.filter_by(name=cat_name).first()
-            if not cat:
-                cat = Category(name=cat_name, description=f"{cat_name} category imported via text parser")
-                db.session.add(cat)
-                db.session.commit()
-                
-            q = Question(
-                category_id=cat.id,
-                text=q_text,
-                option_a=opt_a,
-                option_b=opt_b,
-                option_c=opt_c,
-                option_d=opt_d,
-                correct_option=correct,
-                difficulty=diff,
-                language='en'
-            )
-            db.session.add(q)
-            count += 1
-            
-        db.session.commit()
-        flash(f'Successfully parsed and imported {count} questions from questions.txt!', 'success')
-    except Exception as e:
-        db.session.rollback()
-        flash(f'Error parsing text file: {e}', 'error')
-        
+            seed_subjects(range(1, 11), "None", general_subjects)
+            seed_subjects([11, 12], "Science", science_subjects)
+            seed_subjects([11, 12], "Commerce", commerce_subjects)
+            seed_subjects([11, 12], "Arts", arts_subjects)
+
+    from threading import Thread
+    thread = Thread(target=seed_all_stds, args=(app_instance,))
+    thread.daemon = True
+    thread.start()
+    
+    flash('Started adding all standard categories! Please refresh the page in a few seconds.', 'success')
     return redirect(url_for('admin_categories'))
 
 
