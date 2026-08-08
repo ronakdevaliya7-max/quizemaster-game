@@ -26,9 +26,9 @@
                 <div class="alert alert-{{ category }}" style="padding: 1rem; margin-bottom: 1.5rem; border-radius: 8px; font-weight: 500; {% if category == 'success' %}background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2);{% else %}background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2);{% endif %}">
                     {{ message }}
                 </div>
-            {% end for %}
+            {% endfor %}
         {% endif %}
-    {% end with %}
+    {% endwith %}
 
     <div class="card" style="padding: 2rem; border-radius: 16px; background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-md);">
         
