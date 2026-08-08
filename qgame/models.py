@@ -71,16 +71,59 @@ class Category(db.Model):
 
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
-    text = db.Column(db.Text, nullable=False)
-    option_a = db.Column(db.String(255), nullable=False)
-    option_b = db.Column(db.String(255), nullable=False)
-    option_c = db.Column(db.String(255), nullable=False)
-    option_d = db.Column(db.String(255), nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=True) # Optional now, for backward compatibility or special topics
+    
+    # Hierarchy Fields
+    board = db.Column(db.String(50), nullable=True)
+    standard = db.Column(db.String(50), nullable=True)
+    stream = db.Column(db.String(50), nullable=True)
+    subject = db.Column(db.String(100), nullable=True)
+    chapter = db.Column(db.String(100), nullable=True)
+    topic = db.Column(db.String(100), nullable=True)
+    difficulty = db.Column(db.String(20), default='Medium')
+    
+    # Multilingual Questions
+    question_en = db.Column(db.Text, nullable=True)
+    question_gu = db.Column(db.Text, nullable=True)
+    question_hi = db.Column(db.Text, nullable=True)
+    
+    # Multilingual Options
+    option_a_en = db.Column(db.String(255), nullable=True)
+    option_b_en = db.Column(db.String(255), nullable=True)
+    option_c_en = db.Column(db.String(255), nullable=True)
+    option_d_en = db.Column(db.String(255), nullable=True)
+    
+    option_a_gu = db.Column(db.String(255), nullable=True)
+    option_b_gu = db.Column(db.String(255), nullable=True)
+    option_c_gu = db.Column(db.String(255), nullable=True)
+    option_d_gu = db.Column(db.String(255), nullable=True)
+    
+    option_a_hi = db.Column(db.String(255), nullable=True)
+    option_b_hi = db.Column(db.String(255), nullable=True)
+    option_c_hi = db.Column(db.String(255), nullable=True)
+    option_d_hi = db.Column(db.String(255), nullable=True)
+    
     correct_option = db.Column(db.String(1), nullable=False) # 'A', 'B', 'C', or 'D'
+    
+    # Multilingual Explanations
+    explanation_en = db.Column(db.Text, nullable=True)
+    explanation_gu = db.Column(db.Text, nullable=True)
+    explanation_hi = db.Column(db.Text, nullable=True)
+    
+    # Meta fields
+    source = db.Column(db.String(255), nullable=True)
+    source_type = db.Column(db.String(100), nullable=True)
+    verified = db.Column(db.Boolean, default=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    # Old legacy fields (for backward compatibility during migration)
+    text = db.Column(db.Text, nullable=True)
+    option_a = db.Column(db.String(255), nullable=True)
+    option_b = db.Column(db.String(255), nullable=True)
+    option_c = db.Column(db.String(255), nullable=True)
+    option_d = db.Column(db.String(255), nullable=True)
     explanation = db.Column(db.Text, nullable=True)
-    difficulty = db.Column(db.String(20), default='Easy') # 'Easy', 'Medium', 'Hard'
-    language = db.Column(db.String(10), default='en') # 'en', 'gu', 'hi'
+    language = db.Column(db.String(10), default='en')
 
 class QuizAttempt(db.Model):
     id = db.Column(db.Integer, primary_key=True)

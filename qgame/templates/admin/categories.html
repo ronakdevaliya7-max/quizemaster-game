@@ -13,6 +13,13 @@
                     Import Special Topics Questions
                 </button>
             </form>
+            
+            <form action="{{ url_for('admin_import_gseb_questions') }}" method="POST" enctype="multipart/form-data" style="display: flex; gap: 0.5rem; align-items: center;">
+                <input type="file" name="file" accept=".json" required style="font-size: 0.85rem; padding: 5px;">
+                <button type="submit" class="btn" style="background: #10b981; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer;">
+                    Upload GSEB JSON
+                </button>
+            </form>
         </div>
     </div>
 
