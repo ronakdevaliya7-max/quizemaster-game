@@ -181,8 +181,8 @@ def system_fix_db():
         
         ("source", "VARCHAR(255)"),
         ("source_type", "VARCHAR(100)"),
-        ("verified", "BOOLEAN DEFAULT 0"),
-        ("created_at", "DATETIME")
+        ("verified", "BOOLEAN DEFAULT FALSE"),
+        ("created_at", "TIMESTAMP")
     ]
     
     output = "Fixing DB Schema...<br>"
