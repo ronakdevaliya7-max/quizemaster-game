@@ -1201,6 +1201,114 @@ def admin_import_gseb_questions():
         
     return redirect(url_for('admin_categories'))
 
+@app.route('/admin/ai_generator', methods=['GET', 'POST'])
+@login_required
+def admin_ai_generator():
+    if current_user.role != 'admin':
+        return redirect(url_for('user_dashboard'))
+        
+    if request.method == 'POST':
+        board = request.form.get('board')
+        standard = request.form.get('standard')
+        subject = request.form.get('subject')
+        num_questions = int(request.form.get('num_questions', 10))
+        
+        if not board or not standard or not subject:
+            flash('Board, Standard and Subject are required!', 'error')
+            return redirect(url_for('admin_ai_generator'))
+            
+        try:
+            from qgame.utils.ai_generator import generate_questions_with_gemini
+            data = generate_questions_with_gemini(board, standard, subject, num_questions)
+            
+            count = 0
+            duplicate = 0
+            for item in data:
+                q_en = item.get('question', {}).get('en')
+                if not q_en:
+                    continue
+                    
+                existing = Question.query.filter_by(
+                    standard=str(item.get('standard')),
+                    subject=item.get('subject'),
+                    question_en=q_en
+                ).first()
+                
+                if existing:
+                    duplicate += 1
+                    continue
+                    
+                cat_name = f"Std {item.get('standard')} {item.get('subject')}"
+                cat = Category.query.filter_by(name=cat_name).first()
+                if not cat:
+                    cat = Category(name=cat_name, description=f"Imported GSEB {cat_name}")
+                    cat.education_level = 'School'
+                    cat.board = item.get('board')
+                    cat.standard = str(item.get('standard'))
+                    cat.course = item.get('subject')
+                    db.session.add(cat)
+                    db.session.commit()
+                    
+                q = Question(
+                    category_id=cat.id,
+                    board=item.get('board'),
+                    standard=str(item.get('standard')),
+                    stream=item.get('stream'),
+                    subject=item.get('subject'),
+                    chapter=item.get('chapter'),
+                    topic=item.get('topic'),
+                    difficulty=item.get('difficulty', 'Medium'),
+                    
+                    question_en=q_en,
+                    question_gu=item.get('question', {}).get('gu'),
+                    question_hi=item.get('question', {}).get('hi'),
+                    
+                    option_a_en=item.get('options', {}).get('en', ['', '', '', ''])[0],
+                    option_b_en=item.get('options', {}).get('en', ['', '', '', ''])[1],
+                    option_c_en=item.get('options', {}).get('en', ['', '', '', ''])[2],
+                    option_d_en=item.get('options', {}).get('en', ['', '', '', ''])[3],
+                    
+                    option_a_gu=item.get('options', {}).get('gu', ['', '', '', ''])[0],
+                    option_b_gu=item.get('options', {}).get('gu', ['', '', '', ''])[1],
+                    option_c_gu=item.get('options', {}).get('gu', ['', '', '', ''])[2],
+                    option_d_gu=item.get('options', {}).get('gu', ['', '', '', ''])[3],
+                    
+                    option_a_hi=item.get('options', {}).get('hi', ['', '', '', ''])[0],
+                    option_b_hi=item.get('options', {}).get('hi', ['', '', '', ''])[1],
+                    option_c_hi=item.get('options', {}).get('hi', ['', '', '', ''])[2],
+                    option_d_hi=item.get('options', {}).get('hi', ['', '', '', ''])[3],
+                    
+                    correct_option=str(item.get('correct_option')),
+                    
+                    explanation_en=item.get('explanation', {}).get('en'),
+                    explanation_gu=item.get('explanation', {}).get('gu'),
+                    explanation_hi=item.get('explanation', {}).get('hi'),
+                    
+                    text=q_en,
+                    option_a=item.get('options', {}).get('en', ['', '', '', ''])[0],
+                    option_b=item.get('options', {}).get('en', ['', '', '', ''])[1],
+                    option_c=item.get('options', {}).get('en', ['', '', '', ''])[2],
+                    option_d=item.get('options', {}).get('en', ['', '', '', ''])[3],
+                    explanation=item.get('explanation', {}).get('en'),
+                    language='en',
+                    
+                    source=item.get('source'),
+                    source_type=item.get('source_type', 'AI Generated'),
+                    verified=item.get('verified', False)
+                )
+                db.session.add(q)
+                count += 1
+                
+            db.session.commit()
+            flash(f'Successfully generated and imported {count} questions! (Skipped {duplicate} duplicates)', 'success')
+            return redirect(url_for('admin_categories'))
+            
+        except Exception as e:
+            db.session.rollback()
+            flash(str(e), 'error')
+            
+    return render_template('admin/ai_generator.html')
+
 @app.route('/admin/migrate_db')
 @login_required
 def migrate_db_route():

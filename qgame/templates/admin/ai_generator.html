@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block title %}AI Question Generator - Admin{% end block %}
+
+{% block content %}
+<div class="container" style="max-width: 800px; margin: 2rem auto;">
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <div>
+            <h1 style="color: var(--text-primary); margin: 0; display: flex; align-items: center; gap: 10px;">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                    <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                </svg>
+                AI Auto Generator
+            </h1>
+            <p style="color: var(--text-secondary); margin: 5px 0 0 0;">Automatically generate trilingual MCQs using Google Gemini AI.</p>
+        </div>
+        <a href="{{ url_for('admin_categories') }}" class="btn" style="background: var(--surface); color: var(--text-primary); border: 1px solid var(--border);">Back to Admin</a>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}" style="padding: 1rem; margin-bottom: 1.5rem; border-radius: 8px; font-weight: 500; {% if category == 'success' %}background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2);{% else %}background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2);{% endif %}">
+                    {{ message }}
+                </div>
+            {% end for %}
+        {% endif %}
+    {% end with %}
+
+    <div class="card" style="padding: 2rem; border-radius: 16px; background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-md);">
+        
+        <div style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); padding: 1rem; border-radius: 8px; margin-bottom: 2rem;">
+            <h4 style="color: var(--primary); margin-top: 0; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                How it works
+            </h4>
+            <p style="color: var(--text-secondary); margin: 0; font-size: 0.9rem; line-height: 1.5;">
+                Select the Board, Standard, and Subject below. The AI will generate completely random, fact-checked questions.
+                <strong>Note:</strong> Generating questions takes about 15-30 seconds. Do not refresh the page while it is loading.
+            </p>
+        </div>
+
+        <form action="{{ url_for('admin_ai_generator') }}" method="POST" id="aiGenForm">
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                <!-- Board -->
+                <div>
+                    <label style="display: block; font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 0.5rem;">Board</label>
+                    <select name="board" class="form-control" required style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--background); color: var(--text-primary);">
+                        <option value="GSEB">GSEB (Gujarat Board)</option>
+                        <option value="CBSE">CBSE (Central Board)</option>
+                        <option value="ICSE">ICSE</option>
+                    </select>
+                </div>
+                
+                <!-- Standard -->
+                <div>
+                    <label style="display: block; font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 0.5rem;">Standard</label>
+                    <select name="standard" class="form-control" required style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--background); color: var(--text-primary);">
+                        <option value="" disabled selected>Select Standard...</option>
+                        <option value="1">Standard 1</option>
+                        <option value="2">Standard 2</option>
+                        <option value="3">Standard 3</option>
+                        <option value="4">Standard 4</option>
+                        <option value="5">Standard 5</option>
+                        <option value="6">Standard 6</option>
+                        <option value="7">Standard 7</option>
+                        <option value="8">Standard 8</option>
+                        <option value="9">Standard 9</option>
+                        <option value="10">Standard 10</option>
+                        <option value="11">Standard 11</option>
+                        <option value="12">Standard 12</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
+                <!-- Subject -->
+                <div>
+                    <label style="display: block; font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 0.5rem;">Subject</label>
+                    <input type="text" name="subject" class="form-control" placeholder="e.g. Science, Mathematics, Gujarati" required style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--background); color: var(--text-primary);">
+                </div>
+                
+                <!-- Number of Questions -->
+                <div>
+                    <label style="display: block; font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 0.5rem;">Number of Questions</label>
+                    <select name="num_questions" class="form-control" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--background); color: var(--text-primary);">
+                        <option value="5">5 Questions (Fast test)</option>
+                        <option value="10" selected>10 Questions</option>
+                        <option value="20">20 Questions</option>
+                        <option value="30">30 Questions (Slowest)</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div style="text-align: right;">
+                <button type="submit" id="genBtn" class="btn btn-primary" style="padding: 12px 24px; border-radius: 8px; font-weight: 700; font-size: 1rem; display: inline-flex; align-items: center; gap: 10px;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+                    </svg>
+                    Generate Now
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+document.getElementById('aiGenForm').addEventListener('submit', function(e) {
+    const btn = document.getElementById('genBtn');
+    btn.innerHTML = '<svg class="spinner" viewBox="0 0 50 50" style="width: 20px; height: 20px; animation: spin 2s linear infinite;"><circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5" stroke="currentColor" style="stroke-linecap: round; animation: dash 1.5s ease-in-out infinite;"/></svg> Generating...';
+    btn.style.opacity = '0.7';
+    btn.style.pointerEvents = 'none';
+});
+</script>
+
+<style>
+@keyframes spin { 100% { transform: rotate(360deg); } }
+@keyframes dash {
+  0% { stroke-dasharray: 1, 150; stroke-dashoffset: 0; }
+  50% { stroke-dasharray: 90, 150; stroke-dashoffset: -35; }
+  100% { stroke-dasharray: 90, 150; stroke-dashoffset: -124; }
+}
+</style>
+{% end block %}
