@@ -309,17 +309,24 @@ def user_dashboard():
     if current_user.role == 'admin':
         return redirect(url_for('admin_dashboard'))
         
+    from sqlalchemy import or_
+    
     query = Category.query
+    profile_filter = None
+    
     if current_user.education_level == 'School':
-        query = query.filter_by(education_level='School', standard=current_user.standard, board=current_user.board)
+        profile_filter = (Category.education_level == 'School') & (Category.standard == current_user.standard) & (Category.board == current_user.board)
     elif current_user.education_level in ['Graduation', 'Diploma', 'Post Graduation']:
-        query = query.filter_by(education_level=current_user.education_level, course=current_user.course)
+        profile_filter = (Category.education_level == current_user.education_level) & (Category.course == current_user.course)
         if current_user.semester and current_user.semester != 'None':
-            query = query.filter_by(standard=current_user.semester)
+            profile_filter = profile_filter & (Category.standard == current_user.semester)
     elif current_user.education_level == 'Competitive Exam':
-        query = query.filter_by(education_level='Competitive Exam', course=current_user.exam)
+        profile_filter = (Category.education_level == 'Competitive Exam') & (Category.course == current_user.exam)
         
-    categories = query.all()
+    if profile_filter is not None:
+        categories = query.filter(or_(profile_filter, Category.education_level.is_(None), Category.education_level == '')).all()
+    else:
+        categories = query.filter(or_(Category.education_level.is_(None), Category.education_level == '')).all()
     
     # If no subjects are specifically matched, don't show random ones! 
     # Just show empty list so they know their specific profile has no subjects yet.
