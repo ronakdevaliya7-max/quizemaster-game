@@ -56,8 +56,40 @@ Use this EXACT JSON structure for each question:
 
 Generate exactly {num_questions} distinct, accurate questions.
 """
-
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}"
+    # Dynamic Model Resolution to prevent 404 errors
+    models_url = f"https://generativelanguage.googleapis.com/v1beta/models?key={api_key}"
+    try:
+        models_response = requests.get(models_url)
+        if models_response.status_code != 200:
+            raise Exception("Could not fetch available models.")
+            
+        models_data = models_response.json()
+        available_models = []
+        for m in models_data.get('models', []):
+            if 'generateContent' in m.get('supportedGenerationMethods', []):
+                name = m.get('name', '')
+                if name.startswith('models/'):
+                    name = name[7:]
+                available_models.append(name)
+                
+        if not available_models:
+            raise Exception("No generative models available for this API key.")
+            
+        # Prioritize flash, then pro, then anything else
+        target_model = None
+        for pref in ['gemini-1.5-flash', 'gemini-1.5-flash-latest', 'gemini-pro', 'gemini-1.0-pro']:
+            if pref in available_models:
+                target_model = pref
+                break
+                
+        if not target_model:
+            target_model = available_models[0]
+            
+    except Exception as e:
+        # Fallback to standard if dynamic fetch fails
+        target_model = 'gemini-1.5-flash'
+        
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/{target_model}:generateContent?key={api_key}"
     
     headers = {
         "Content-Type": "application/json"
