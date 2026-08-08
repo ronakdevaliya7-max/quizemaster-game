@@ -151,10 +151,13 @@ Generate exactly {num_questions} distinct, accurate questions.
             data = json.loads(text_output.strip())
             return data
             
+        except json.JSONDecodeError as e:
+            last_error = f"The AI generated incomplete or invalid data. Please try again with fewer questions. (Error: {str(e)})"
+            continue # Try next model
         except Exception as e:
-            # If it's a structural error (like JSON parsing), don't retry models
+            # If it's a structural error, don't retry models
             if "API Error" not in str(e) and "no longer available" not in str(e):
-                raise
+                raise Exception(f"An unexpected error occurred: {str(e)}")
             last_error = str(e)
             
     raise Exception(f"Failed to generate questions. All available AI models failed. Last error: {last_error}")
