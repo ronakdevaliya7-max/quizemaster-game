@@ -12,8 +12,8 @@ def generate_questions_with_gemini(board, standard, subject, num_questions=10):
         
     genai.configure(api_key=api_key)
     
-    # Using gemini-1.5-flash as it's fast, cheap and supports JSON output well
-    model = genai.GenerativeModel('gemini-1.5-flash')
+    # Using gemini-1.5-flash-latest for better compatibility across regions
+    model = genai.GenerativeModel('gemini-1.5-flash-latest')
     
     prompt = f"""
 Act as a Senior Education Content Creator for {board} Board.
