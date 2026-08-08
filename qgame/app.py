@@ -1177,6 +1177,15 @@ def admin_import_gseb_questions():
                 explanation_gu=item.get('explanation', {}).get('gu'),
                 explanation_hi=item.get('explanation', {}).get('hi'),
                 
+                # Populate legacy fields to satisfy existing NOT NULL database constraints
+                text=q_en,
+                option_a=item.get('options', {}).get('en', ['', '', '', ''])[0],
+                option_b=item.get('options', {}).get('en', ['', '', '', ''])[1],
+                option_c=item.get('options', {}).get('en', ['', '', '', ''])[2],
+                option_d=item.get('options', {}).get('en', ['', '', '', ''])[3],
+                explanation=item.get('explanation', {}).get('en'),
+                language='en',
+                
                 source=item.get('source'),
                 source_type=item.get('source_type'),
                 verified=item.get('verified', False)

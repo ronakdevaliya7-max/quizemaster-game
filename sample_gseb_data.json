@@ -1,0 +1,88 @@
+[
+    {
+        "board": "GSEB",
+        "standard": "10",
+        "stream": "General",
+        "subject": "Science",
+        "chapter": "Chemical Reactions and Equations",
+        "topic": "Types of Chemical Reactions",
+        "difficulty": "Medium",
+        "question": {
+            "en": "Which of the following is a displacement reaction?",
+            "gu": "નીચેનામાંથી કઈ વિસ્થાપન પ્રક્રિયા છે?",
+            "hi": "निम्नलिखित में से कौन सी विस्थापन प्रतिक्रिया है?"
+        },
+        "options": {
+            "en": [
+                "MgCO3 -> MgO + CO2",
+                "2Na + 2H2O -> 2NaOH + H2",
+                "2H2 + O2 -> 2H2O",
+                "Pb + CuCl2 -> PbCl2 + Cu"
+            ],
+            "gu": [
+                "MgCO3 -> MgO + CO2",
+                "2Na + 2H2O -> 2NaOH + H2",
+                "2H2 + O2 -> 2H2O",
+                "Pb + CuCl2 -> PbCl2 + Cu"
+            ],
+            "hi": [
+                "MgCO3 -> MgO + CO2",
+                "2Na + 2H2O -> 2NaOH + H2",
+                "2H2 + O2 -> 2H2O",
+                "Pb + CuCl2 -> PbCl2 + Cu"
+            ]
+        },
+        "correct_option": "D",
+        "explanation": {
+            "en": "In a displacement reaction, a more reactive element displaces a less reactive element from its compound. Here Pb displaces Cu.",
+            "gu": "વિસ્થાપન પ્રક્રિયામાં વધુ સક્રિય તત્વ ઓછા સક્રિય તત્વને તેના સંયોજનમાંથી મુક્ત કરે છે. અહીં Pb એ Cu ને વિસ્થાપિત કરે છે.",
+            "hi": "विस्थापन प्रतिक्रिया में, अधिक प्रतिक्रियाशील तत्व कम प्रतिक्रियाशील तत्व को उसके यौगिक से विस्थापित कर देता है। यहाँ Pb, Cu को विस्थापित करता है।"
+        },
+        "source": "GSEB Textbook",
+        "source_type": "Official",
+        "verified": true
+    },
+    {
+        "board": "GSEB",
+        "standard": "10",
+        "stream": "General",
+        "subject": "Science",
+        "chapter": "Acids, Bases and Salts",
+        "topic": "pH Scale",
+        "difficulty": "Easy",
+        "question": {
+            "en": "What is the pH value of pure water at 25°C?",
+            "gu": "25°C તાપમાને શુદ્ધ પાણીનું pH મૂલ્ય કેટલું હોય છે?",
+            "hi": "25°C पर शुद्ध जल का pH मान क्या होता है?"
+        },
+        "options": {
+            "en": [
+                "0",
+                "7",
+                "14",
+                "1"
+            ],
+            "gu": [
+                "0",
+                "7",
+                "14",
+                "1"
+            ],
+            "hi": [
+                "0",
+                "7",
+                "14",
+                "1"
+            ]
+        },
+        "correct_option": "B",
+        "explanation": {
+            "en": "Pure water is neutral, so its pH is 7.",
+            "gu": "શુદ્ધ પાણી તટસ્થ હોય છે, તેથી તેની pH 7 હોય છે.",
+            "hi": "शुद्ध जल तटस्थ होता है, इसलिए इसका pH 7 होता है।"
+        },
+        "source": "GSEB Textbook",
+        "source_type": "Official",
+        "verified": true
+    }
+]
