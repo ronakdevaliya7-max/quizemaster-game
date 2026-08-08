@@ -13,6 +13,11 @@
                     Add All Standard Categories
                 </button>
             </form>
+            <form action="{{ url_for('admin_import_culture') }}" method="POST" onsubmit="return confirm('Import Ramayana, Mahabharata, and Hindu God quizzes?');">
+                <button type="submit" class="btn btn-warning" style="padding: 10px 20px; border-radius: 8px; font-weight: 600; color: white;">
+                    Import Cultural Quizzes
+                </button>
+            </form>
             
             
             <a href="{{ url_for('admin_ai_generator') }}" class="btn" style="background: linear-gradient(135deg, #6366f1, #a855f7); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 8px;">

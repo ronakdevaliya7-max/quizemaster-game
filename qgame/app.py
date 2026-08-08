@@ -988,6 +988,26 @@ def admin_import_custom():
     flash('Started adding all standard categories! Please refresh the page in a few seconds.', 'success')
     return redirect(url_for('admin_categories'))
 
+@app.route('/admin/import_culture', methods=['POST'])
+@login_required
+def admin_import_culture():
+    if current_user.role != 'admin':
+        return redirect(url_for('user_dashboard'))
+        
+    import subprocess
+    import sys
+    import os
+    
+    script_path = os.path.join(basedir, '..', 'import_culture_quizzes.py')
+    if os.path.exists(script_path):
+        # Run the script in the background
+        subprocess.Popen([sys.executable, script_path])
+        flash('Started importing Ramayana, Mahabharata, and Hindu Gods quizzes! Please refresh the page in a few seconds.', 'success')
+    else:
+        flash('Could not find the import script.', 'error')
+        
+    return redirect(url_for('admin_categories'))
+
 
 
 @app.route('/admin/ai_generator', methods=['GET', 'POST'])
