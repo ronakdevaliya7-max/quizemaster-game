@@ -144,6 +144,62 @@ def index():
         return redirect(url_for('user_dashboard'))
     return redirect(url_for('login'))
 
+@app.route('/system_fix_db')
+def system_fix_db():
+    from sqlalchemy import text
+    
+    columns = [
+        ("board", "VARCHAR(50)"),
+        ("standard", "VARCHAR(50)"),
+        ("stream", "VARCHAR(50)"),
+        ("subject", "VARCHAR(100)"),
+        ("chapter", "VARCHAR(100)"),
+        ("topic", "VARCHAR(100)"),
+        
+        ("question_en", "TEXT"),
+        ("question_gu", "TEXT"),
+        ("question_hi", "TEXT"),
+        
+        ("option_a_en", "VARCHAR(255)"),
+        ("option_b_en", "VARCHAR(255)"),
+        ("option_c_en", "VARCHAR(255)"),
+        ("option_d_en", "VARCHAR(255)"),
+        
+        ("option_a_gu", "VARCHAR(255)"),
+        ("option_b_gu", "VARCHAR(255)"),
+        ("option_c_gu", "VARCHAR(255)"),
+        ("option_d_gu", "VARCHAR(255)"),
+        
+        ("option_a_hi", "VARCHAR(255)"),
+        ("option_b_hi", "VARCHAR(255)"),
+        ("option_c_hi", "VARCHAR(255)"),
+        ("option_d_hi", "VARCHAR(255)"),
+        
+        ("explanation_en", "TEXT"),
+        ("explanation_gu", "TEXT"),
+        ("explanation_hi", "TEXT"),
+        
+        ("source", "VARCHAR(255)"),
+        ("source_type", "VARCHAR(100)"),
+        ("verified", "BOOLEAN DEFAULT 0"),
+        ("created_at", "DATETIME")
+    ]
+    
+    output = "Fixing DB Schema...<br>"
+    try:
+        with db.engine.connect() as conn:
+            for col_name, col_type in columns:
+                try:
+                    conn.execute(text(f"ALTER TABLE question ADD COLUMN {col_name} {col_type}"))
+                    output += f"Added {col_name}<br>"
+                except Exception as e:
+                    output += f"Skipped {col_name} (already exists or error)<br>"
+            conn.commit()
+    except Exception as main_e:
+        output += f"Main DB Error: {main_e}<br>"
+        
+    return output + "<br><b>Done! <a href='/admin'>Go to Admin</a></b>"
+
 @app.route('/set_language/<lang>')
 def set_language(lang):
     if lang in app.config['BABEL_SUPPORTED_LOCALES']:
