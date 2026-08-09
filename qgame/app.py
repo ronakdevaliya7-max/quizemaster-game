@@ -36,6 +36,16 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['BABEL_DEFAULT_LOCALE'] = 'en'
 app.config['BABEL_SUPPORTED_LOCALES'] = ['en', 'hi', 'gu']
 
+if db_url.startswith("sqlite"):
+    from sqlalchemy import event
+    from sqlalchemy.engine import Engine
+    @event.listens_for(Engine, "connect")
+    def set_sqlite_pragma(dbapi_connection, connection_record):
+        cursor = dbapi_connection.cursor()
+        cursor.execute("PRAGMA journal_mode=WAL")
+        cursor.execute("PRAGMA synchronous=NORMAL")
+        cursor.close()
+
 db.init_app(app)
 
 with app.app_context():
@@ -80,6 +90,26 @@ with app.app_context():
             print(f"Added column {col} to {table}")
         except Exception as e:
             print(f"Error adding {col} to {table}: {e}")
+            db.session.rollback()
+
+    indexes_to_create = [
+        "CREATE INDEX IF NOT EXISTS ix_category_education_level ON category (education_level)",
+        "CREATE INDEX IF NOT EXISTS ix_category_board ON category (board)",
+        "CREATE INDEX IF NOT EXISTS ix_category_standard ON category (standard)",
+        "CREATE INDEX IF NOT EXISTS ix_category_course ON category (course)",
+        "CREATE INDEX IF NOT EXISTS ix_question_category_id ON question (category_id)",
+        "CREATE INDEX IF NOT EXISTS ix_question_language ON question (language)",
+        "CREATE INDEX IF NOT EXISTS ix_quiz_attempt_user_id ON quiz_attempt (user_id)",
+        "CREATE INDEX IF NOT EXISTS ix_quiz_attempt_category_id ON quiz_attempt (category_id)",
+        "CREATE INDEX IF NOT EXISTS ix_certificate_user_id ON certificate (user_id)",
+        "CREATE INDEX IF NOT EXISTS ix_certificate_attempt_id ON certificate (attempt_id)"
+    ]
+    for idx_query in indexes_to_create:
+        try:
+            db.session.execute(text(idx_query))
+            db.session.commit()
+        except Exception as e:
+            print(f"Error creating index: {e}")
             db.session.rollback()
 
     admin = User.query.filter_by(username="admin").first()

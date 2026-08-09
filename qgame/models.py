@@ -59,10 +59,10 @@ class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=True, nullable=False)
     description = db.Column(db.Text, nullable=True)
-    education_level = db.Column(db.String(50), nullable=True)
-    board = db.Column(db.String(50), nullable=True)
-    standard = db.Column(db.String(50), nullable=True)
-    course = db.Column(db.String(50), nullable=True)
+    education_level = db.Column(db.String(50), nullable=True, index=True)
+    board = db.Column(db.String(50), nullable=True, index=True)
+    standard = db.Column(db.String(50), nullable=True, index=True)
+    course = db.Column(db.String(50), nullable=True, index=True)
 
     image_filename = db.Column(db.String(255), nullable=True)
     
@@ -71,7 +71,7 @@ class Category(db.Model):
 
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=True) # Optional now, for backward compatibility or special topics
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=True, index=True) # Optional now, for backward compatibility or special topics
     
     # Hierarchy Fields
     board = db.Column(db.String(50), nullable=True)
@@ -123,12 +123,12 @@ class Question(db.Model):
     option_c = db.Column(db.String(255), nullable=True)
     option_d = db.Column(db.String(255), nullable=True)
     explanation = db.Column(db.Text, nullable=True)
-    language = db.Column(db.String(10), default='en')
+    language = db.Column(db.String(10), default='en', index=True)
 
 class QuizAttempt(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, index=True)
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False, index=True)
     score = db.Column(db.Integer, nullable=False)
     total_questions = db.Column(db.Integer, nullable=False)
     time_taken = db.Column(db.Integer, nullable=False) # In seconds
@@ -139,8 +139,8 @@ class QuizAttempt(db.Model):
 
 class Certificate(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    attempt_id = db.Column(db.Integer, db.ForeignKey('quiz_attempt.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, index=True)
+    attempt_id = db.Column(db.Integer, db.ForeignKey('quiz_attempt.id'), nullable=False, index=True)
     certificate_id = db.Column(db.String(100), unique=True, nullable=False)
     issue_date = db.Column(db.DateTime, default=datetime.utcnow)
     file_path = db.Column(db.String(255), nullable=False)
