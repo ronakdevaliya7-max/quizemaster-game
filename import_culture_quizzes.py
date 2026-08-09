@@ -2,7 +2,7 @@ import os
 import sys
 import json
 
-base_dir = r"d:\project\qgame\qgame"
+base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'qgame'))
 sys.path.append(os.path.abspath(os.path.join(base_dir, '..')))
 
 from qgame.app import app, db
