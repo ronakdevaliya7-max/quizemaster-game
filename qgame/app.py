@@ -740,7 +740,18 @@ def admin_categories():
                 
             return redirect(url_for('admin_categories'))
         
-    categories = Category.query.all()
+    import re
+    categories_raw = Category.query.all()
+    
+    def sort_category(c):
+        name = c.name or ''
+        match = re.search(r'Std\s+(\d+)', name, re.IGNORECASE)
+        if match:
+            return (int(match.group(1)), name)
+        return (float('inf'), name)
+        
+    categories = sorted(categories_raw, key=sort_category)
+    
     category_counts = {}
     if categories:
         cat_ids = [c.id for c in categories]
