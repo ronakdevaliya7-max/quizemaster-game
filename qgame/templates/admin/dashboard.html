@@ -1,11 +1,29 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<style>
+    @media (max-width: 768px) {
+        .admin-header-flex {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 1rem;
+            padding: 1.5rem !important;
+        }
+        .admin-complex-grid {
+            grid-template-columns: 1fr !important;
+        }
+    }
+    @media (max-width: 480px) {
+        .admin-header-title {
+            font-size: 1.8rem !important;
+        }
+    }
+</style>
 <div style="max-width: 1200px; margin: 0 auto; font-family: 'Inter', sans-serif;">
     
-    <div class="d-flex justify-between align-center mb-4" style="background: linear-gradient(135deg, #f3f4f6, #ffffff); padding: 2rem; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); margin-bottom: 2rem;">
+    <div class="d-flex justify-between align-center mb-4 admin-header-flex" style="background: linear-gradient(135deg, #f3f4f6, #ffffff); padding: 2rem; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); margin-bottom: 2rem;">
         <div>
-            <h1 style="font-weight: 800; font-size: 2.5rem; color: #1e293b; margin-bottom: 0.5rem; background: -webkit-linear-gradient(45deg, #3b82f6, #8b5cf6); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Admin Dashboard Pro</h1>
+            <h1 class="admin-header-title" style="font-weight: 800; font-size: 2.5rem; color: #1e293b; margin-bottom: 0.5rem; background: -webkit-linear-gradient(45deg, #3b82f6, #8b5cf6); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Admin Dashboard Pro</h1>
             <p style="color: #64748b; font-size: 1.1rem; margin: 0;">Comprehensive overview of your quiz platform's performance.</p>
         </div>
         <a href="{{ url_for('user_dashboard') }}" class="btn" style="background: white; color: #3b82f6; border: 2px solid #3b82f6; border-radius: 50px; padding: 10px 24px; font-weight: 600; font-size: 1rem; transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(59,130,246,0.15);">
@@ -65,7 +83,7 @@
     </div>
     
     <!-- Complex Layout Grid -->
-    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
+    <div class="admin-complex-grid" style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
         
         <!-- Left Column: Chart -->
         <div class="card" style="padding: 1.5rem; border-radius: 16px; background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-sm);">
