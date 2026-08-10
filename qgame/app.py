@@ -240,6 +240,27 @@ def set_language(lang):
     return redirect(request.referrer or url_for('index'))
 
 # ----------------- AUTH ROUTES -----------------
+@app.route('/setup-admin')
+def setup_admin():
+    from werkzeug.security import generate_password_hash
+    username = "quize app"
+    password = "quize886644"
+    user = User.query.filter_by(username=username).first()
+    if user:
+        user.password_hash = generate_password_hash(password)
+        user.role = 'admin'
+        db.session.commit()
+        return "Admin user updated successfully! You can now log in."
+    else:
+        new_admin = User(
+            username=username,
+            password_hash=generate_password_hash(password),
+            role='admin',
+            name="Admin"
+        )
+        db.session.add(new_admin)
+        db.session.commit()
+        return "Admin user created successfully! You can now log in."
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
