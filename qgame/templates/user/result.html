@@ -28,7 +28,7 @@
     
     <div style="display: flex; justify-content: center; gap: 15px; flex-direction: column; align-items: center;">
         <div style="display: flex; gap: 15px; justify-content: center;">
-            <a href="{{ url_for('leaderboard_view', standard=attempt.category.standard|default('All'), quiz_id=attempt.category_id) }}" class="btn-primary btn" style="width: auto; background: var(--secondary);">View Leaderboard</a>
+            <a href="{{ url_for('leaderboard_view', standard=(attempt.category.standard or 'All'), quiz_id=attempt.category_id) }}" class="btn-primary btn" style="width: auto; background: var(--secondary);">View Leaderboard</a>
             <a href="{{ url_for('user_dashboard') }}" class="btn-primary btn" style="width: auto;">Return to Dashboard</a>
             {% if attempt.passed %}
                 {% if cert %}
