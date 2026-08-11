@@ -1360,8 +1360,47 @@ def teacher_dashboard():
 @app.route('/leaderboard/<standard>')
 @login_required
 def leaderboard_view(standard):
-    # Fetch top 10 users for this standard ordered by points/xp
-    top_users = User.query.filter_by(standard=standard).order_by(User.points.desc(), User.xp.desc()).limit(10).all()
+    quiz_id = request.args.get('quiz_id')
+    
+    if quiz_id:
+        # Fetch attempts for this specific quiz
+        attempts = QuizAttempt.query.filter_by(category_id=quiz_id).all()
+        
+        # Get best score per user
+        user_best = {}
+        for att in attempts:
+            if att.user_id not in user_best:
+                user_best[att.user_id] = {'user': att.user, 'score': att.score, 'time': att.time_taken}
+            else:
+                if att.score > user_best[att.user_id]['score']:
+                    user_best[att.user_id] = {'user': att.user, 'score': att.score, 'time': att.time_taken}
+                elif att.score == user_best[att.user_id]['score'] and att.time_taken < user_best[att.user_id]['time']:
+                    user_best[att.user_id] = {'user': att.user, 'score': att.score, 'time': att.time_taken}
+                    
+        # Sort by score desc, time asc
+        sorted_attempts = sorted(user_best.values(), key=lambda x: (-x['score'], x['time']))[:10]
+        
+        # Create a list of dummy user objects for the template
+        top_users = []
+        class DummyUser:
+            pass
+        for item in sorted_attempts:
+            u = item['user']
+            du = DummyUser()
+            du.name = u.name
+            du.profile_photo = u.profile_photo
+            du.points = item['score']  # Use quiz score instead of total points
+            top_users.append(du)
+            
+    else:
+        # Fallback to standard-based leaderboard using total points
+        # Handle cases like "11 (Arts)" by extracting the number if needed, but let's just use exact match or basic fallback
+        top_users = User.query.filter_by(standard=standard).order_by(User.points.desc(), User.xp.desc()).limit(10).all()
+        # If no users found, try just the number
+        if not top_users and " " in standard:
+            base_std = standard.split(" ")[0]
+            top_users = User.query.filter_by(standard=base_std).order_by(User.points.desc(), User.xp.desc()).limit(10).all()
+
     return render_template('leaderboard_view.html', users=top_users, standard=standard)
 
 if __name__ == '__main__':
