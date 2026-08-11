@@ -331,6 +331,12 @@ def register():
         
         login_user(new_user)
         flash('Account created successfully! Welcome to your dashboard.')
+        
+        # Redirect to the page they were trying to access, if it exists
+        next_page = request.args.get('next')
+        if next_page:
+            return redirect(next_page)
+            
         return redirect(url_for('user_dashboard'))
         
     return render_template('register.html')
