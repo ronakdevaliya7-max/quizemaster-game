@@ -254,8 +254,17 @@ def login():
             return redirect(url_for('login'))
             
         login_user(user, remember=remember)
+        
+        # Redirect to the page they were trying to access, if it exists
+        next_page = request.args.get('next')
+        if next_page:
+            return redirect(next_page)
+            
         if user.role == 'admin':
             return redirect(url_for('admin_dashboard'))
+        elif user.role == 'teacher':
+            return redirect(url_for('teacher_dashboard'))
+            
         return redirect(url_for('user_dashboard'))
         
     return render_template('login.html')
