@@ -1264,6 +1264,71 @@ def debug_categories():
         out += f"{c.name} | Ed: {c.education_level} | Course: {c.course} | Std: {c.standard} | Board: {c.board}<br>"
     return out
 
+@app.route('/admin/leaderboard_maker', methods=['GET', 'POST'])
+@login_required
+def admin_leaderboard_maker():
+    if current_user.role != 'admin':
+        flash('Unauthorized Access', 'danger')
+        return redirect(url_for('index'))
+    
+    generated_link = None
+    if request.method == 'POST':
+        standard = request.form.get('standard')
+        if standard:
+            generated_link = url_for('leaderboard_view', standard=standard, _external=True)
+            flash('Leaderboard link generated successfully!', 'success')
+            
+    # Get distinct standards from users
+    standards = db.session.query(User.standard).filter(User.standard.isnot(None)).distinct().all()
+    standards = [s[0] for s in standards if s[0]]
+    if not standards:
+        standards = ['10', '11', '12'] # Default fallbacks
+        
+    return render_template('admin/leaderboard_maker.html', standards=standards, generated_link=generated_link)
+
+@app.route('/teacher', methods=['GET', 'POST'])
+@login_required
+def teacher_dashboard():
+    # Only allow admin or teacher roles
+    if current_user.role not in ['admin', 'teacher']:
+        flash('Unauthorized Access. Teacher role required.', 'danger')
+        return redirect(url_for('index'))
+    
+    generated_quiz_link = None
+    generated_leaderboard_link = None
+    
+    if request.method == 'POST':
+        standard = request.form.get('standard')
+        category_id = request.form.get('category_id')
+        
+        if standard and category_id:
+            # Generate links
+            generated_quiz_link = url_for('take_quiz', category_id=category_id, _external=True)
+            generated_leaderboard_link = url_for('leaderboard_view', standard=standard, _external=True)
+            flash('Links generated successfully!', 'success')
+            
+    # Get distinct standards from users and categories
+    user_standards = [s[0] for s in db.session.query(User.standard).filter(User.standard.isnot(None)).distinct().all() if s[0]]
+    cat_standards = [s[0] for s in db.session.query(Category.standard).filter(Category.standard.isnot(None)).distinct().all() if s[0]]
+    standards = sorted(list(set(user_standards + cat_standards)))
+    
+    if not standards:
+        standards = ['7', '8', '9', '10', '11', '12'] # Default fallbacks
+        
+    # Get all categories to pass to frontend for JS filtering
+    categories = Category.query.all()
+    categories_data = [{'id': c.id, 'name': c.name, 'standard': c.standard or 'All'} for c in categories]
+        
+    return render_template('teacher_dashboard.html', standards=standards, categories_json=json.dumps(categories_data), 
+                           generated_quiz_link=generated_quiz_link, generated_leaderboard_link=generated_leaderboard_link)
+
+@app.route('/leaderboard/<standard>')
+@login_required
+def leaderboard_view(standard):
+    # Fetch top 10 users for this standard ordered by points/xp
+    top_users = User.query.filter_by(standard=standard).order_by(User.points.desc(), User.xp.desc()).limit(10).all()
+    return render_template('leaderboard_view.html', users=top_users, standard=standard)
+
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)

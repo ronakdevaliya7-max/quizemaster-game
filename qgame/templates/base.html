@@ -48,8 +48,11 @@
                 <i class="fas fa-moon"></i>
             </button>
             {% if current_user.is_authenticated %}
-                {% if current_user.role == 'admin' %}
+                {% if current_user.role in ['admin', 'teacher'] %}
+                    {% if current_user.role == 'admin' %}
                     <a href="{{ url_for('admin_dashboard') }}"><i class="fas fa-chart-line nav-icon"></i> {{ _('Admin') }}</a>
+                    {% endif %}
+                    <a href="{{ url_for('teacher_dashboard') }}"><i class="fas fa-chalkboard-teacher nav-icon" style="color: #fbbf24;"></i> {{ _('Teacher Panel') }}</a>
                 {% else %}
                     <a href="{{ url_for('user_dashboard') }}"><i class="fas fa-home nav-icon"></i> {{ _('Home') }}</a>
                     <a href="{{ url_for('store') }}"><i class="fas fa-store nav-icon" style="color: #ffd700;"></i> {{ _('Store') }}</a>
