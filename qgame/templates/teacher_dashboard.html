@@ -47,32 +47,22 @@
         </form>
     </div>
 
-    {% if generated_quiz_link and generated_leaderboard_link %}
+    {% if generated_leaderboard_link %}
     <div class="mt-8 bg-purple-50 dark:bg-gray-800 border border-purple-200 dark:border-purple-800 rounded-lg p-6">
-        <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-4">Your Links are Ready!</h3>
-        <p class="text-sm text-gray-600 dark:text-gray-400 mb-6">Share these links with your students on WhatsApp or Google Classroom.</p>
+        <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-4">Your Link is Ready!</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-400 mb-6">Share this single link with your students on WhatsApp or Google Classroom. It shows the leaderboard and lets them play the quiz directly.</p>
         
-        <div class="mb-6">
-            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">1. Play Quiz Link:</label>
-            <div class="flex items-center">
-                <input type="text" readonly value="{{ generated_quiz_link }}" id="quizLink" class="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-l-md sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
-                <button type="button" onclick="copyToClipboard('quizLink')" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-r-md text-white bg-purple-600 hover:bg-purple-700">
-                    Copy Link
-                </button>
-            </div>
-        </div>
-
         <div>
-            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">2. Leaderboard Link:</label>
+            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Student Link:</label>
             <div class="flex items-center">
-                <input type="text" readonly value="{{ generated_leaderboard_link }}" id="leaderboardLink" class="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-l-md sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
-                <button type="button" onclick="copyToClipboard('leaderboardLink')" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-r-md text-white bg-purple-600 hover:bg-purple-700">
+                <input type="text" readonly value="{{ generated_leaderboard_link }}" id="studentLink" class="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-l-md sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                <button type="button" onclick="copyToClipboard('studentLink')" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-r-md text-white bg-purple-600 hover:bg-purple-700">
                     Copy Link
                 </button>
             </div>
             <div class="mt-2">
                 <a href="{{ generated_leaderboard_link }}" target="_blank" class="text-purple-600 hover:text-purple-800 dark:text-purple-400 dark:hover:text-purple-300 text-sm font-medium">
-                    Preview Leaderboard &rarr;
+                    Preview Link &rarr;
                 </a>
             </div>
         </div>

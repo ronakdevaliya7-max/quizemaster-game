@@ -1319,7 +1319,7 @@ def teacher_dashboard():
         if standard and category_id:
             # Generate links
             generated_quiz_link = url_for('take_quiz', category_id=category_id, _external=True)
-            generated_leaderboard_link = url_for('leaderboard_view', standard=standard, _external=True)
+            generated_leaderboard_link = url_for('leaderboard_view', standard=standard, quiz_id=category_id, _external=True)
             flash('Links generated successfully!', 'success')
             
     # Get distinct standards from users and categories

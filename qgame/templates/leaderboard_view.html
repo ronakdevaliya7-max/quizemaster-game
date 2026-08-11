@@ -165,7 +165,11 @@
             {% elif current_user.role == 'teacher' %}
                 <a href="{{ url_for('teacher_dashboard') }}" class="btn-create">Back to Dashboard &gt;</a>
             {% else %}
-                <a href="{{ url_for('user_dashboard') }}" class="btn-create">Play Now &gt;</a>
+                {% if request.args.get('quiz_id') %}
+                    <a href="{{ url_for('take_quiz', category_id=request.args.get('quiz_id')) }}" class="btn-create">Play Now &gt;</a>
+                {% else %}
+                    <a href="{{ url_for('user_dashboard') }}" class="btn-create">Play Now &gt;</a>
+                {% endif %}
             {% endif %}
         </div>
 
