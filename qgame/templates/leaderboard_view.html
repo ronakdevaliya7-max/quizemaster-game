@@ -160,7 +160,13 @@
         <div class="leaderboard-info">
             <h1>Class {{ standard }}<br>Leaderboard</h1>
             <p>Welcome to the official leaderboard for Standard {{ standard }}. See who's leading the charts in our quiz game. Keep playing to boost your rank!</p>
-            <a href="{{ url_for('index') }}" class="btn-create">Play Now &gt;</a>
+            {% if current_user.role == 'admin' %}
+                <a href="{{ url_for('admin_dashboard') }}" class="btn-create">Back to Dashboard &gt;</a>
+            {% elif current_user.role == 'teacher' %}
+                <a href="{{ url_for('teacher_dashboard') }}" class="btn-create">Back to Dashboard &gt;</a>
+            {% else %}
+                <a href="{{ url_for('user_dashboard') }}" class="btn-create">Play Now &gt;</a>
+            {% endif %}
         </div>
 
         <div class="leaderboard-card">
