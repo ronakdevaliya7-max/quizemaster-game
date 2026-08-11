@@ -888,7 +888,27 @@ def delete_user(user_id):
         
     db.session.delete(user_to_delete)
     db.session.commit()
-    flash(f'User {user_to_delete.name} has been deleted.', 'success')
+    flash(f'User deleted successfully.', 'success')
+    return redirect(url_for('admin_users'))
+
+@app.route('/admin/users/promote/<int:user_id>', methods=['POST'])
+@login_required
+def promote_user(user_id):
+    if current_user.role != 'admin':
+        return redirect(url_for('user_dashboard'))
+        
+    user_to_promote = User.query.get_or_404(user_id)
+    if user_to_promote.role == 'admin':
+        flash('User is already an admin.', 'danger')
+    elif user_to_promote.role == 'teacher':
+        user_to_promote.role = 'user'
+        db.session.commit()
+        flash(f'Removed teacher role from {user_to_promote.username}.', 'success')
+    else:
+        user_to_promote.role = 'teacher'
+        db.session.commit()
+        flash(f'Promoted {user_to_promote.username} to Teacher!', 'success')
+        
     return redirect(url_for('admin_users'))
 
 @app.route('/admin/quizzes')
