@@ -213,6 +213,10 @@
             currentCard.classList.add('hidden-q');
             
             const nextIndex = currentIndex + 1;
+            
+            // Send live progress ping
+            sendLiveProgress(nextIndex);
+            
             if (nextIndex < totalQuestions) {
                 const nextCard = cards[nextIndex];
                 nextCard.classList.remove('hidden-q');
@@ -226,6 +230,31 @@
                 document.getElementById('submitBtn').style.display = 'inline-block';
             }
         }, 400); // Wait for slide-out animation to finish
+    }
+
+    function sendLiveProgress(questionsAnswered) {
+        // Calculate rough score based on correct answers so far
+        const cards = document.querySelectorAll('.question-card');
+        let currentScore = 0;
+        
+        cards.forEach((card, idx) => {
+            if(idx < questionsAnswered) {
+                const checked = card.querySelector('input[type="radio"]:checked');
+                // We don't have the correct answer client-side for security, 
+                // so we just send questions answered. Score will be accurately calculated on submit.
+            }
+        });
+        
+        fetch('/api/session/update_progress', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                questions_answered: questionsAnswered,
+                score: 0 // Keep 0 until submit, or we can send dummy score if needed
+            })
+        }).catch(e => console.error(e));
     }
 
     function submitQuiz() {

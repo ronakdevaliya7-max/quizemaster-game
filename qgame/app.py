@@ -14,7 +14,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
-from qgame.models import db, User, Category, Question, QuizAttempt, Certificate, Badge, UserBadge, StoreItem, UserInventory
+from qgame.models import db, User, Category, Question, QuizAttempt, Certificate, Badge, UserBadge, StoreItem, UserInventory, LiveSession, LiveParticipant
 from sqlalchemy.exc import IntegrityError
 from qgame.utils.gamification import process_quiz_result
 from qgame.utils.certificates import generate_certificate
@@ -510,6 +510,19 @@ def submit_quiz():
     
     points, xp = process_quiz_result(current_user, attempt)
     # Certificate generation is now manual via an explicit option
+    
+    # Update Live Session if active
+    participant_id = session.get('active_live_participant_id')
+    if participant_id:
+        participant = LiveParticipant.query.get(participant_id)
+        if participant:
+            participant.completed = True
+            participant.score = score
+            participant.questions_answered = total_questions
+            participant.last_ping = datetime.utcnow()
+            db.session.commit()
+        session.pop('active_live_session_id', None)
+        session.pop('active_live_participant_id', None)
     
     return redirect(url_for('quiz_result', attempt_id=attempt.id))
 
@@ -1355,7 +1368,124 @@ def teacher_dashboard():
     categories_data = [{'id': c.id, 'name': c.name, 'standard': c.standard or 'All'} for c in categories]
         
     return render_template('teacher_dashboard.html', standards=standards, categories_json=json.dumps(categories_data), 
-                           generated_quiz_link=generated_quiz_link, generated_leaderboard_link=generated_leaderboard_link)
+                           generated_quiz_link=generated_quiz_link, generated_leaderboard_link=generated_leaderboard_link,
+                           active_sessions=LiveSession.query.filter_by(teacher_id=current_user.id, status='active').order_by(LiveSession.created_at.desc()).all())
+
+import string
+def generate_room_code():
+    return ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
+
+@app.route('/teacher/session/create', methods=['POST'])
+@login_required
+def create_live_session():
+    if current_user.role not in ['admin', 'teacher']:
+        return jsonify({'success': False, 'error': 'Unauthorized'}), 403
+    
+    category_id = request.form.get('category_id')
+    if not category_id:
+        return jsonify({'success': False, 'error': 'Category ID required'}), 400
+        
+    code = generate_room_code()
+    while LiveSession.query.filter_by(room_code=code, status='active').first():
+        code = generate_room_code()
+        
+    session = LiveSession(room_code=code, teacher_id=current_user.id, category_id=category_id)
+    db.session.add(session)
+    db.session.commit()
+    
+    return redirect(url_for('teacher_live_room', room_code=code))
+
+@app.route('/teacher/session/<room_code>')
+@login_required
+def teacher_live_room(room_code):
+    if current_user.role not in ['admin', 'teacher']:
+        flash('Unauthorized Access.', 'danger')
+        return redirect(url_for('index'))
+        
+    session = LiveSession.query.filter_by(room_code=room_code).first_or_404()
+    if session.teacher_id != current_user.id and current_user.role != 'admin':
+        flash('Unauthorized Access.', 'danger')
+        return redirect(url_for('index'))
+        
+    # Full URL for QR Code
+    join_url = url_for('join_live_session', code=room_code, _external=True)
+    return render_template('teacher/live_room.html', session=session, join_url=join_url)
+
+@app.route('/api/session/status/<room_code>')
+@login_required
+def api_session_status(room_code):
+    session = LiveSession.query.filter_by(room_code=room_code).first()
+    if not session:
+        return jsonify({'success': False, 'error': 'Session not found'})
+        
+    participants = []
+    for p in session.participants:
+        participants.append({
+            'user_id': p.user_id,
+            'name': p.user.name,
+            'photo': p.user.profile_photo,
+            'score': p.score,
+            'questions_answered': p.questions_answered,
+            'completed': p.completed,
+            'last_ping': p.last_ping.isoformat()
+        })
+        
+    return jsonify({
+        'success': True,
+        'status': session.status,
+        'participants': sorted(participants, key=lambda x: (-x['score'], -x['questions_answered']))
+    })
+
+@app.route('/join', methods=['GET', 'POST'])
+def join_live_session():
+    if not current_user.is_authenticated:
+        flash('Please login to join a live quiz.')
+        return redirect(url_for('login', next=request.url))
+        
+    code = request.args.get('code')
+    if request.method == 'POST':
+        code = request.form.get('room_code')
+        
+    if code:
+        code = code.upper().strip()
+        session = LiveSession.query.filter_by(room_code=code, status='active').first()
+        if session:
+            # Check if already joined
+            participant = LiveParticipant.query.filter_by(session_id=session.id, user_id=current_user.id).first()
+            if not participant:
+                participant = LiveParticipant(session_id=session.id, user_id=current_user.id)
+                db.session.add(participant)
+                db.session.commit()
+            
+            # Store active session in Flask session so we can update it during quiz
+            from flask import session as flask_session
+            flask_session['active_live_session_id'] = session.id
+            flask_session['active_live_participant_id'] = participant.id
+            
+            return redirect(url_for('take_quiz', category_id=session.category_id))
+        else:
+            flash('Invalid or inactive room code.', 'danger')
+            
+    return render_template('user/join.html', code=code)
+
+@app.route('/api/session/update_progress', methods=['POST'])
+@login_required
+def api_update_progress():
+    from flask import session as flask_session
+    participant_id = flask_session.get('active_live_participant_id')
+    if not participant_id:
+        return jsonify({'success': False})
+        
+    participant = LiveParticipant.query.get(participant_id)
+    if participant:
+        data = request.json
+        participant.questions_answered = data.get('questions_answered', participant.questions_answered)
+        participant.score = data.get('score', participant.score)
+        participant.last_ping = datetime.utcnow()
+        db.session.commit()
+        return jsonify({'success': True})
+    return jsonify({'success': False})
+
 
 @app.route('/leaderboard/<standard>')
 @login_required

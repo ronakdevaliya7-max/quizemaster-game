@@ -180,3 +180,30 @@ class UserInventory(db.Model):
     acquired_at = db.Column(db.DateTime, default=datetime.utcnow)
     
     store_item = db.relationship('StoreItem')
+
+class LiveSession(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    room_code = db.Column(db.String(6), unique=True, nullable=False, index=True)
+    teacher_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
+    status = db.Column(db.String(20), default='active') # 'active' or 'completed'
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    teacher = db.relationship('User', backref='live_sessions_taught')
+    category = db.relationship('Category')
+    participants = db.relationship('LiveParticipant', backref='session', lazy=True, cascade="all, delete-orphan")
+
+class LiveParticipant(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    session_id = db.Column(db.Integer, db.ForeignKey('live_session.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    score = db.Column(db.Integer, default=0)
+    questions_answered = db.Column(db.Integer, default=0)
+    completed = db.Column(db.Boolean, default=False)
+    joined_at = db.Column(db.DateTime, default=datetime.utcnow)
+    last_ping = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    user = db.relationship('User')
+
+ 
+ 
