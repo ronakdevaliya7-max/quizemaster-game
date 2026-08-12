@@ -1409,7 +1409,7 @@ def teacher_live_room(room_code):
         
     # Full URL for QR Code
     join_url = url_for('join_live_session', code=room_code, _external=True)
-    return render_template('teacher/live_room.html', session=session, join_url=join_url)
+    return render_template('teacher/live_room.html', live_session=session, join_url=join_url)
 
 @app.route('/api/session/status/<room_code>')
 @login_required
