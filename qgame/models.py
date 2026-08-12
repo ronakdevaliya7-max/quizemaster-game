@@ -205,5 +205,4 @@ class LiveParticipant(db.Model):
     
     user = db.relationship('User')
 
- 
- 
+
