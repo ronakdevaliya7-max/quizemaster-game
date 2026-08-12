@@ -3,194 +3,166 @@
 {% block title %}Live Room: {{ live_session.room_code }}{% endblock %}
 
 {% block content %}
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
-<!-- QRCode.js for generating QR code on frontend -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<div class="dashboard-header" style="text-align: center; margin-bottom: 2rem; position: relative;">
+    <a href="{{ url_for('teacher_dashboard') }}" class="btn btn-outline" style="position: absolute; left: 0; top: 0;"><i class="fas fa-arrow-left"></i> Back</a>
+    <h1>Live Quiz: <span style="color: var(--primary);">{{ live_session.category.name }}</span></h1>
+    <p>Session Active - Waiting for students</p>
+</div>
 
-<style>
-    body {
-        font-family: 'Outfit', sans-serif;
-    }
-    .glass-card {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
-    }
-    .dark .glass-card {
-        background: rgba(17, 24, 39, 0.6);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-    }
-    .gradient-text {
-        background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-    .code-box {
-        letter-spacing: 0.2em;
-    }
-</style>
-
-<div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+<div style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; margin-top: 2rem;">
     
-    <!-- Top Header Bar -->
-    <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
-        <div>
-            <a href="{{ url_for('teacher_dashboard') }}" class="text-purple-600 hover:text-purple-800 dark:text-purple-400 font-semibold flex items-center mb-2">
-                <i class="fas fa-arrow-left mr-2"></i> Back to Dashboard
-            </a>
-            <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white">
-                Live Quiz: <span class="gradient-text">{{ live_session.category.name }}</span>
-            </h1>
+    <!-- Left Panel: Join Controls -->
+    <div class="card" style="padding: 1.5rem; border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow);">
+        <div style="display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 15px; justify-content: center;">
+            <button class="btn btn-primary" id="tab-code" onclick="switchTab('code')" style="flex: 1; padding: 10px;">Code</button>
+            <button class="btn btn-outline" id="tab-link" onclick="switchTab('link')" style="flex: 1; padding: 10px;">Link</button>
+            <button class="btn btn-outline" id="tab-qr" onclick="switchTab('qr')" style="flex: 1; padding: 10px;">QR</button>
         </div>
-        <div class="flex items-center space-x-3">
-            <span class="relative flex h-3 w-3">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-            </span>
-            <span class="text-gray-700 dark:text-gray-300 font-semibold uppercase tracking-wider text-sm">Session Active</span>
+        
+        <div id="content-code" style="text-align: center; padding: 20px 0;">
+            <h3 style="color: var(--text-secondary); margin-bottom: 10px; font-size: 0.9rem; letter-spacing: 2px;">JOIN CODE</h3>
+            <div style="font-size: 3.5rem; font-weight: 800; letter-spacing: 10px; color: var(--text-primary); margin: 20px 0;">
+                {{ live_session.room_code }}
+            </div>
+            <p style="color: var(--text-secondary); margin-top: 10px; font-size: 0.9rem;">Ask students to go to <strong>qgame.com/join</strong></p>
+        </div>
+        
+        <div id="content-link" style="text-align: center; padding: 20px 0; display: none;">
+            <h3 style="color: var(--text-secondary); margin-bottom: 10px; font-size: 0.9rem; letter-spacing: 2px;">JOIN LINK</h3>
+            <div style="display: flex; gap: 10px; margin-top: 20px; align-items: center;">
+                <input type="text" readonly value="{{ join_url }}" id="joinLink" style="flex: 1; padding: 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--background); color: var(--text-primary); outline: none;">
+                <button onclick="copyLink()" class="btn btn-primary" style="padding: 12px 20px;">Copy</button>
+            </div>
+        </div>
+        
+        <div id="content-qr" style="text-align: center; padding: 20px 0; display: none;">
+            <h3 style="color: var(--text-secondary); margin-bottom: 10px; font-size: 0.9rem; letter-spacing: 2px;">SCAN TO JOIN</h3>
+            <div id="qrcode" style="display: inline-block; padding: 15px; background: white; border-radius: 10px; margin-top: 10px; box-shadow: var(--shadow-sm);"></div>
         </div>
     </div>
-
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    
+    <!-- Right Panel: Leaderboard -->
+    <div class="card" style="padding: 1.5rem; border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 15px;">
+            <h2 style="margin: 0; font-size: 1.5rem;"><i class="fas fa-users" style="color: var(--primary);"></i> Live Leaderboard</h2>
+            <div id="playerCount" style="background: var(--primary); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; font-weight: bold;">0 Players</div>
+        </div>
         
-        <!-- Join Info Panel (Left) -->
-        <div class="lg:col-span-1 flex flex-col gap-6">
-            
-            <!-- Code Card -->
-            <div class="glass-card rounded-2xl p-8 text-center border-t-4 border-purple-500">
-                <p class="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-2">Join Code</p>
-                <div class="code-box text-5xl md:text-6xl font-black text-gray-900 dark:text-white mb-6">
-                    {{ live_session.room_code }}
-                </div>
-                <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">Ask students to go to <strong>qgame.com/join</strong> and enter this code.</p>
-                
-                <div class="relative">
-                    <input type="text" readonly value="{{ join_url }}" id="joinLink" class="w-full bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block px-3 py-3 pr-24">
-                    <button type="button" onclick="copyLink()" class="absolute right-1 top-1 bottom-1 px-4 text-xs font-bold text-white bg-purple-600 hover:bg-purple-700 rounded-md transition-colors">
-                        COPY
-                    </button>
-                </div>
-            </div>
-
-            <!-- QR Code Card -->
-            <div class="glass-card rounded-2xl p-6 text-center flex flex-col items-center justify-center">
-                <p class="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-4">Scan to Join</p>
-                <div class="bg-white p-4 rounded-xl shadow-inner inline-block" id="qrcode"></div>
-            </div>
-
-        </div>
-
-        <!-- Live Leaderboard Panel (Right) -->
-        <div class="lg:col-span-2">
-            <div class="glass-card rounded-2xl p-6 h-full flex flex-col">
-                <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
-                    <h2 class="text-2xl font-bold text-gray-800 dark:text-white flex items-center">
-                        <i class="fas fa-users text-purple-500 mr-3"></i> Live Leaderboard
-                    </h2>
-                    <div class="text-sm font-semibold text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 px-3 py-1 rounded-full">
-                        <span id="playerCount">0</span> Players Joined
-                    </div>
-                </div>
-
-                <div class="flex-1 overflow-auto">
-                    <div id="leaderboardContent" class="space-y-4">
-                        <!-- Student rows injected via JS -->
-                        <div class="text-center py-12 text-gray-500 dark:text-gray-400" id="waitingMessage">
-                            <i class="fas fa-spinner fa-spin text-3xl mb-3 text-purple-400"></i>
-                            <p class="text-lg">Waiting for students to join...</p>
-                        </div>
-                    </div>
-                </div>
+        <div id="leaderboard" style="display: flex; flex-direction: column; gap: 10px; max-height: 500px; overflow-y: auto; padding-right: 5px;">
+            <div style="text-align: center; padding: 40px; color: var(--text-secondary);">
+                <i class="fas fa-spinner fa-spin" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                <p>Waiting for students to join...</p>
             </div>
         </div>
-
     </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
-    // Generate QR Code
+    // Tab Switching
+    function switchTab(tab) {
+        document.getElementById('content-code').style.display = 'none';
+        document.getElementById('content-link').style.display = 'none';
+        document.getElementById('content-qr').style.display = 'none';
+        
+        document.getElementById('tab-code').className = 'btn btn-outline';
+        document.getElementById('tab-link').className = 'btn btn-outline';
+        document.getElementById('tab-qr').className = 'btn btn-outline';
+        
+        document.getElementById('content-' + tab).style.display = 'block';
+        document.getElementById('tab-' + tab).className = 'btn btn-primary';
+    }
+
+    // QR Code Generation
+    const joinUrl = "{{ join_url }}";
     new QRCode(document.getElementById("qrcode"), {
-        text: "{{ join_url }}",
-        width: 160,
-        height: 160,
+        text: joinUrl,
+        width: 180,
+        height: 180,
         colorDark : "#000000",
         colorLight : "#ffffff",
         correctLevel : QRCode.CorrectLevel.H
     });
 
+    // Copy Link
     function copyLink() {
-        const link = document.getElementById("joinLink");
-        link.select();
-        document.execCommand("copy");
-        alert("Link copied!");
+        var copyText = document.getElementById("joinLink");
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(copyText.value);
+        alert("Link copied to clipboard!");
     }
 
     // Live Polling
     const roomCode = "{{ live_session.room_code }}";
-    const leaderboardContent = document.getElementById("leaderboardContent");
-    const playerCountSpan = document.getElementById("playerCount");
-    const waitingMessage = document.getElementById("waitingMessage");
-
-    function fetchLiveStatus() {
-        fetch(`/api/session/status/${roomCode}`)
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    updateLeaderboard(data.participants);
-                }
-            })
-            .catch(err => console.error(err));
+    
+    function fetchStatus() {
+        fetch('/api/session/status/' + roomCode)
+        .then(response => response.json())
+        .then(data => {
+            if(data.success) {
+                updateLeaderboard(data.participants);
+            }
+        })
+        .catch(err => console.error(err));
     }
 
     function updateLeaderboard(participants) {
-        playerCountSpan.innerText = participants.length;
+        const board = document.getElementById('leaderboard');
+        const countBadge = document.getElementById('playerCount');
         
-        if (participants.length > 0) {
-            if(waitingMessage) waitingMessage.style.display = 'none';
-            
-            let html = '';
-            participants.forEach((p, index) => {
-                const rankClass = index === 0 ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 border border-yellow-300 dark:border-yellow-700' : 
-                                 (index === 1 ? 'bg-gray-100 text-gray-800 dark:bg-gray-700 border border-gray-300 dark:border-gray-500' : 
-                                 (index === 2 ? 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 border border-orange-300 dark:border-orange-700' : 
-                                 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700'));
-                
-                const medal = index === 0 ? '🥇' : (index === 1 ? '🥈' : (index === 2 ? '🥉' : `#${index+1}`));
-                
-                html += `
-                <div class="flex items-center justify-between p-4 rounded-xl shadow-sm ${rankClass} transition-all duration-300 transform hover:-translate-y-1">
-                    <div class="flex items-center space-x-4">
-                        <div class="w-10 text-center font-bold text-xl">${medal}</div>
-                        <img class="h-12 w-12 rounded-full object-cover border-2 border-white shadow-sm" src="/static/img/profiles/${p.photo}" alt="">
-                        <div>
-                            <p class="font-bold text-lg text-gray-900 dark:text-white">${p.name}</p>
-                            <p class="text-xs font-semibold ${p.completed ? 'text-green-600' : 'text-blue-500'}">
-                                ${p.completed ? 'Finished' : 'In Progress'} • ${p.questions_answered} Qs Answered
-                            </p>
-                        </div>
-                    </div>
-                    <div class="text-right">
-                        <p class="text-3xl font-black text-gray-900 dark:text-white">${p.score}</p>
-                        <p class="text-xs uppercase font-bold text-gray-500">Pts</p>
-                    </div>
-                </div>
-                `;
-            });
-            leaderboardContent.innerHTML = html;
-        } else {
-            leaderboardContent.innerHTML = `
-                <div class="text-center py-12 text-gray-500 dark:text-gray-400" id="waitingMessage">
-                    <i class="fas fa-spinner fa-spin text-3xl mb-3 text-purple-400"></i>
-                    <p class="text-lg">Waiting for students to join...</p>
-                </div>
-            `;
+        countBadge.innerText = participants.length + ' Players';
+        
+        if(participants.length === 0) {
+            board.innerHTML = `<div style="text-align: center; padding: 40px; color: var(--text-secondary);">
+                <i class="fas fa-spinner fa-spin" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                <p>Waiting for students to join...</p>
+            </div>`;
+            return;
         }
+
+        // Sort by score (desc), then questions answered (desc)
+        participants.sort((a, b) => {
+            if(b.score !== a.score) return b.score - a.score;
+            return b.questions_answered - a.questions_answered;
+        });
+
+        let html = '';
+        participants.forEach((p, index) => {
+            let rankColor = index === 0 ? '#ffd700' : (index === 1 ? '#c0c0c0' : (index === 2 ? '#cd7f32' : 'var(--text-secondary)'));
+            let statusBadge = p.completed 
+                ? `<span style="background: var(--success); color: white; padding: 3px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: bold;">Finished</span>`
+                : `<span style="background: var(--warning); color: white; padding: 3px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: bold;">Playing (${p.questions_answered} ans)</span>`;
+                
+            html += `
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 15px; border-radius: 10px; background: var(--background); border: 1px solid var(--border);">
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <div style="font-size: 1.5rem; font-weight: 900; width: 40px; text-align: center; color: ${rankColor}; text-shadow: 0 2px 4px rgba(0,0,0,0.1);">#${index + 1}</div>
+                    <div>
+                        <div style="font-weight: 700; font-size: 1.1rem; color: var(--text-primary);">${p.name}</div>
+                        <div style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 500;">Score: ${p.score}</div>
+                    </div>
+                </div>
+                <div>${statusBadge}</div>
+            </div>`;
+        });
+        board.innerHTML = html;
     }
 
-    // Poll every 2 seconds
-    setInterval(fetchLiveStatus, 2000);
-    fetchLiveStatus(); // initial fetch
+    setInterval(fetchStatus, 2000);
+    fetchStatus();
 </script>
+
+<style>
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        div[style*="grid-template-columns"] {
+            grid-template-columns: 1fr !important;
+        }
+        .dashboard-header h1 {
+            font-size: 1.5rem;
+            margin-top: 3rem;
+        }
+    }
+</style>
 {% endblock %}
