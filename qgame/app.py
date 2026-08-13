@@ -1423,8 +1423,8 @@ def api_session_status(room_code):
     for p in session.participants:
         participants.append({
             'user_id': p.user_id,
-            'name': p.user.name or 'Student',
-            'photo': p.user.profile_photo or 'default.png',
+            'name': p.user.name if p.user else 'Student',
+            'photo': p.user.profile_photo if p.user else 'default.png',
             'score': p.score or 0,
             'questions_answered': p.questions_answered or 0,
             'completed': p.completed,
