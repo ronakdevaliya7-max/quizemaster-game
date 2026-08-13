@@ -1403,7 +1403,10 @@ def teacher_live_room(room_code):
         flash('Unauthorized Access.', 'danger')
         return redirect(url_for('index'))
         
-    session = LiveSession.query.filter_by(room_code=room_code).first_or_404()
+    session = LiveSession.query.filter_by(room_code=room_code, status='active').order_by(LiveSession.id.desc()).first()
+    if not session:
+        session = LiveSession.query.filter_by(room_code=room_code).order_by(LiveSession.id.desc()).first_or_404()
+        
     if session.teacher_id != current_user.id and current_user.role != 'admin':
         flash('Unauthorized Access.', 'danger')
         return redirect(url_for('index'))
@@ -1418,7 +1421,10 @@ def delete_live_session(room_code):
     if current_user.role not in ['admin', 'teacher']:
         return jsonify({'success': False, 'error': 'Unauthorized'}), 403
         
-    session = LiveSession.query.filter_by(room_code=room_code).first_or_404()
+    session = LiveSession.query.filter_by(room_code=room_code, status='active').order_by(LiveSession.id.desc()).first()
+    if not session:
+        session = LiveSession.query.filter_by(room_code=room_code).order_by(LiveSession.id.desc()).first_or_404()
+        
     if session.teacher_id != current_user.id and current_user.role != 'admin':
         return jsonify({'success': False, 'error': 'Unauthorized'}), 403
         
@@ -1432,12 +1438,19 @@ def delete_live_session(room_code):
 @login_required
 def api_session_status(room_code):
     try:
-        session = LiveSession.query.filter_by(room_code=room_code).first()
+        session = LiveSession.query.filter_by(room_code=room_code, status='active').order_by(LiveSession.id.desc()).first()
+        if not session:
+            # Fallback if somehow there's no active one but there is a completed one
+            session = LiveSession.query.filter_by(room_code=room_code).order_by(LiveSession.id.desc()).first()
+            
         if not session:
             return jsonify({'success': False, 'error': 'Session not found'})
             
+        # EXPLICIT QUERY instead of session.participants
+        participant_records = LiveParticipant.query.filter_by(session_id=session.id).all()
+        
         participants = []
-        for p in session.participants:
+        for p in participant_records:
             participants.append({
                 'user_id': p.user_id,
                 'name': p.user.name if p.user else 'Student',
@@ -1451,6 +1464,8 @@ def api_session_status(room_code):
         return jsonify({
             'success': True,
             'status': session.status,
+            'participants_count': len(participants),
+            'session_id': session.id,
             'participants': sorted(participants, key=lambda x: (-x['score'], -x['questions_answered']))
         })
     except Exception as e:
