@@ -1412,6 +1412,22 @@ def teacher_live_room(room_code):
     join_url = url_for('join_live_session', code=room_code, _external=True)
     return render_template('teacher/live_room.html', live_session=session, join_url=join_url)
 
+@app.route('/teacher/session/delete/<room_code>', methods=['POST'])
+@login_required
+def delete_live_session(room_code):
+    if current_user.role not in ['admin', 'teacher']:
+        return jsonify({'success': False, 'error': 'Unauthorized'}), 403
+        
+    session = LiveSession.query.filter_by(room_code=room_code).first_or_404()
+    if session.teacher_id != current_user.id and current_user.role != 'admin':
+        return jsonify({'success': False, 'error': 'Unauthorized'}), 403
+        
+    db.session.delete(session)
+    db.session.commit()
+    
+    flash('Live session deleted successfully.', 'success')
+    return redirect(url_for('teacher_dashboard'))
+
 @app.route('/api/session/status/<room_code>')
 @login_required
 def api_session_status(room_code):
