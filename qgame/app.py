@@ -1415,27 +1415,31 @@ def teacher_live_room(room_code):
 @app.route('/api/session/status/<room_code>')
 @login_required
 def api_session_status(room_code):
-    session = LiveSession.query.filter_by(room_code=room_code).first()
-    if not session:
-        return jsonify({'success': False, 'error': 'Session not found'})
-        
-    participants = []
-    for p in session.participants:
-        participants.append({
-            'user_id': p.user_id,
-            'name': p.user.name if p.user else 'Student',
-            'photo': p.user.profile_photo if p.user else 'default.png',
-            'score': p.score or 0,
-            'questions_answered': p.questions_answered or 0,
-            'completed': p.completed,
-            'last_ping': p.last_ping.isoformat() if p.last_ping else None
+    try:
+        session = LiveSession.query.filter_by(room_code=room_code).first()
+        if not session:
+            return jsonify({'success': False, 'error': 'Session not found'})
+            
+        participants = []
+        for p in session.participants:
+            participants.append({
+                'user_id': p.user_id,
+                'name': p.user.name if p.user else 'Student',
+                'photo': p.user.profile_photo if p.user else 'default.png',
+                'score': p.score or 0,
+                'questions_answered': p.questions_answered or 0,
+                'completed': p.completed,
+                'last_ping': str(p.last_ping) if p.last_ping else None
+            })
+            
+        return jsonify({
+            'success': True,
+            'status': session.status,
+            'participants': sorted(participants, key=lambda x: (-x['score'], -x['questions_answered']))
         })
-        
-    return jsonify({
-        'success': True,
-        'status': session.status,
-        'participants': sorted(participants, key=lambda x: (-x['score'], -x['questions_answered']))
-    })
+    except Exception as e:
+        import traceback
+        return jsonify({'success': False, 'error': str(e), 'trace': traceback.format_exc()})
 
 @app.route('/join', methods=['GET', 'POST'])
 def join_live_session():

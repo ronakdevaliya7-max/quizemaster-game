@@ -102,6 +102,8 @@
         .then(data => {
             if(data.success) {
                 updateLeaderboard(data.participants);
+            } else {
+                console.error("API Error:", data.error, data.trace);
             }
         })
         .catch(err => console.error(err));
