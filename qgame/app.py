@@ -8,6 +8,7 @@ import json
 import html
 import random
 import time
+from datetime import datetime
 import threading
 from flask import Flask, render_template, redirect, url_for, flash, request, session, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
@@ -1422,12 +1423,12 @@ def api_session_status(room_code):
     for p in session.participants:
         participants.append({
             'user_id': p.user_id,
-            'name': p.user.name,
-            'photo': p.user.profile_photo,
-            'score': p.score,
-            'questions_answered': p.questions_answered,
+            'name': p.user.name or 'Student',
+            'photo': p.user.profile_photo or 'default.png',
+            'score': p.score or 0,
+            'questions_answered': p.questions_answered or 0,
             'completed': p.completed,
-            'last_ping': p.last_ping.isoformat()
+            'last_ping': p.last_ping.isoformat() if p.last_ping else None
         })
         
     return jsonify({
