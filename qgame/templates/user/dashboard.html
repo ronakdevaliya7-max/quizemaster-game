@@ -69,6 +69,21 @@
 
 <div style="max-width: 1200px; margin: 0 auto;">
     
+    <!-- Join Live Quiz Banner -->
+    <div class="card mb-4" style="background: linear-gradient(135deg, var(--primary) 0%, #a855f7 100%); color: white; padding: 2rem; border-radius: var(--radius); display: flex; justify-content: space-between; align-items: center; box-shadow: 0 10px 25px rgba(168, 85, 247, 0.4);">
+        <div>
+            <h2 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 10px;">
+                <i class="fas fa-satellite-dish"></i> Live Quiz Room
+            </h2>
+            <p style="font-size: 1.1rem; opacity: 0.9;">Got a 6-digit code from your teacher? Join the live game now!</p>
+        </div>
+        <div>
+            <a href="{{ url_for('join_live_session') }}" class="btn" style="background: white; color: var(--primary); font-size: 1.1rem; padding: 12px 24px; border-radius: 50px; font-weight: 800; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: transform 0.2s;">
+                Join Game <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
     <!-- Featured Quizzes (Storefront) -->
     <div id="store" class="d-flex justify-between align-center mb-4">
         <h2 style="font-size: 1.8rem; font-weight: 800;">{{ _('Featured Categories') }}</h2>
