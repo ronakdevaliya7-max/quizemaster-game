@@ -103,7 +103,14 @@
             if(data.success) {
                 updateLeaderboard(data.participants);
             } else {
-                console.error("API Error:", data.error, data.trace);
+                document.getElementById('leaderboard-content').innerHTML = `
+                    <div style="text-align: center; padding: 40px 20px;">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: #e74c3c; margin-bottom: 15px;"></i>
+                        <p style="color: #e74c3c; font-weight: bold; font-size: 1.2rem;">API Error</p>
+                        <p style="color: var(--text-secondary); margin-top: 10px;">${data.error}</p>
+                        <pre style="margin-top: 10px; text-align: left; background: #f8f9fa; padding: 10px; overflow-x: auto; font-size: 0.8rem; color: #333;">${data.trace || 'No trace'}</pre>
+                    </div>
+                `;
             }
         })
         .catch(err => console.error(err));
