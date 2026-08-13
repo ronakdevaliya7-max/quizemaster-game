@@ -115,7 +115,7 @@
             if(data.success) {
                 updateLeaderboard(data.participants);
             } else {
-                document.getElementById('leaderboard-content').innerHTML = `
+                document.getElementById('leaderboard').innerHTML = `
                     <div style="text-align: center; padding: 40px 20px;">
                         <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: #e74c3c; margin-bottom: 15px;"></i>
                         <p style="color: #e74c3c; font-weight: bold; font-size: 1.2rem;">API Error</p>
@@ -126,7 +126,7 @@
             }
         })
         .catch(err => {
-            document.getElementById('leaderboard-content').innerHTML = `
+            document.getElementById('leaderboard').innerHTML = `
                 <div style="text-align: center; padding: 40px 20px;">
                     <i class="fas fa-bug" style="font-size: 3rem; color: #e74c3c; margin-bottom: 15px;"></i>
                     <p style="color: #e74c3c; font-weight: bold; font-size: 1.2rem;">Fetch Error</p>
