@@ -12,8 +12,8 @@ def generate_certificate(user, attempt, category):
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     cert_dir = os.path.join(base_dir, 'static', 'certificates')
     if not os.path.exists(cert_dir):
-        os.makedirs(cert_dir)
-    safe_name = user.name.replace(' ', '_')
+        os.makedirs(cert_dir, exist_ok=True)
+    safe_name = str(user.name or 'User').replace(' ', '_')
     filename = f"{safe_name}_{cert_id}.pdf"
     file_path = os.path.join(cert_dir, filename)
     
@@ -88,7 +88,7 @@ def generate_certificate(user, attempt, category):
     
     # 6. Name
     y -= 45
-    name = user.name
+    name = user.name or 'User'
     max_name_width = width * 0.7
     font_size = 36
     c.setFont("Helvetica", font_size)
@@ -109,7 +109,8 @@ def generate_certificate(user, attempt, category):
     
     y -= 30
     c.setFont("Helvetica", 20)
-    c.drawCentredString(width/2, y, category.name)
+    category_name = category.name if category else "General Quiz"
+    c.drawCentredString(width/2, y, category_name)
     
     # 8. Footer (Provided by)
     y -= 70
