@@ -1,4 +1,5 @@
 import os
+import re
 from reportlab.lib.pagesizes import landscape, A4
 from reportlab.pdfgen import canvas
 from reportlab.lib import colors
@@ -7,13 +8,20 @@ from datetime import datetime
 import uuid
 
 def generate_certificate(user, attempt, category):
-    cert_id = str(uuid.uuid4()).split('-')[0].upper()
+    # Ensure unique cert_id with more characters
+    cert_id = str(uuid.uuid4()).replace('-', '')[:10].upper()
     
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     cert_dir = os.path.join(base_dir, 'static', 'certificates')
     if not os.path.exists(cert_dir):
         os.makedirs(cert_dir, exist_ok=True)
-    safe_name = str(user.name or 'User').replace(' ', '_')
+    
+    # Bulletproof filename generation
+    raw_name = str(user.name or 'User')
+    safe_name = re.sub(r'[^\w\s-]', '', raw_name).strip().replace(' ', '_')
+    if not safe_name:
+        safe_name = 'User'
+        
     filename = f"{safe_name}_{cert_id}.pdf"
     file_path = os.path.join(cert_dir, filename)
     
@@ -29,47 +37,53 @@ def generate_certificate(user, attempt, category):
     thick_width = 16
     thin_width = 3
     
-    teal_color = colors.HexColor('#00B4DB') # Gradient-like bright teal/blue
+    teal_color = colors.HexColor('#00B4DB')
     dark_blue = colors.HexColor('#211551')
     
     # Top-Left (Thick Teal)
     c.setStrokeColor(teal_color)
     c.setLineWidth(thick_width)
-    c.line(margin, height - margin, margin, height - margin - 120) # Vertical
-    c.line(margin - (thick_width/2), height - margin, margin + 120, height - margin) # Horizontal
+    c.line(margin, height - margin, margin, height - margin - 120)
+    c.line(margin - (thick_width/2), height - margin, margin + 120, height - margin)
     
     # Bottom-Right (Thick Teal)
     c.setStrokeColor(teal_color)
     c.setLineWidth(thick_width)
-    c.line(width - margin, margin, width - margin, margin + 120) # Vertical
-    c.line(width - margin + (thick_width/2), margin, width - margin - 120, margin) # Horizontal
+    c.line(width - margin, margin, width - margin, margin + 120)
+    c.line(width - margin + (thick_width/2), margin, width - margin - 120, margin)
     
     # Top-Right (Thin Dark Blue)
     c.setStrokeColor(dark_blue)
     c.setLineWidth(thin_width)
-    c.line(width - margin, height - margin, width - margin, height - margin - 100) # Vertical
-    c.line(width - margin, height - margin, width - margin - 100, height - margin) # Horizontal
+    c.line(width - margin, height - margin, width - margin, height - margin - 100)
+    c.line(width - margin, height - margin, width - margin - 100, height - margin)
     
     # Bottom-Left (Thin Dark Blue)
     c.setStrokeColor(dark_blue)
     c.setLineWidth(thin_width)
-    c.line(margin, margin, margin, margin + 100) # Vertical
-    c.line(margin, margin, margin + 100, margin) # Horizontal
+    c.line(margin, margin, margin, margin + 100)
+    c.line(margin, margin, margin + 100, margin)
     
     # 3. Header / Logo
     logo_y = height - 130
-    import os
     logo_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'static', 'favicon.jpg')
-    if os.path.exists(logo_path):
-        c.drawImage(logo_path, width/2 - 105, logo_y - 10, 35, 35)
-    else:
-        c.setFillColor(colors.HexColor('#8b5cf6')) # Purple logo fallback
+    
+    def draw_fallback_logo():
+        c.setFillColor(colors.HexColor('#8b5cf6'))
         c.circle(width/2 - 90, logo_y + 8, 15, fill=1, stroke=0)
         c.setFillColor(colors.white)
         c.setFont("Helvetica-Bold", 18)
         c.drawCentredString(width/2 - 90, logo_y + 2, "G")
+        
+    if os.path.exists(logo_path):
+        try:
+            c.drawImage(logo_path, width/2 - 105, logo_y - 10, 35, 35)
+        except Exception:
+            draw_fallback_logo()
+    else:
+        draw_fallback_logo()
     
-    c.setFillColor(colors.HexColor('#154360')) # Dark blue text
+    c.setFillColor(colors.HexColor('#154360'))
     c.setFont("Helvetica-Bold", 24)
     c.drawString(width/2 - 65, logo_y, "GyanAI")
     c.setFont("Helvetica", 24)
@@ -89,6 +103,14 @@ def generate_certificate(user, attempt, category):
     # 6. Name
     y -= 45
     name = user.name or 'User'
+    # ReportLab standard fonts only support Latin-1. Avoid UnicodeEncodeError
+    try:
+        name.encode('latin1')
+    except UnicodeEncodeError:
+        name = name.encode('ascii', 'ignore').decode('ascii').strip()
+        if not name:
+            name = "Student"
+            
     max_name_width = width * 0.7
     font_size = 36
     c.setFont("Helvetica", font_size)
@@ -98,7 +120,7 @@ def generate_certificate(user, attempt, category):
         font_size -= 2
         c.setFont("Helvetica", font_size)
     
-    c.setFillColor(colors.HexColor('#3498DB')) # Light blue name
+    c.setFillColor(colors.HexColor('#3498DB'))
     c.drawCentredString(width/2, y, name)
     
     # 7. Achievement Description
@@ -110,6 +132,14 @@ def generate_certificate(user, attempt, category):
     y -= 30
     c.setFont("Helvetica", 20)
     category_name = category.name if category else "General Quiz"
+    # Ensure category name doesn't break encoding
+    try:
+        category_name.encode('latin1')
+    except UnicodeEncodeError:
+        category_name = category_name.encode('ascii', 'ignore').decode('ascii').strip()
+        if not category_name:
+            category_name = "General Quiz"
+            
     c.drawCentredString(width/2, y, category_name)
     
     # 8. Footer (Provided by)
@@ -136,3 +166,4 @@ def generate_certificate(user, attempt, category):
     c.save()
     
     return cert_id, f"certificates/{filename}"
+
