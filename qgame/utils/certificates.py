@@ -66,7 +66,7 @@ def generate_certificate(user, attempt, category):
     
     c.setFillColor(colors.HexColor('#154360')) # Dark blue text
     c.setFont("Helvetica-Bold", 24)
-    c.drawString(width/2 - 65, logo_y, "QuizMaster")
+    c.drawString(width/2 - 65, logo_y, "GyanAI")
     c.setFont("Helvetica", 24)
     c.drawString(width/2 + 65, logo_y, "Academy")
     
@@ -113,7 +113,7 @@ def generate_certificate(user, attempt, category):
     
     y -= 25
     c.setFont("Helvetica", 18)
-    c.drawCentredString(width/2, y, "QuizMaster Academy")
+    c.drawCentredString(width/2, y, "GyanAI Academy")
     
     y -= 20
     date_str = attempt.date.strftime('%B %d, %Y') if hasattr(attempt, 'date') and attempt.date else datetime.now().strftime('%B %d, %Y')

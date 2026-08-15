@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuizStore | Premium Quizzes</title>
+    <title>GyanAI</title>
+    <link rel="icon" type="image/jpeg" href="{{ url_for('static', filename='favicon.jpg') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=2.3">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,8 +26,8 @@
 
     {% block navbar %}
     <nav class="navbar">
-        <a href="{{ url_for('index') }}" class="navbar-brand">
-            <i class="fas fa-layer-group"></i> QuizStore
+        <a href="{{ url_for('index') }}" class="logo">
+            <i class="fas fa-brain"></i> GyanAI
         </a>
         
         {% if current_user.is_authenticated %}
@@ -87,12 +88,11 @@
     </main>
 
     <footer>
-        <div style="font-weight: 700; font-size: 1.2rem; color: var(--text-primary); margin-bottom: 1rem;">
-            <i class="fas fa-layer-group"></i> QuizStore Pro
+        <div class="footer-logo">
+            <i class="fas fa-brain"></i> GyanAI
         </div>
-        <p style="max-width: 400px; margin: 0 auto 1.5rem; font-size: 0.9rem;">The premium destination for testing your knowledge. Advance your skills with professionally curated quizzes.</p>
-        <div style="font-size: 0.8rem;">
-            &copy; 2026 QuizMaster Pro, Inc. All rights reserved.
+        <p class="text-muted" style="margin-bottom: 1rem;">The premium destination for testing your knowledge.<br>Advance your skills with professionally curated quizzes.</p>
+        <p class="text-muted" style="font-size: 0.8rem;">&copy; 2026 GyanAI, Inc. All rights reserved.</p>
         </div>
     </footer>
 
