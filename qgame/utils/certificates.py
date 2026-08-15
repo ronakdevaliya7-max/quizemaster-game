@@ -58,11 +58,16 @@ def generate_certificate(user, attempt, category):
     
     # 3. Header / Logo
     logo_y = height - 130
-    c.setFillColor(colors.HexColor('#1976D2')) # Blue logo
-    c.circle(width/2 - 90, logo_y + 8, 15, fill=1, stroke=0)
-    c.setFillColor(colors.white)
-    c.setFont("Helvetica-Bold", 18)
-    c.drawCentredString(width/2 - 90, logo_y + 2, "Q")
+    import os
+    logo_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'static', 'favicon.jpg')
+    if os.path.exists(logo_path):
+        c.drawImage(logo_path, width/2 - 105, logo_y - 10, 35, 35)
+    else:
+        c.setFillColor(colors.HexColor('#8b5cf6')) # Purple logo fallback
+        c.circle(width/2 - 90, logo_y + 8, 15, fill=1, stroke=0)
+        c.setFillColor(colors.white)
+        c.setFont("Helvetica-Bold", 18)
+        c.drawCentredString(width/2 - 90, logo_y + 2, "G")
     
     c.setFillColor(colors.HexColor('#154360')) # Dark blue text
     c.setFont("Helvetica-Bold", 24)
