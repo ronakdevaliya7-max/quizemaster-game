@@ -454,7 +454,13 @@ def take_quiz(category_id):
     questions = questions[:10]
     session[f'quiz_{category.id}_qids'] = [q.id for q in questions]
     
-    return render_template('user/quiz.html', category=category, questions=questions)
+    live_room_code = None
+    if 'active_live_session_id' in session:
+        live_session = LiveSession.query.get(session['active_live_session_id'])
+        if live_session:
+            live_room_code = live_session.room_code
+            
+    return render_template('user/quiz.html', category=category, questions=questions, live_room_code=live_room_code)
 
 @app.route('/quiz/submit', methods=['POST'])
 @login_required
