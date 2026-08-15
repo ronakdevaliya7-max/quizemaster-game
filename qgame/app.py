@@ -1438,10 +1438,22 @@ def delete_live_session(room_code):
     if session.teacher_id != current_user.id and current_user.role != 'admin':
         return jsonify({'success': False, 'error': 'Unauthorized'}), 403
         
-    db.session.delete(session)
+    session.status = 'ended'
     db.session.commit()
-    
-    flash('Live session deleted successfully.', 'success')
+    return redirect(url_for('teacher_dashboard'))
+
+@app.route('/teacher/session/leave_and_reset/<room_code>', methods=['POST'])
+@login_required
+def leave_and_reset_live_session(room_code):
+    if current_user.role not in ['admin', 'teacher']:
+        return jsonify({'success': False, 'error': 'Unauthorized'}), 403
+        
+    session = LiveSession.query.filter_by(room_code=room_code, status='active').order_by(LiveSession.id.desc()).first()
+    if session and (session.teacher_id == current_user.id or current_user.role == 'admin'):
+        # Reset the session by deleting all participants
+        LiveParticipant.query.filter_by(session_id=session.id).delete()
+        db.session.commit()
+        
     return redirect(url_for('teacher_dashboard'))
 
 @app.route('/api/session/status/<room_code>')

@@ -4,7 +4,11 @@
 
 {% block content %}
 <div class="dashboard-header" style="text-align: center; margin-bottom: 2rem; position: relative;">
-    <a href="{{ url_for('teacher_dashboard') }}" class="btn btn-outline" style="position: absolute; left: 0; top: 0;"><i class="fas fa-arrow-left"></i> Back</a>
+    <form action="{{ url_for('leave_and_reset_live_session', room_code=live_session.room_code) }}" method="POST" style="position: absolute; left: 0; top: 0; margin: 0;">
+        <button type="submit" class="btn btn-outline" style="background: white;" onclick="return confirm('Going back will reset this live session and clear all current students. Are you sure?');">
+            <i class="fas fa-arrow-left"></i> Go Back
+        </button>
+    </form>
     <h1>Live Quiz: <span style="color: var(--primary);">{{ live_session.category.name }}</span></h1>
     <p>Session Active - Waiting for students</p>
 </div>
