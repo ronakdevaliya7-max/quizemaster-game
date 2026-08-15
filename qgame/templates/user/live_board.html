@@ -91,18 +91,34 @@
 
         let html = '';
         participants.forEach((p, index) => {
-            let rankColor = index === 0 ? '#ffd700' : (index === 1 ? '#c0c0c0' : (index === 2 ? '#cd7f32' : 'var(--text-secondary)'));
+            let rankIcon = '';
+            let rankColor = 'var(--text-secondary)';
+            if (index === 0) {
+                rankIcon = '🏆';
+                rankColor = '#ffd700'; // Gold
+            } else if (index === 1) {
+                rankIcon = '🥈';
+                rankColor = '#c0c0c0'; // Silver
+            } else if (index === 2) {
+                rankIcon = '🥉';
+                rankColor = '#cd7f32'; // Bronze
+            } else {
+                rankIcon = `#${index + 1}`;
+            }
+
             let statusBadge = p.completed 
                 ? `<span style="background: var(--success); color: white; padding: 3px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: bold;">Finished</span>`
                 : `<span style="background: var(--warning); color: white; padding: 3px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: bold;">Playing (${p.questions_answered} ans)</span>`;
                 
             html += `
-            <div style="display: flex; align-items: center; justify-content: space-between; padding: 15px; border-radius: 10px; background: var(--background); border: 1px solid var(--border);">
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 15px; border-radius: 10px; background: var(--background); border: 1px solid var(--border); ${index < 3 ? 'box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); transform: scale(1.02); margin-bottom: 15px;' : ''}">
                 <div style="display: flex; align-items: center; gap: 15px;">
-                    <div style="font-size: 1.5rem; font-weight: 900; width: 40px; text-align: center; color: ${rankColor}; text-shadow: 0 2px 4px rgba(0,0,0,0.1);">#${index + 1}</div>
+                    <div style="font-size: 1.8rem; font-weight: 900; width: 50px; text-align: center; color: ${rankColor}; text-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        ${rankIcon}
+                    </div>
                     <div>
                         <div style="font-weight: 700; font-size: 1.1rem; color: var(--text-primary);">${p.name}</div>
-                        <div style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 500;">Score: ${p.score}</div>
+                        <div style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 500;">Correct Answers: <strong style="color: var(--primary); font-size: 1rem;">${p.score}</strong></div>
                     </div>
                 </div>
                 <div>${statusBadge}</div>

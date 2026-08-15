@@ -512,7 +512,7 @@ def submit_quiz():
     points, xp = process_quiz_result(current_user, attempt)
     # Certificate generation is now manual via an explicit option
     
-    # Update Live Session if active
+    live_room_code = None
     participant_id = session.get('active_live_participant_id')
     if participant_id:
         participant = LiveParticipant.query.get(participant_id)
@@ -522,9 +522,17 @@ def submit_quiz():
             participant.questions_answered = total_questions
             participant.last_ping = datetime.utcnow()
             db.session.commit()
+            
+            # Get the room code
+            live_session = LiveSession.query.get(participant.session_id)
+            if live_session:
+                live_room_code = live_session.room_code
+                
         session.pop('active_live_session_id', None)
         session.pop('active_live_participant_id', None)
     
+    if live_room_code:
+        return redirect(url_for('quiz_result', attempt_id=attempt.id, live_room=live_room_code))
     return redirect(url_for('quiz_result', attempt_id=attempt.id))
 
 @app.route('/quiz/result/<int:attempt_id>')
@@ -538,7 +546,9 @@ def quiz_result(attempt_id):
     percentage = (attempt.score / attempt.total_questions) * 100 if attempt.total_questions > 0 else 0
     cert = Certificate.query.filter_by(attempt_id=attempt.id).first()
     review_data = session.get(f'review_{current_user.id}', [])
-    return render_template('user/result.html', attempt=attempt, percentage=percentage, cert=cert, review_data=review_data)
+    live_room = request.args.get('live_room')
+    
+    return render_template('user/result.html', attempt=attempt, percentage=percentage, cert=cert, review_data=review_data, live_room=live_room)
 
 @app.route('/certificate/generate/<int:attempt_id>', methods=['POST'])
 @login_required
