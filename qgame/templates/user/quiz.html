@@ -66,6 +66,86 @@
             <button type="button" id="submitBtn" class="btn btn-primary" style="font-size: 1.1rem; padding: 12px 24px; display: none; background: var(--success); width: auto;" onclick="submitQuiz()"><i class="fas fa-check-circle"></i> Complete Checkout</button>
         </div>
     </form>
+    
+    {% if live_room_code %}
+    <div class="card" style="margin-top: 3rem; padding: 1.5rem; border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); border-top: 4px solid var(--primary);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 15px;">
+            <h3 style="margin: 0; font-size: 1.3rem;"><i class="fas fa-trophy" style="color: var(--primary);"></i> Live Leaderboard</h3>
+            <div id="liveBoardPlayerCount" style="background: var(--primary); color: white; padding: 3px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: bold;">0 Players</div>
+        </div>
+        <div id="inlineLiveBoard" style="display: flex; flex-direction: column; gap: 8px; max-height: 400px; overflow-y: auto;">
+            <div style="text-align: center; padding: 20px; color: var(--text-secondary);">
+                <i class="fas fa-spinner fa-spin"></i> Loading live ranks...
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const roomCode = "{{ live_room_code }}";
+        function fetchInlineStatus() {
+            fetch('/api/session/status/' + roomCode)
+            .then(res => res.json())
+            .then(data => {
+                if(data.success) {
+                    updateInlineLeaderboard(data.participants);
+                }
+            })
+            .catch(err => console.error(err));
+        }
+
+        function updateInlineLeaderboard(participants) {
+            const board = document.getElementById('inlineLiveBoard');
+            document.getElementById('liveBoardPlayerCount').innerText = participants.length + ' Players';
+            
+            if(participants.length === 0) {
+                board.innerHTML = `<div style="text-align: center; padding: 20px; color: var(--text-secondary);">Waiting for students...</div>`;
+                return;
+            }
+
+            participants.sort((a, b) => {
+                if(b.score !== a.score) return b.score - a.score;
+                return b.questions_answered - a.questions_answered;
+            });
+
+            let html = '';
+            participants.forEach((p, index) => {
+                let rankIcon = '';
+                let rankColor = 'var(--text-secondary)';
+                if (index === 0) {
+                    rankIcon = '🏆';
+                    rankColor = '#ffd700';
+                } else if (index === 1) {
+                    rankIcon = '🥈';
+                    rankColor = '#c0c0c0';
+                } else if (index === 2) {
+                    rankIcon = '🥉';
+                    rankColor = '#cd7f32';
+                } else {
+                    rankIcon = `#${index + 1}`;
+                }
+
+                let statusText = p.completed ? 'Finished' : `Q: ${p.questions_answered}`;
+                let statusColor = p.completed ? 'var(--success)' : 'var(--warning)';
+                    
+                html += `
+                <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px; border-radius: 8px; background: var(--background); border: 1px solid var(--border); ${index < 3 ? 'border-left: 3px solid ' + rankColor + ';' : ''}">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div style="font-size: 1.2rem; font-weight: 900; width: 35px; text-align: center; color: ${rankColor};">${rankIcon}</div>
+                        <div>
+                            <div style="font-weight: 700; font-size: 0.95rem; color: var(--text-primary);">${p.name}</div>
+                            <div style="font-size: 0.75rem; color: var(--text-secondary); font-weight: 500;">Correct: <strong style="color: var(--primary);">${p.score}</strong></div>
+                        </div>
+                    </div>
+                    <span style="background: ${statusColor}; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: bold;">${statusText}</span>
+                </div>`;
+            });
+            board.innerHTML = html;
+        }
+
+        setInterval(fetchInlineStatus, 3000);
+        fetchInlineStatus();
+    </script>
+    {% endif %}
 </div>
 
 <style>
