@@ -1504,6 +1504,15 @@ def join_live_session():
             
     return render_template('user/join.html', code=code)
 
+@app.route('/live/board/<room_code>')
+def live_board_user(room_code):
+    session = LiveSession.query.filter_by(room_code=room_code, status='active').first()
+    if not session:
+        flash('Live session not found or ended.', 'danger')
+        return redirect(url_for('join_live_session'))
+    
+    return render_template('user/live_board.html', live_session=session)
+
 @app.route('/api/session/update_progress', methods=['POST'])
 @login_required
 def api_update_progress():
