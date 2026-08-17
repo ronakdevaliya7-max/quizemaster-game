@@ -34,7 +34,7 @@
 
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem;">
         
-        <a href="{{ url_for('admin_categories') }}" class="card" style="padding: 1.5rem; border-radius: 16px; background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-sm); text-align: center; transition: transform 0.2s; display: block; text-decoration: none;">
+        <a href="{{ url_for('admin_categories') }}" class="card staggered-item" style="padding: 1.5rem; border-radius: 16px; background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-sm); text-align: center; transition: transform 0.2s; display: block; text-decoration: none;">
             <div style="width: 50px; height: 50px; border-radius: 12px; background: rgba(59, 130, 246, 0.1); color: #3b82f6; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
                 <i class="fas fa-book-open"></i>
             </div>
@@ -42,7 +42,7 @@
             <p style="color: var(--text-secondary); font-weight: 600; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; margin: 0;">Total Quizzes</p>
         </a>
 
-        <a href="{{ url_for('admin_users') }}" class="card" style="padding: 1.5rem; border-radius: 16px; background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-sm); text-align: center; transition: transform 0.2s; display: block; text-decoration: none;">
+        <a href="{{ url_for('admin_users') }}" class="card staggered-item" style="padding: 1.5rem; border-radius: 16px; background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-sm); text-align: center; transition: transform 0.2s; display: block; text-decoration: none;">
             <div style="width: 50px; height: 50px; border-radius: 12px; background: rgba(139, 92, 246, 0.1); color: #8b5cf6; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
                 <i class="fas fa-users"></i>
             </div>
@@ -50,7 +50,7 @@
             <p style="color: var(--text-secondary); font-weight: 600; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; margin: 0;">Registered Users</p>
         </a>
         
-        <a href="{{ url_for('admin_quizzes') }}" class="card" style="padding: 1.5rem; border-radius: 16px; background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-sm); text-align: center; transition: transform 0.2s; display: block; text-decoration: none;">
+        <a href="{{ url_for('admin_quizzes') }}" class="card staggered-item" style="padding: 1.5rem; border-radius: 16px; background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-sm); text-align: center; transition: transform 0.2s; display: block; text-decoration: none;">
             <div style="width: 50px; height: 50px; border-radius: 12px; background: rgba(16, 185, 129, 0.1); color: #10b981; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
                 <i class="fas fa-gamepad"></i>
             </div>
@@ -58,7 +58,7 @@
             <p style="color: var(--text-secondary); font-weight: 600; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; margin: 0;">Quizzes Taken</p>
         </a>
         
-        <a href="{{ url_for('admin_certificates') }}" class="card" style="padding: 1.5rem; border-radius: 16px; background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-sm); text-align: center; transition: transform 0.2s; display: block; text-decoration: none;">
+        <a href="{{ url_for('admin_certificates') }}" class="card staggered-item" style="padding: 1.5rem; border-radius: 16px; background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-sm); text-align: center; transition: transform 0.2s; display: block; text-decoration: none;">
             <div style="width: 50px; height: 50px; border-radius: 12px; background: rgba(245, 158, 11, 0.1); color: #f59e0b; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
                 <i class="fas fa-award"></i>
             </div>
@@ -66,14 +66,14 @@
             <p style="color: var(--text-secondary); font-weight: 600; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; margin: 0;">Certificates Issued</p>
         </a>
         
-        <a href="{{ url_for('admin_questions') }}" class="card" style="padding: 1.5rem; border-radius: 16px; background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-sm); text-align: center; transition: transform 0.2s; display: block; text-decoration: none;">
+        <a href="{{ url_for('admin_questions') }}" class="card staggered-item" style="padding: 1.5rem; border-radius: 16px; background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-sm); text-align: center; transition: transform 0.2s; display: block; text-decoration: none;">
             <div style="width: 50px; height: 50px; border-radius: 12px; background: rgba(239, 68, 68, 0.1); color: #ef4444; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
                 <i class="fas fa-question-circle"></i>
             </div>
             <h2 style="font-size: 2.5rem; font-weight: 800; color: var(--text-primary); margin-bottom: 0.25rem;">{{ questions_count }}</h2>
             <p style="color: var(--text-secondary); font-weight: 600; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; margin: 0;">Questions Bank</p>
         </a>
-        <a href="{{ url_for('admin_store') }}" class="card" style="padding: 1.5rem; border-radius: 16px; background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-sm); text-align: center; transition: transform 0.2s; display: block; text-decoration: none;">
+        <a href="{{ url_for('admin_store') }}" class="card staggered-item" style="padding: 1.5rem; border-radius: 16px; background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-sm); text-align: center; transition: transform 0.2s; display: block; text-decoration: none;">
             <div style="width: 50px; height: 50px; border-radius: 12px; background: rgba(236, 72, 153, 0.1); color: #ec4899; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
                 <i class="fas fa-store"></i>
             </div>

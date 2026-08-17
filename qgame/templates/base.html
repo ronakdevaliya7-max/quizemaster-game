@@ -40,32 +40,32 @@
         </form>
         {% endif %}
 
-        <div class="nav-links">
+        <div class="nav-links" style="display: flex; align-items: center; gap: 1.5rem;">
             {% set active_lang = current_user.language if current_user.is_authenticated else session.get('lang', 'en') %}
-            <select onchange="window.location.href='/set_language/'+this.value" style="padding: 6px; border-radius: 4px; background: var(--bg-card); color: var(--text-primary); border: 1px solid var(--border); margin-right: 15px; font-family: 'Inter', sans-serif;">
+            <select onchange="window.location.href='/set_language/'+this.value" style="padding: 8px 12px; border-radius: 8px; background: rgba(255,255,255,0.5); backdrop-filter: blur(5px); color: var(--text-primary); border: 1px solid var(--border); font-family: 'Inter', sans-serif; font-weight: 500; cursor: pointer; transition: all 0.3s ease;">
                 <option value="en" {% if active_lang == 'en' %}selected{% endif %}>English</option>
                 <option value="hi" {% if active_lang == 'hi' %}selected{% endif %}>हिन्दी</option>
                 <option value="gu" {% if active_lang == 'gu' %}selected{% endif %}>ગુજરાતી</option>
             </select>
-            <button id="darkModeToggle" class="btn" style="background: transparent; color: var(--text-primary); border: 1px solid var(--border); padding: 8px 12px; margin-right: 1rem;">
+            <button id="darkModeToggle" class="btn" style="background: rgba(255,255,255,0.5); backdrop-filter: blur(5px); color: var(--text-primary); border: 1px solid var(--border); padding: 8px 14px; border-radius: 8px; cursor: pointer; transition: all 0.3s ease;">
                 <i class="fas fa-moon"></i>
             </button>
             {% if current_user.is_authenticated %}
                 {% if current_user.role in ['admin', 'teacher'] %}
                     {% if current_user.role == 'admin' %}
-                    <a href="{{ url_for('admin_dashboard') }}"><i class="fas fa-chart-line nav-icon"></i> {{ _('Admin') }}</a>
+                    <a href="{{ url_for('admin_dashboard') }}" style="transition: transform 0.3s ease;"><i class="fas fa-chart-line nav-icon"></i> {{ _('Admin') }}</a>
                     {% endif %}
-                    <a href="{{ url_for('teacher_dashboard') }}"><i class="fas fa-chalkboard-teacher nav-icon" style="color: #fbbf24;"></i> {{ _('Teacher Panel') }}</a>
+                    <a href="{{ url_for('teacher_dashboard') }}" style="transition: transform 0.3s ease;"><i class="fas fa-chalkboard-teacher nav-icon" style="color: #fbbf24;"></i> {{ _('Teacher Panel') }}</a>
                 {% else %}
-                    <a href="{{ url_for('user_dashboard') }}"><i class="fas fa-home nav-icon"></i> {{ _('Home') }}</a>
-                    <a href="{{ url_for('store') }}"><i class="fas fa-store nav-icon" style="color: #ffd700;"></i> {{ _('Store') }}</a>
-                    <a href="{{ url_for('leaderboard') }}"><i class="fas fa-trophy nav-icon" style="color: #fbbf24;"></i> {{ _('Rankings') }}</a>
-                    <a href="{{ url_for('profile') }}"><i class="fas fa-user-circle nav-icon"></i> {{ _('Account') }}</a>
+                    <a href="{{ url_for('user_dashboard') }}" style="transition: transform 0.3s ease;"><i class="fas fa-home nav-icon"></i> {{ _('Home') }}</a>
+                    <a href="{{ url_for('store') }}" style="transition: transform 0.3s ease;"><i class="fas fa-store nav-icon" style="color: #ffd700;"></i> {{ _('Store') }}</a>
+                    <a href="{{ url_for('leaderboard') }}" style="transition: transform 0.3s ease;"><i class="fas fa-trophy nav-icon" style="color: #fbbf24;"></i> {{ _('Rankings') }}</a>
+                    <a href="{{ url_for('profile') }}" style="transition: transform 0.3s ease;"><i class="fas fa-user-circle nav-icon"></i> {{ _('Account') }}</a>
                 {% endif %}
-                <a href="{{ url_for('logout') }}" style="color: var(--danger);" onclick="return confirm('{{ _('Are you sure you want to log out?') }}');"><i class="fas fa-sign-out-alt nav-icon"></i> {{ _('Logout') }}</a>
+                <a href="{{ url_for('logout') }}" style="color: var(--danger); transition: transform 0.3s ease;" onclick="return confirm('{{ _('Are you sure you want to log out?') }}');"><i class="fas fa-sign-out-alt nav-icon"></i> {{ _('Logout') }}</a>
             {% else %}
-                <a href="{{ url_for('login') }}">{{ _('Sign In') }}</a>
-                <a href="{{ url_for('register') }}" class="btn btn-primary" style="padding: 8px 16px; color: white;">{{ _('Create Account') }}</a>
+                <a href="{{ url_for('login') }}" style="transition: transform 0.3s ease; font-weight: 600;">{{ _('Sign In') }}</a>
+                <a href="{{ url_for('register') }}" class="btn btn-primary" style="padding: 10px 20px; color: white; border-radius: 50px; font-weight: 700; box-shadow: var(--shadow-sm); transition: all 0.3s ease;">{{ _('Create Account') }}</a>
             {% endif %}
         </div>
     </nav>
