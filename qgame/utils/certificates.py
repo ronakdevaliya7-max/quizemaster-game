@@ -85,9 +85,7 @@ def generate_certificate(user, attempt, category):
     
     c.setFillColor(colors.HexColor('#154360'))
     c.setFont("Helvetica-Bold", 24)
-    c.drawString(width/2 - 65, logo_y, "GyanAI")
-    c.setFont("Helvetica", 24)
-    c.drawString(width/2 + 65, logo_y, "Academy")
+    c.drawString(width/2 - 50, logo_y, "GyanAI")
     
     # 4. Title
     title_y = height - 200
@@ -149,7 +147,7 @@ def generate_certificate(user, attempt, category):
     
     y -= 25
     c.setFont("Helvetica", 18)
-    c.drawCentredString(width/2, y, "GyanAI Academy")
+    c.drawCentredString(width/2, y, "GyanAI")
     
     y -= 20
     date_str = attempt.date.strftime('%B %d, %Y') if hasattr(attempt, 'date') and attempt.date else datetime.now().strftime('%B %d, %Y')
@@ -160,7 +158,7 @@ def generate_certificate(user, attempt, category):
     # 9. Verification Note (Bottom Right)
     c.setFont("Helvetica", 8)
     c.setFillColor(colors.HexColor('#95A5A6'))
-    verification_text = f"To verify this certificate visit https://quizmaster.com/certificate/{cert_id}"
+    verification_text = f"To verify this certificate visit https://gyanai.com/certificate/{cert_id}"
     c.drawRightString(width - margin - 10, margin - 10, verification_text)
     
     c.save()
