@@ -361,9 +361,13 @@ def user_dashboard():
     profile_filter = None
     
     if current_user.education_level == 'School':
-        profile_filter = (Category.education_level == 'School') & (Category.standard == current_user.standard) & (Category.board == current_user.board)
-        if current_user.standard in ['11', '12'] and current_user.stream:
-            profile_filter = profile_filter & (Category.course == current_user.stream)
+        std_val = str(current_user.standard).strip() if current_user.standard else ''
+        board_val = str(current_user.board).strip() if current_user.board else ''
+        stream_val = str(current_user.stream).strip() if current_user.stream else ''
+        
+        profile_filter = (Category.education_level == 'School') & (Category.standard == std_val) & (Category.board == board_val)
+        if std_val in ['11', '12'] and stream_val:
+            profile_filter = profile_filter & (Category.course == stream_val)
     elif current_user.education_level in ['Graduation', 'Diploma', 'Post Graduation']:
         profile_filter = (Category.education_level == current_user.education_level) & (Category.course == current_user.course)
         if current_user.semester and current_user.semester != 'None':
