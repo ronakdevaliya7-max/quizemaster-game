@@ -219,6 +219,19 @@
                 }
             });
         }
+
+        // Intersection Observer for Staggered Cards
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('stagger-active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.staggered-item').forEach(el => {
+            observer.observe(el);
+        });
     });
 </script>
 {% endblock %}
