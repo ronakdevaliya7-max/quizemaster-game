@@ -28,7 +28,10 @@ with app.app_context():
         for board in boards:
             for std in std_list:
                 for subj in subj_list:
-                    name = f"{subj} - Class {std} {board}"
+                    if std >= 11:
+                        name = f"{subj} ({stream}) - Class {std} {board}"
+                    else:
+                        name = f"{subj} - Class {std} {board}"
                     # Use course=stream because that's what we modified dashboard to filter by!
                     # For std 1-10, stream is "None" from the frontend, but let's check what register form sends.
                     # It sends "None" or "Science" etc.

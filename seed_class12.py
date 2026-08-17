@@ -21,7 +21,7 @@ with app.app_context():
     for name, desc, ed_level, board, std, stream in subjects:
         cat = Category.query.filter_by(name=name, education_level=ed_level, board=board, standard=std).first()
         if not cat:
-            cat = Category(name=name, description=desc, education_level=ed_level, board=board, standard=std, course=None)
+            cat = Category(name=name, description=desc, education_level=ed_level, board=board, standard=std, course=stream)
             db.session.add(cat)
             db.session.commit()
             

@@ -120,7 +120,7 @@
                                     <label class="form-label">Standard</label>
                                     <select class="form-control" name="standard" id="standardSelect" onchange="updateStream()">
                                         {% for i in range(1, 13) %}
-                                        <option value="{{ i }}" {% if user.standard == i|string %}selected{% endif %}>{{ i }}</option>
+                                        <option value="{{ i }}" {% if user.standard|string == i|string %}selected{% endif %}>{{ i }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -150,7 +150,7 @@
                                     <label class="form-label">Semester</label>
                                     <select class="form-control" name="diploma_semester">
                                         {% for i in range(1, 7) %}
-                                        <option value="{{ i }}" {% if user.semester == i|string %}selected{% endif %}>{{ i }}</option>
+                                        <option value="{{ i }}" {% if user.semester|string == i|string %}selected{% endif %}>{{ i }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -176,7 +176,7 @@
                                     <label class="form-label">Semester</label>
                                     <select class="form-control" name="grad_semester">
                                         {% for i in range(1, 9) %}
-                                        <option value="{{ i }}" {% if user.semester == i|string %}selected{% endif %}>{{ i }}</option>
+                                        <option value="{{ i }}" {% if user.semester|string == i|string %}selected{% endif %}>{{ i }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -198,7 +198,7 @@
                                     <label class="form-label">Semester</label>
                                     <select class="form-control" name="pg_semester">
                                         {% for i in range(1, 5) %}
-                                        <option value="{{ i }}" {% if user.semester == i|string %}selected{% endif %}>{{ i }}</option>
+                                        <option value="{{ i }}" {% if user.semester|string == i|string %}selected{% endif %}>{{ i }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
