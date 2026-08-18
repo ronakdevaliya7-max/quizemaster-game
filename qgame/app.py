@@ -136,6 +136,39 @@ with app.app_context():
     except Exception as e:
         print(f"Error auto-fixing categories: {e}")
         db.session.rollback()
+        
+    # Auto-seed if completely missing
+    try:
+        check_cat = Category.query.filter_by(name="Std 11 Physics").first()
+        if not check_cat:
+            boards = ["GSEB"]
+            general_subjects = ["Mathematics", "Science", "English", "Hindi", "Social Studies", "Gujarati"]
+            science_subjects = ["Physics", "Chemistry", "Mathematics", "Biology", "English", "Computer Science"]
+            commerce_subjects = ["Accountancy", "Economics", "Business Administration", "Statistics", "English"]
+            arts_subjects = ["History", "Geography", "Political Science", "Psychology", "Sociology", "English"]
+            
+            def seed_missing(std_list, stream, subj_list):
+                for board in boards:
+                    for std in std_list:
+                        for subj in subj_list:
+                            name = f"Std {std} {subj}"
+                            actual_stream = stream if std >= 11 else "None"
+                            cat = Category.query.filter_by(name=name).first()
+                            if not cat:
+                                cat = Category(name=name, description=f"Standard {std} {board} {subj}", education_level="School", board="GSEB", standard=str(std), course=actual_stream)
+                                db.session.add(cat)
+                            else:
+                                cat.course = actual_stream
+                            db.session.commit()
+                            
+            seed_missing(range(1, 11), "None", general_subjects)
+            seed_missing([11, 12], "Science", science_subjects)
+            seed_missing([11, 12], "Commerce", commerce_subjects)
+            seed_missing([11, 12], "Arts", arts_subjects)
+            print("Auto-seeded missing school subjects.")
+    except Exception as e:
+        print(f"Error auto-seeding categories: {e}")
+        db.session.rollback()
 
     admin = User.query.filter_by(username="admin").first()
 
