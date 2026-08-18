@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GyanAI</title>
-    <link rel="icon" type="image/jpeg" href="{{ url_for('static', filename='favicon.jpg') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=2.3">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,7 +27,7 @@
     {% block navbar %}
     <nav class="navbar">
         <a href="{{ url_for('index') }}" class="logo">
-            <img src="{{ url_for('static', filename='favicon.jpg') }}" alt="GyanAI Logo" style="height: 40px; border-radius: 8px; vertical-align: middle;"> 
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="GyanAI Logo" style="height: 40px; border-radius: 50%; vertical-align: middle;"> 
             <span style="margin-left: 10px; font-weight: 700;">GyanAI</span>
         </a>
         
@@ -90,7 +90,7 @@
 
     <footer>
         <div class="footer-logo">
-            <img src="{{ url_for('static', filename='favicon.jpg') }}" alt="GyanAI Logo" style="height: 30px; border-radius: 6px; vertical-align: middle; margin-right: 5px;"> GyanAI
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="GyanAI Logo" style="height: 30px; border-radius: 50%; vertical-align: middle; margin-right: 5px;"> GyanAI
         </div>
         <p class="text-muted" style="margin-bottom: 1rem;">The premium destination for testing your knowledge.<br>Advance your skills with professionally curated quizzes.</p>
         <p class="text-muted" style="font-size: 0.8rem;">&copy; 2026 GyanAI, Inc. All rights reserved.</p>
