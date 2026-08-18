@@ -365,7 +365,8 @@ def user_dashboard():
         board_val = str(current_user.board).strip() if current_user.board else ''
         stream_val = str(current_user.stream).strip() if current_user.stream else ''
         
-        profile_filter = (Category.education_level == 'School') & (Category.standard == std_val) & (Category.board == board_val)
+        # Base filter for school - removed board filter because subjects are not duplicated per board
+        profile_filter = (Category.education_level == 'School') & (Category.standard == std_val)
         if std_val in ['11', '12'] and stream_val:
             profile_filter = profile_filter & (Category.course == stream_val)
     elif current_user.education_level in ['Graduation', 'Diploma', 'Post Graduation']:
@@ -1083,17 +1084,22 @@ def admin_import_custom():
                         for subj in subj_list:
                             name = f"Std {std} {subj}"
                             actual_stream = stream if std >= 11 else "None"
-                            cat = Category.query.filter_by(name=name, standard=str(std)).first()
+                            cat = Category.query.filter_by(name=name).first()
                             if not cat:
                                 cat = Category(
                                     name=name, 
                                     description=f"Standard {std} {board} {subj}", 
                                     education_level="School", 
-                                    board=board, 
+                                    board="GSEB", # Defaulting to GSEB since name is unique
                                     standard=str(std), 
                                     course=actual_stream
                                 )
                                 db.session.add(cat)
+                            else:
+                                # Update existing categories to ensure course and standard are set
+                                cat.education_level = "School"
+                                cat.standard = str(std)
+                                cat.course = actual_stream
                             db.session.commit()
             
             seed_subjects(range(1, 11), "None", general_subjects)
