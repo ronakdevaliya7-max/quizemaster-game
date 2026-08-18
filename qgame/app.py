@@ -376,12 +376,9 @@ def user_dashboard():
         profile_filter = (Category.education_level == 'Competitive Exam') & (Category.course == current_user.exam)
         
     if profile_filter is not None:
-        categories = query.filter(profile_filter).all()
-        # If no profile-specific categories are found, maybe fallback to generic, but user explicitly wants ONLY their subjects.
-        if not categories:
-            # Optionally we can show generic if empty, but based on user request we only want their subjects.
-            # However, if they have NO profile subjects seeded, they will see an empty dashboard. 
-            pass
+        categories = query.filter(or_(profile_filter, Category.education_level.is_(None), Category.education_level == '')).all()
+        # Sort so that profile subjects (which have an education_level) come before generic ones
+        categories.sort(key=lambda c: 0 if c.education_level else 1)
     else:
         categories = query.filter(or_(Category.education_level.is_(None), Category.education_level == '')).all()
     
