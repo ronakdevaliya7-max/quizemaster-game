@@ -653,7 +653,7 @@ def generate_cert(attempt_id):
 @login_required
 def download_certificate(cert_id):
     cert = Certificate.query.get_or_404(cert_id)
-    if cert.user_id != current_user.id:
+    if cert.user_id != current_user.id and current_user.role != 'admin':
         flash("Unauthorized")
         return redirect(url_for('user_dashboard'))
     
@@ -667,7 +667,8 @@ def download_certificate(cert_id):
         attempt = QuizAttempt.query.get(cert.attempt_id)
         if attempt:
             category = Category.query.get(attempt.category_id)
-            cert_id_new, file_path_new = generate_certificate(current_user, attempt, category)
+            cert_user = User.query.get(cert.user_id)
+            cert_id_new, file_path_new = generate_certificate(cert_user, attempt, category)
             cert.certificate_id = cert_id_new
             cert.file_path = file_path_new
             db.session.commit()
