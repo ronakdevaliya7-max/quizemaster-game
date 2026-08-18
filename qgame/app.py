@@ -113,6 +113,30 @@ with app.app_context():
             print(f"Error creating index: {e}")
             db.session.rollback()
 
+    # Auto-fix legacy categories that have NULL course
+    try:
+        from sqlalchemy import or_
+        legacy_cats = Category.query.filter(Category.education_level == 'School', or_(Category.course.is_(None), Category.course == '')).all()
+        if legacy_cats:
+            for cat in legacy_cats:
+                if cat.standard in ['11', '12']:
+                    name_lower = cat.name.lower()
+                    if any(x in name_lower for x in ['physics', 'chemistry', 'biology', 'computer']):
+                        cat.course = 'Science'
+                    elif any(x in name_lower for x in ['accountancy', 'economics', 'business', 'statistics']):
+                        cat.course = 'Commerce'
+                    elif any(x in name_lower for x in ['history', 'geography', 'political', 'psychology', 'sociology']):
+                        cat.course = 'Arts'
+                    else:
+                        cat.course = 'None'
+                else:
+                    cat.course = 'None'
+            db.session.commit()
+            print(f"Auto-fixed {len(legacy_cats)} legacy categories")
+    except Exception as e:
+        print(f"Error auto-fixing categories: {e}")
+        db.session.rollback()
+
     admin = User.query.filter_by(username="admin").first()
 
     if not admin:
