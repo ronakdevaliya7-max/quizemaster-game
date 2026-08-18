@@ -139,13 +139,13 @@ with app.app_context():
         
     # Auto-seed if completely missing
     try:
-        check_cat = Category.query.filter_by(name="Std 11 Physics").first()
-        if not check_cat:
+        check_cat_spcc = Category.query.filter_by(name="Std 11 SPCC").first()
+        if not check_cat_spcc:
             boards = ["GSEB"]
-            general_subjects = ["Mathematics", "Science", "English", "Hindi", "Social Studies", "Gujarati"]
-            science_subjects = ["Physics", "Chemistry", "Mathematics", "Biology", "English", "Computer Science"]
-            commerce_subjects = ["Accountancy", "Economics", "Business Administration", "Statistics", "English"]
-            arts_subjects = ["History", "Geography", "Political Science", "Psychology", "Sociology", "English"]
+            general_subjects = ["Mathematics", "Science", "English", "Hindi", "Social Studies", "Gujarati", "Sanskrit", "Computer"]
+            science_subjects = ["Physics", "Chemistry", "Mathematics", "Biology", "English", "Computer Science", "Sanskrit"]
+            commerce_subjects = ["Accountancy", "Economics", "Business Administration", "Statistics", "English", "SPCC", "Gujarati", "Computer"]
+            arts_subjects = ["History", "Geography", "Political Science", "Psychology", "Sociology", "English", "Gujarati", "Sanskrit"]
             
             def seed_missing(std_list, stream, subj_list):
                 for board in boards:
@@ -158,14 +158,18 @@ with app.app_context():
                                 cat = Category(name=name, description=f"Standard {std} {board} {subj}", education_level="School", board="GSEB", standard=str(std), course=actual_stream)
                                 db.session.add(cat)
                             else:
-                                cat.course = actual_stream
+                                if cat.course:
+                                    if actual_stream not in cat.course and actual_stream != "None":
+                                        cat.course = f"{cat.course},{actual_stream}" if cat.course != "None" else actual_stream
+                                else:
+                                    cat.course = actual_stream
                             db.session.commit()
                             
             seed_missing(range(1, 11), "None", general_subjects)
             seed_missing([11, 12], "Science", science_subjects)
             seed_missing([11, 12], "Commerce", commerce_subjects)
             seed_missing([11, 12], "Arts", arts_subjects)
-            print("Auto-seeded missing school subjects.")
+            print("Auto-seeded missing school subjects with full lists.")
     except Exception as e:
         print(f"Error auto-seeding categories: {e}")
         db.session.rollback()
@@ -425,7 +429,7 @@ def user_dashboard():
         # Base filter for school - removed board filter because subjects are not duplicated per board
         profile_filter = (Category.education_level == 'School') & (Category.standard == std_val)
         if std_val in ['11', '12'] and stream_val:
-            profile_filter = profile_filter & (Category.course == stream_val)
+            profile_filter = profile_filter & Category.course.contains(stream_val)
     elif current_user.education_level in ['Graduation', 'Diploma', 'Post Graduation']:
         profile_filter = (Category.education_level == current_user.education_level) & (Category.course == current_user.course)
         if current_user.semester and current_user.semester != 'None':
