@@ -29,7 +29,7 @@ app = Flask(__name__)
 app.url_map.strict_slashes = False
 app.config['SECRET_KEY'] = 'offline_quiz_secret_key_123'
 basedir = os.path.abspath(os.path.dirname(__file__))
-db_url = os.environ.get('DATABASE_URL', 'sqlite:///' + os.path.join(basedir, 'quizmaster.db'))
+db_url = os.environ.get('DATABASE_URL', 'sqlite:///' + os.path.join(basedir, 'quizmaster.db')).strip()
 if db_url.startswith("postgres://"):
     db_url = db_url.replace("postgres://", "postgresql://", 1)
 app.config['SQLALCHEMY_DATABASE_URI'] = db_url
@@ -42,10 +42,11 @@ if db_url.startswith("sqlite"):
     from sqlalchemy.engine import Engine
     @event.listens_for(Engine, "connect")
     def set_sqlite_pragma(dbapi_connection, connection_record):
-        cursor = dbapi_connection.cursor()
-        cursor.execute("PRAGMA journal_mode=WAL")
-        cursor.execute("PRAGMA synchronous=NORMAL")
-        cursor.close()
+        if type(dbapi_connection).__name__ == "Connection": # sqlite3
+            cursor = dbapi_connection.cursor()
+            cursor.execute("PRAGMA journal_mode=WAL")
+            cursor.execute("PRAGMA synchronous=NORMAL")
+            cursor.close()
 
 db.init_app(app)
 
