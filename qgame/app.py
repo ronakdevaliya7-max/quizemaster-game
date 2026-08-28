@@ -297,6 +297,13 @@ def login():
         
     return render_template('login.html')
 
+@app.route('/forgot-password', methods=['GET', 'POST'])
+def forgot_password():
+    if request.method == 'POST':
+        flash('Password reset instructions have been sent to your email.', 'success')
+        return redirect(url_for('login'))
+    return render_template('forgot_password.html')
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
@@ -975,6 +982,22 @@ def promote_user(user_id):
         user_to_promote.role = 'teacher'
         db.session.commit()
         flash(f'Promoted {user_to_promote.username} to Teacher!', 'success')
+        
+    return redirect(url_for('admin_users'))
+
+@app.route('/admin/users/make_admin/<int:user_id>', methods=['POST'])
+@login_required
+def make_admin(user_id):
+    if current_user.role != 'admin':
+        return redirect(url_for('user_dashboard'))
+        
+    user_to_promote = User.query.get_or_404(user_id)
+    if user_to_promote.role == 'admin':
+        flash('User is already an admin.', 'danger')
+    else:
+        user_to_promote.role = 'admin'
+        db.session.commit()
+        flash(f'Promoted {user_to_promote.username} to Admin!', 'success')
         
     return redirect(url_for('admin_users'))
 

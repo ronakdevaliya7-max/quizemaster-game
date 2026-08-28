@@ -58,6 +58,12 @@
                         {% endif %}
                     </form>
                     
+                    <form method="POST" action="{{ url_for('make_admin', user_id=user.id) }}" style="display: inline-block; margin-right: 5px;">
+                        <button type="submit" class="btn" style="background: rgba(59, 130, 246, 0.2); color: #3b82f6; border: 1px solid #3b82f6; padding: 6px 12px; border-radius: 6px; font-size: 0.9rem; cursor: pointer;">
+                            <i class="fas fa-user-shield"></i> {{ _('Make Admin') }}
+                        </button>
+                    </form>
+                    
                     <form method="POST" action="{{ url_for('delete_user', user_id=user.id) }}" onsubmit="return confirm('Are you sure you want to completely delete {{ user.name }} and all their data? This cannot be undone.');" style="display: inline-block;">
                         <button type="submit" class="btn" style="background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid #ef4444; padding: 6px 12px; border-radius: 6px; font-size: 0.9rem; cursor: pointer;">
                             <i class="fas fa-trash-alt"></i> {{ _('Delete') }}

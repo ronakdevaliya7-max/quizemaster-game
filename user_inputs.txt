@@ -1,0 +1,195 @@
+<USER_REQUEST>
+me tane ji im age mokli se e tema e logo kadhi ne tik mark karelu logo rakhi de
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-08-18T08:52:57+05:30.
+
+The user's current state is as follows:
+Active Document: d:\project\qgame\qgame\utils\certificates.py (LANGUAGE_PYTHON)
+Cursor is on line: 1
+Other open documents:
+- d:\project\qgame\fix_user.py (LANGUAGE_PYTHON)
+- d:\project\qgame\build_project.py (LANGUAGE_PYTHON)
+- d:\project\qgame\qgame\templates\user\dashboard.html (LANGUAGE_HTML)
+- d:\project\qgame\update_schema.py (LANGUAGE_PYTHON)
+- d:\project\qgame\generate_txt.py (LANGUAGE_PYTHON)
+</ADDITIONAL_METADATA>
+<USER_SETTINGS_CHANGE>
+The user changed setting `Model Selection` from None to Gemini 3.1 Pro (Low). No need to comment on this change if the user doesn't ask about it. If reporting what model you are, please use a human readable name instead of the exact string.
+</USER_SETTINGS_CHANGE>
+<USER_REQUEST>
+me tane ji im age mokli se e tema e logo kadhi ne tik mark karelu logo rakhi de ane gitub ma push pan kari de ane speed ma kam kaerje ok
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-08-18T08:53:25+05:30.
+
+The user's current state is as follows:
+Active Document: d:\project\qgame\qgame\utils\certificates.py (LANGUAGE_PYTHON)
+Cursor is on line: 1
+Other open documents:
+- d:\project\qgame\qgame\static\css\style.css (LANGUAGE_CSS)
+- d:\project\qgame\import_chatgpt_json.py (LANGUAGE_PYTHON)
+- d:\project\qgame\qgame\templates\admin\dashboard.html (LANGUAGE_HTML)
+- d:\project\qgame\qgame\check_db.py (LANGUAGE_PYTHON)
+- d:\project\qgame\seed_all_schools.py (LANGUAGE_PYTHON)
+</ADDITIONAL_METADATA>
+<USER_SETTINGS_CHANGE>
+The user changed setting `Model Selection` from None to Gemini 3.1 Pro (Low). No need to comment on this change if the user doesn't ask about it. If reporting what model you are, please use a human readable name instead of the exact string.
+</USER_SETTINGS_CHANGE>
+<USER_REQUEST>
+apre jo 1 image ma apre tik mark karelu se tena per click kar  2 image no foto apiyu se tema 12 ,11, arts,commerce,scince jeva course select kari ne save kari ye paciaprepaci 3 image ma apre te std na subject j nathi avta e mane sarkhi rite akhu setup mari ne app atle vadho na ave ane gitub ma push kari nakh ok ane speed ma 
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-08-18T09:00:44+05:30.
+
+The user's current state is as follows:
+Active Document: d:\project\qgame\qgame\utils\certificates.py (LANGUAGE_PYTHON)
+Cursor is on line: 1
+Other open documents:
+- d:\project\qgame\import_chatgpt_json.py (LANGUAGE_PYTHON)
+- d:\project\qgame\qgame\templates\admin\dashboard.html (LANGUAGE_HTML)
+- d:\project\qgame\qgame\check_db.py (LANGUAGE_PYTHON)
+- d:\project\qgame\seed_all_schools.py (LANGUAGE_PYTHON)
+- d:\project\qgame\patch_admin.py (LANGUAGE_PYTHON)
+</ADDITIONAL_METADATA>
+<USER_REQUEST>
+Ramayana, Mahabharata વગેરે) વિષયો નહિ આવે.
+
+are aa pan ava joi j quize apre ok e to apre badha ma perminate rakhiya se ok atle 
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-08-18T09:08:08+05:30.
+
+The user's current state is as follows:
+Active Document: d:\project\qgame\qgame\utils\certificates.py (LANGUAGE_PYTHON)
+Cursor is on line: 24
+Other open documents:
+- d:\project\qgame\qgame\utils\certificates.py (LANGUAGE_PYTHON)
+</ADDITIONAL_METADATA>
+<USER_REQUEST>
+aya  apre ji pela logo hato e to rakhva  no j se ane 2 image ma tik mark karelu se tya apre apre peli image apre pela olo logo hato e rakhva no se ok e kari ne app akhu complete rite push kari de ok
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-08-18T09:11:58+05:30.
+
+The user's current state is as follows:
+Active Document: d:\project\qgame\qgame\utils\certificates.py (LANGUAGE_PYTHON)
+Cursor is on line: 24
+Other open documents:
+- d:\project\qgame\qgame\utils\certificates.py (LANGUAGE_PYTHON)
+</ADDITIONAL_METADATA>
+<USER_REQUEST>
+jo vache se ne e badha ma e j avi jay tema pp ane jo me tik mark karelu se jo apre tya vache no se e j avo joi
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-08-18T09:16:36+05:30.
+
+The user's current state is as follows:
+Active Document: d:\project\qgame\qgame\utils\certificates.py (LANGUAGE_PYTHON)
+Cursor is on line: 24
+Other open documents:
+- d:\project\qgame\qgame\utils\certificates.py (LANGUAGE_PYTHON)
+</ADDITIONAL_METADATA>
+<USER_REQUEST>
+ola apre account ma jayne  12 11  comerce,scince and arts selectr kari ne save kariye to kay pan nathi tatu apre
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-08-18T09:21:05+05:30.
+
+The user's current state is as follows:
+Active Document: d:\project\qgame\qgame\utils\certificates.py (LANGUAGE_PYTHON)
+Cursor is on line: 24
+Other open documents:
+- d:\project\qgame\qgame\utils\certificates.py (LANGUAGE_PYTHON)
+- d:\project\qgame\qgame\templates\base.html (LANGUAGE_HTML)
+</ADDITIONAL_METADATA>
+<USER_REQUEST>
+haji same it is j se ave mane akhu complefe ane error remove slove karfi ne app
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-08-18T09:53:30+05:30.
+
+The user's current state is as follows:
+Active Document: d:\project\qgame\qgame\utils\certificates.py (LANGUAGE_PYTHON)
+Cursor is on line: 38
+Other open documents:
+- d:\project\qgame\qgame\utils\certificates.py (LANGUAGE_PYTHON)
+</ADDITIONAL_METADATA>
+<USER_REQUEST>
+11 commerce am koi pan select kare temathi avse ne apre 
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-08-18T09:58:35+05:30.
+
+The user's current state is as follows:
+Active Document: d:\project\qgame\qgame\utils\certificates.py (LANGUAGE_PYTHON)
+Cursor is on line: 38
+Other open documents:
+- d:\project\qgame\qgame\utils\certificates.py (LANGUAGE_PYTHON)
+- d:\project\qgame\qgame\app.py (LANGUAGE_PYTHON)
+</ADDITIONAL_METADATA>
+<USER_REQUEST>
+11,12, commerce ,scince,arts am koi pan select kare temathi avse ne apre 
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-08-18T09:59:03+05:30.
+
+The user's current state is as follows:
+Active Document: d:\project\qgame\qgame\utils\certificates.py (LANGUAGE_PYTHON)
+Cursor is on line: 38
+Other open documents:
+- d:\project\qgame\qgame\utils\certificates.py (LANGUAGE_PYTHON)
+- d:\project\qgame\qgame\app.py (LANGUAGE_PYTHON)
+</ADDITIONAL_METADATA>
+<USER_REQUEST>
+me apre maro project ma report banaviyu se tema apre titlle ke to apre ji pela rakhiyu hoy e apre
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-08-18T10:06:15+05:30.
+
+The user's current state is as follows:
+Active Document: d:\project\qgame\qgame\utils\certificates.py (LANGUAGE_PYTHON)
+Cursor is on line: 38
+Other open documents:
+- d:\project\qgame\qgame\utils\certificates.py (LANGUAGE_PYTHON)
+- d:\project\qgame\qgame\app.py (LANGUAGE_PYTHON)
+</ADDITIONAL_METADATA>
+<USER_REQUEST>
+aa nahi apre pela ji rakhiyu hatu e apre 
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-08-18T10:07:18+05:30.
+
+The user's current state is as follows:
+Active Document: d:\project\qgame\qgame\utils\certificates.py (LANGUAGE_PYTHON)
+Cursor is on line: 38
+Other open documents:
+- d:\project\qgame\qgame\utils\certificates.py (LANGUAGE_PYTHON)
+- d:\project\qgame\qgame\app.py (LANGUAGE_PYTHON)
+</ADDITIONAL_METADATA>
+<USER_REQUEST>
+AVE YAD KAR NE KE
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-08-18T10:11:49+05:30.
+
+The user's current state is as follows:
+Active Document: d:\project\qgame\qgame\utils\certificates.py (LANGUAGE_PYTHON)
+Cursor is on line: 38
+Other open documents:
+- d:\project\qgame\qgame\utils\certificates.py (LANGUAGE_PYTHON)
+- d:\project\qgame\qgame\app.py (LANGUAGE_PYTHON)
+</ADDITIONAL_METADATA>
+<USER_REQUEST>
+MANE YAD  NATHI YAD KAR ANE KE 
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-08-18T10:16:21+05:30.
+
+The user's current state is as follows:
+Active Document: d:\project\qgame\qgame\utils\certificates.py (LANGUAGE_PYTHON)
+Cursor is on line: 38
+Other open documents:
+- d:\project\qgame\qgame\utils\certificates.py (LANGUAGE_PYTHON)
+- d:\project\qgame\qgame\app.py (LANGUAGE_PYTHON)
+</ADDITIONAL_METADATA>
