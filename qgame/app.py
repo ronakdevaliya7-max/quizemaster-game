@@ -298,10 +298,22 @@ def login():
     return render_template('login.html')
 
 def send_otp_sms(mobile, otp):
-    # Mock function to simulate SMS
-    print(f"=====================================")
-    print(f"MOCK SMS to {mobile}: Your OTP is {otp}")
-    print(f"=====================================")
+    import requests
+    url = "https://www.fast2sms.com/dev/bulkV2"
+    querystring = {
+        "authorization": "HfpyRuqeEEBV6QFUjVG3QXuOloyDsi6XWcQsLuW0MEPhHi0IqZfZh1pPclTj",
+        "variables_values": otp,
+        "route": "otp",
+        "numbers": mobile
+    }
+    headers = {
+        'cache-control': "no-cache"
+    }
+    try:
+        response = requests.request("GET", url, headers=headers, params=querystring)
+        print(f"Fast2SMS Response: {response.text}")
+    except Exception as e:
+        print(f"Failed to send SMS: {e}")
 
 @app.route('/forgot-password', methods=['GET', 'POST'])
 def forgot_password():
