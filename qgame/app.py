@@ -1087,6 +1087,23 @@ def make_admin(user_id):
         
     return redirect(url_for('admin_users'))
 
+@app.route('/admin/users/make_user/<int:user_id>', methods=['POST'])
+@login_required
+def make_user(user_id):
+    if current_user.role != 'admin':
+        return redirect(url_for('user_dashboard'))
+        
+    user_to_demote = User.query.get_or_404(user_id)
+    if user_to_demote.id == current_user.id:
+        flash('You cannot demote yourself.', 'danger')
+    elif user_to_demote.role == 'user':
+        flash('User is already a normal user.', 'warning')
+    else:
+        user_to_demote.role = 'user'
+        db.session.commit()
+        flash(f'Demoted {user_to_demote.username} to User!', 'success')
+        
+    return redirect(url_for('admin_users'))
 @app.route('/admin/quizzes')
 @login_required
 def admin_quizzes():
