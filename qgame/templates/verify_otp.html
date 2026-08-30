@@ -5,13 +5,13 @@
     <!-- Left Side: Branding / Animation -->
     <div class="auth-split-left" style="position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; border: none; background: transparent;">
         <!-- Animated Background Elements -->
-        <div class="floating-icon" style="position: absolute; top: 10%; left: 15%; font-size: 3rem; color: rgba(255,255,255,0.2); animation: float 6s ease-in-out infinite;"><i class="fas fa-question"></i></div>
-        <div class="floating-icon" style="position: absolute; top: 70%; left: 10%; font-size: 4rem; color: rgba(255,255,255,0.15); animation: float 8s ease-in-out infinite reverse;"><i class="fas fa-trophy"></i></div>
+        <div class="floating-icon" style="position: absolute; top: 10%; left: 15%; font-size: 3rem; color: rgba(255,255,255,0.2); animation: float 6s ease-in-out infinite;"><i class="fas fa-key"></i></div>
+        <div class="floating-icon" style="position: absolute; top: 70%; left: 10%; font-size: 4rem; color: rgba(255,255,255,0.15); animation: float 8s ease-in-out infinite reverse;"><i class="fas fa-shield-alt"></i></div>
         
         <div style="z-index: 10; max-width: 500px; text-align: center; position: relative; background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; padding: 3rem 2rem; box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
             <div style="font-size: 4rem; margin-bottom: 1rem; animation: pulse 2s infinite; color: #00ffff;"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="GyanAI Logo" style="height: 100px; border-radius: 50%;"></div>
             <h1 style="font-size: 3.8rem; font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; text-shadow: 0 4px 15px rgba(0,0,0,0.4); color: white;">GyanAI</h1>
-            <p style="font-size: 1.2rem; color: rgba(255,255,255,0.85); margin-bottom: 2rem; text-shadow: 0 2px 10px rgba(0,0,0,0.2);">Reset your password to get back to the game!</p>
+            <p style="font-size: 1.2rem; color: rgba(255,255,255,0.85); margin-bottom: 2rem; text-shadow: 0 2px 10px rgba(0,0,0,0.2);">Verify your identity to reset your password.</p>
         </div>
         
         <style>
@@ -34,8 +34,8 @@
     <!-- Right Side: Form -->
     <div class="auth-split-right">
         <div class="auth-container">
-            <h2>Reset Password</h2>
-            <p style="color: var(--text-secondary); margin-bottom: 2rem;">Enter your mobile number to receive an OTP for password reset.</p>
+            <h2>Verify OTP</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 2rem;">Please enter the 6-digit OTP sent to your mobile number.</p>
             
             <div class="flash-messages" id="flash-container">
                 {% with messages = get_flashed_messages(with_categories=true) %}
@@ -50,17 +50,17 @@
 
             <form method="POST" action="" autocomplete="off">
                 <div class="form-group">
-                    <label for="mobile">Mobile Number</label>
-                    <input type="text" id="mobile" name="mobile" class="form-control" required autofocus placeholder="Enter your registered mobile number">
+                    <label for="otp">Enter OTP</label>
+                    <input type="text" id="otp" name="otp" class="form-control" required autofocus placeholder="6-digit code" maxlength="6" pattern="\d{6}">
                 </div>
                 
                 <button type="submit" class="btn btn-primary btn-pulse" style="font-size: 1.1rem; padding: 14px 20px;">
-                    Send OTP <i class="fas fa-paper-plane" style="margin-left: 8px;"></i>
+                    Verify OTP <i class="fas fa-check-circle" style="margin-left: 8px;"></i>
                 </button>
             </form>
             
             <p style="margin-top: 2rem; font-size: 0.95rem; color: var(--text-secondary); text-align: center;">
-                Remembered your password? <a href="{{ url_for('login') }}" style="font-weight: 700;">Login here</a>
+                Didn't receive code? <a href="{{ url_for('forgot_password') }}" style="font-weight: 700;">Try again</a>
             </p>
         </div>
     </div>

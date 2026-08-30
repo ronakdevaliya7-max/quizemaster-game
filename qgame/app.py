@@ -297,12 +297,89 @@ def login():
         
     return render_template('login.html')
 
+def send_otp_sms(mobile, otp):
+    # Mock function to simulate SMS
+    print(f"=====================================")
+    print(f"MOCK SMS to {mobile}: Your OTP is {otp}")
+    print(f"=====================================")
+
 @app.route('/forgot-password', methods=['GET', 'POST'])
 def forgot_password():
     if request.method == 'POST':
-        flash('Password reset instructions have been sent to your email.', 'success')
-        return redirect(url_for('login'))
+        mobile = request.form.get('mobile')
+        user = User.query.filter_by(mobile=mobile).first()
+        if user:
+            otp = str(random.randint(100000, 999999))
+            session['reset_otp'] = otp
+            session['reset_user_id'] = user.id
+            session['reset_otp_time'] = time.time()
+            send_otp_sms(mobile, otp)
+            flash('OTP has been sent to your mobile number.', 'success')
+            return redirect(url_for('verify_otp'))
+        else:
+            flash('Mobile number not found.', 'danger')
+            return redirect(url_for('forgot_password'))
     return render_template('forgot_password.html')
+
+@app.route('/verify-otp', methods=['GET', 'POST'])
+def verify_otp():
+    if 'reset_otp' not in session or 'reset_user_id' not in session:
+        flash('Session expired or invalid. Please try again.', 'danger')
+        return redirect(url_for('forgot_password'))
+        
+    if request.method == 'POST':
+        entered_otp = request.form.get('otp')
+        stored_otp = session.get('reset_otp')
+        otp_time = session.get('reset_otp_time', 0)
+        
+        # OTP valid for 10 minutes
+        if time.time() - otp_time > 600:
+            session.pop('reset_otp', None)
+            session.pop('reset_user_id', None)
+            session.pop('reset_otp_time', None)
+            flash('OTP expired. Please request a new one.', 'danger')
+            return redirect(url_for('forgot_password'))
+            
+        if entered_otp == stored_otp:
+            # Valid OTP
+            session['otp_verified'] = True
+            return redirect(url_for('reset_password'))
+        else:
+            flash('Invalid OTP.', 'danger')
+            
+    return render_template('verify_otp.html')
+
+@app.route('/reset-password', methods=['GET', 'POST'])
+def reset_password():
+    if not session.get('otp_verified') or 'reset_user_id' not in session:
+        flash('Please verify OTP first.', 'danger')
+        return redirect(url_for('forgot_password'))
+        
+    if request.method == 'POST':
+        password = request.form.get('password')
+        confirm_password = request.form.get('confirm_password')
+        
+        if password != confirm_password:
+            flash('Passwords do not match.', 'danger')
+        elif len(password) < 6:
+            flash('Password must be at least 6 characters.', 'danger')
+        else:
+            user_id = session.get('reset_user_id')
+            user = db.session.get(User, user_id)
+            if user:
+                user.password_hash = generate_password_hash(password)
+                db.session.commit()
+                flash('Your password has been reset successfully. You can now login.', 'success')
+                # Clear session
+                session.pop('reset_otp', None)
+                session.pop('reset_user_id', None)
+                session.pop('reset_otp_time', None)
+                session.pop('otp_verified', None)
+                return redirect(url_for('login'))
+            else:
+                flash('User not found.', 'danger')
+                
+    return render_template('reset_password.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
