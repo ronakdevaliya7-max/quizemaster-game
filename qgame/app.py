@@ -321,13 +321,10 @@ def forgot_password():
         mobile = request.form.get('mobile')
         user = User.query.filter_by(mobile=mobile).first()
         if user:
-            otp = str(random.randint(100000, 999999))
-            session['reset_otp'] = otp
             session['reset_user_id'] = user.id
-            session['reset_otp_time'] = time.time()
-            send_otp_sms(mobile, otp)
-            flash('OTP has been sent to your mobile number.', 'success')
-            return redirect(url_for('verify_otp'))
+            session['otp_verified'] = True  # Bypass OTP check
+            flash('User found! You can now reset your password.', 'success')
+            return redirect(url_for('reset_password'))
         else:
             flash('Mobile number not found.', 'danger')
             return redirect(url_for('forgot_password'))
