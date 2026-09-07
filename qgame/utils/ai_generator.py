@@ -2,7 +2,7 @@ import os
 import json
 import requests
 
-def generate_questions_with_gemini(board, standard, subject, num_questions=10):
+def generate_questions_with_gemini(education_context, subject, num_questions=10):
     """
     Calls Google Gemini API via REST to generate Quiz Questions in the required 3-language JSON format.
     """
@@ -11,11 +11,12 @@ def generate_questions_with_gemini(board, standard, subject, num_questions=10):
         raise Exception("GEMINI_API_KEY is not set in the environment variables. Please add it to your server configuration.")
         
     prompt = f"""
-Act as a Senior Education Content Creator for {board} Board.
+Act as a Senior Education Content Creator.
 I am building a multilingual educational Quiz Game.
 
-Please generate {num_questions} real, curriculum-based MCQ questions for:
-Standard: {standard}
+Please generate {num_questions} real, curriculum-based MCQ questions for the following education profile:
+{education_context}
+
 Subject: {subject}
 
 For every question, you MUST provide the text in 3 languages: English, Gujarati, and Hindi.
@@ -25,9 +26,9 @@ Return ONLY a valid JSON array. Do not add any extra text, markdown formatting, 
 Use this EXACT JSON structure for each question:
 [
     {{
-        "board": "{board}",
-        "standard": "{standard}",
-        "stream": "General",
+        "board": "If applicable, otherwise leave empty",
+        "standard": "If applicable, otherwise leave empty",
+        "stream": "If applicable, otherwise leave empty",
         "subject": "{subject}",
         "chapter": "Appropriate Chapter Name Here",
         "topic": "Appropriate Topic Name Here",
@@ -48,7 +49,7 @@ Use this EXACT JSON structure for each question:
             "gu": "Gujarati explanation",
             "hi": "Hindi explanation"
         }},
-        "source": "{board} Textbook",
+        "source": "Textbook or generic curriculum",
         "source_type": "Official",
         "verified": true
     }}

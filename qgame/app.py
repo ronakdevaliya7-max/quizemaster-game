@@ -410,6 +410,13 @@ def register():
             flash('Username already exists. Please choose a different one.')
             return redirect(url_for('register'))
             
+        email = request.form.get('email')
+        if email:
+            existing_email = User.query.filter_by(email=email).first()
+            if existing_email:
+                flash('Email already registered. Please login or use a different email.')
+                return redirect(url_for('register'))
+            
         hashed_password = generate_password_hash(password, method='scrypt')
         new_user = User(username=username, password_hash=hashed_password, name=name, role='user')
         
@@ -1291,125 +1298,180 @@ def admin_import_culture():
 
 
 
-@app.route('/admin/ai_generator', methods=['GET', 'POST'])
+@app.route('/admin/ai_generator', methods=['GET'])
 @login_required
 def admin_ai_generator():
     if current_user.role != 'admin':
         return redirect(url_for('user_dashboard'))
+    return render_template('admin/ai_generator.html')
+
+@app.route('/admin/ai_generator/generate_api', methods=['POST'])
+@login_required
+def admin_ai_generator_generate_api():
+    if current_user.role != 'admin':
+        return jsonify({'error': 'Unauthorized'}), 403
         
-    if request.method == 'POST':
+    education_level = request.form.get('education_level')
+    subject = request.form.get('subject')
+    num_questions = int(request.form.get('num_questions', 10))
+    
+    if not education_level or not subject:
+        return jsonify({'error': 'Education Level and Subject are required!'}), 400
+        
+    # Parse fields based on education level
+    education_context = f"Education Level: {education_level}\n"
+    if education_level == 'School':
         board = request.form.get('board')
         standard = request.form.get('standard')
-        subject = request.form.get('subject')
-        num_questions = int(request.form.get('num_questions', 10))
+        stream = request.form.get('stream') if int(standard) >= 11 else None
+        education_context += f"Board: {board}\nStandard: {standard}\n"
+        if stream: education_context += f"Stream: {stream}\n"
         
-        if not board or not standard or not subject:
-            flash('Board, Standard and Subject are required!', 'error')
-            return redirect(url_for('admin_ai_generator'))
-            
-        try:
-            from flask import current_app
-            app_instance = current_app._get_current_object()
-            
-            def generate_bg(app_obj, b, st, sub, num):
-                with app_obj.app_context():
-                    try:
-                        from qgame.utils.ai_generator import generate_questions_with_gemini
-                        data = generate_questions_with_gemini(b, st, sub, num)
-                        
-                        for item in data:
-                            q_en = item.get('question', {}).get('en')
-                            if not q_en:
-                                continue
-                                
-                            existing = Question.query.filter_by(
-                                standard=str(item.get('standard')),
-                                subject=item.get('subject'),
-                                question_en=q_en
-                            ).first()
-                            
-                            if existing:
-                                continue
-                                
-                            cat_name = f"Std {item.get('standard')} {item.get('subject')}"
-                            cat = Category.query.filter_by(name=cat_name).first()
-                            if not cat:
-                                cat = Category(name=cat_name, description=f"Imported {b} {cat_name}")
-                                cat.education_level = 'School'
-                                cat.board = item.get('board')
-                                cat.standard = str(item.get('standard'))
-                                cat.course = item.get('subject')
-                                db.session.add(cat)
-                                db.session.commit()
-                                
-                            q = Question(
-                                category_id=cat.id,
-                                board=item.get('board'),
-                                standard=str(item.get('standard')),
-                                stream=item.get('stream'),
-                                subject=item.get('subject'),
-                                chapter=item.get('chapter'),
-                                topic=item.get('topic'),
-                                difficulty=item.get('difficulty', 'Medium'),
-                                
-                                question_en=q_en,
-                                question_gu=item.get('question', {}).get('gu'),
-                                question_hi=item.get('question', {}).get('hi'),
-                                
-                                option_a_en=item.get('options', {}).get('en', ['', '', '', ''])[0],
-                                option_b_en=item.get('options', {}).get('en', ['', '', '', ''])[1],
-                                option_c_en=item.get('options', {}).get('en', ['', '', '', ''])[2],
-                                option_d_en=item.get('options', {}).get('en', ['', '', '', ''])[3],
-                                
-                                option_a_gu=item.get('options', {}).get('gu', ['', '', '', ''])[0],
-                                option_b_gu=item.get('options', {}).get('gu', ['', '', '', ''])[1],
-                                option_c_gu=item.get('options', {}).get('gu', ['', '', '', ''])[2],
-                                option_d_gu=item.get('options', {}).get('gu', ['', '', '', ''])[3],
-                                
-                                option_a_hi=item.get('options', {}).get('hi', ['', '', '', ''])[0],
-                                option_b_hi=item.get('options', {}).get('hi', ['', '', '', ''])[1],
-                                option_c_hi=item.get('options', {}).get('hi', ['', '', '', ''])[2],
-                                option_d_hi=item.get('options', {}).get('hi', ['', '', '', ''])[3],
-                                
-                                correct_option=str(item.get('correct_option')),
-                                
-                                explanation_en=item.get('explanation', {}).get('en'),
-                                explanation_gu=item.get('explanation', {}).get('gu'),
-                                explanation_hi=item.get('explanation', {}).get('hi'),
-                                
-                                text=q_en,
-                                option_a=item.get('options', {}).get('en', ['', '', '', ''])[0],
-                                option_b=item.get('options', {}).get('en', ['', '', '', ''])[1],
-                                option_c=item.get('options', {}).get('en', ['', '', '', ''])[2],
-                                option_d=item.get('options', {}).get('en', ['', '', '', ''])[3],
-                                explanation=item.get('explanation', {}).get('en'),
-                                language='en',
-                                
-                                source=item.get('source'),
-                                source_type=item.get('source_type', 'AI Generated'),
-                                verified=item.get('verified', False)
-                            )
-                            db.session.add(q)
-                            
-                        db.session.commit()
-                        print(f"Successfully generated and imported {num} questions for {sub}!")
-                    except Exception as e:
-                        print(f"AI Generation Error: {e}")
-                        db.session.rollback()
+    elif education_level == 'Diploma':
+        branch = request.form.get('diploma_branch')
+        sem = request.form.get('diploma_semester')
+        education_context += f"Branch: {branch}\nSemester: {sem}\n"
+        
+    elif education_level == 'Graduation':
+        uni = request.form.get('university')
+        course = request.form.get('grad_course')
+        sem = request.form.get('grad_semester')
+        if uni: education_context += f"University: {uni}\n"
+        education_context += f"Course: {course}\nSemester: {sem}\n"
+        
+    elif education_level == 'Post Graduation':
+        course = request.form.get('pg_course')
+        sem = request.form.get('pg_semester')
+        education_context += f"Course: {course}\nSemester: {sem}\n"
+        
+    elif education_level == 'Competitive Exam':
+        exam = request.form.get('exam')
+        education_context += f"Exam: {exam}\n"
+        
+    try:
+        from qgame.utils.ai_generator import generate_questions_with_gemini
+        data = generate_questions_with_gemini(education_context, subject, num_questions)
+        return jsonify({'questions': data})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
-            from threading import Thread
-            thread = Thread(target=generate_bg, args=(app_instance, board, standard, subject, num_questions))
-            thread.daemon = True
-            thread.start()
+@app.route('/admin/ai_generator/save_api', methods=['POST'])
+@login_required
+def admin_ai_generator_save_api():
+    if current_user.role != 'admin':
+        return jsonify({'error': 'Unauthorized'}), 403
+        
+    payload = request.json
+    if not payload or 'questions' not in payload or 'context' not in payload:
+        return jsonify({'error': 'Invalid payload'}), 400
+        
+    questions = payload['questions']
+    context = payload['context']
+    
+    education_level = context.get('education_level')
+    subject = context.get('subject')
+    board = context.get('board')
+    standard = context.get('standard')
+    course = context.get('grad_course') or context.get('pg_course')
+    
+    try:
+        for item in questions:
+            q_en = item.get('question', {}).get('en')
+            if not q_en:
+                continue
+                
+            existing = Question.query.filter_by(
+                standard=str(item.get('standard')),
+                subject=item.get('subject'),
+                question_en=q_en
+            ).first()
             
-            flash(f'AI has started generating {num_questions} questions for {subject} in the background! This may take 1-2 minutes. Please check the categories page later.', 'info')
-            return redirect(url_for('admin_categories'))
+            if existing:
+                continue
+                
+            cat_name = f"{education_level} - {subject}"
+            if education_level == 'School' and standard: 
+                cat_name = f"Std {standard} {subject}"
+            elif education_level == 'Diploma' and context.get('diploma_branch'):
+                cat_name = f"Diploma {context.get('diploma_branch')} - {subject}"
+            elif education_level == 'Graduation' and context.get('grad_course'):
+                cat_name = f"{context.get('grad_course')} {subject}"
+            elif education_level == 'Post Graduation' and context.get('pg_course'):
+                cat_name = f"{context.get('pg_course')} {subject}"
+            elif education_level == 'Competitive Exam' and context.get('exam'):
+                cat_name = f"{context.get('exam')} {subject}"
             
-        except Exception as e:
-            db.session.rollback()
-            flash(str(e), 'error')
+            cat = Category.query.filter_by(name=cat_name).first()
+            if not cat:
+                cat = Category(name=cat_name, description=f"AI Imported {cat_name}")
+                cat.education_level = education_level
+                cat.board = board or item.get('board')
+                cat.standard = standard or str(item.get('standard', ''))
+                
+                # Set course based on education level
+                if education_level == 'Diploma': cat.course = context.get('diploma_branch')
+                elif education_level == 'Graduation': cat.course = context.get('grad_course')
+                elif education_level == 'Post Graduation': cat.course = context.get('pg_course')
+                elif education_level == 'Competitive Exam': cat.course = context.get('exam')
+                else: cat.course = item.get('subject')
+                db.session.add(cat)
+                db.session.commit()
+                
+            q = Question(
+                category_id=cat.id,
+                board=item.get('board'),
+                standard=str(item.get('standard')),
+                stream=item.get('stream'),
+                subject=item.get('subject'),
+                chapter=item.get('chapter'),
+                topic=item.get('topic'),
+                difficulty=item.get('difficulty', 'Medium'),
+                
+                question_en=q_en,
+                question_gu=item.get('question', {}).get('gu'),
+                question_hi=item.get('question', {}).get('hi'),
+                
+                option_a_en=item.get('options', {}).get('en', ['', '', '', ''])[0],
+                option_b_en=item.get('options', {}).get('en', ['', '', '', ''])[1],
+                option_c_en=item.get('options', {}).get('en', ['', '', '', ''])[2],
+                option_d_en=item.get('options', {}).get('en', ['', '', '', ''])[3],
+                
+                option_a_gu=item.get('options', {}).get('gu', ['', '', '', ''])[0],
+                option_b_gu=item.get('options', {}).get('gu', ['', '', '', ''])[1],
+                option_c_gu=item.get('options', {}).get('gu', ['', '', '', ''])[2],
+                option_d_gu=item.get('options', {}).get('gu', ['', '', '', ''])[3],
+                
+                option_a_hi=item.get('options', {}).get('hi', ['', '', '', ''])[0],
+                option_b_hi=item.get('options', {}).get('hi', ['', '', '', ''])[1],
+                option_c_hi=item.get('options', {}).get('hi', ['', '', '', ''])[2],
+                option_d_hi=item.get('options', {}).get('hi', ['', '', '', ''])[3],
+                
+                correct_option=str(item.get('correct_option')),
+                
+                explanation_en=item.get('explanation', {}).get('en'),
+                explanation_gu=item.get('explanation', {}).get('gu'),
+                explanation_hi=item.get('explanation', {}).get('hi'),
+                
+                text=q_en,
+                option_a=item.get('options', {}).get('en', ['', '', '', ''])[0],
+                option_b=item.get('options', {}).get('en', ['', '', '', ''])[1],
+                option_c=item.get('options', {}).get('en', ['', '', '', ''])[2],
+                option_d=item.get('options', {}).get('en', ['', '', '', ''])[3],
+                explanation=item.get('explanation', {}).get('en'),
+                language='en',
+                
+                source=item.get('source'),
+                source_type=item.get('source_type', 'AI Generated'),
+                verified=item.get('verified', False)
+            )
+            db.session.add(q)
             
-    return render_template('admin/ai_generator.html')
+        db.session.commit()
+        flash(f'Successfully imported AI questions!', 'success')
+        return jsonify({'success': True})
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/admin/migrate_db')
 @login_required
